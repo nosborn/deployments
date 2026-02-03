@@ -1,0 +1,8 @@
+*.gz
+*.tgz
+.age.key.txt
+.claude/settings.local.json
+.envrc
+.kubeconform/
+CLAUDE.local.md
+charts/

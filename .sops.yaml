@@ -1,0 +1,7 @@
+---
+creation_rules:
+  - age: age1cfvwwcvy3qj55kswlwymnvpwuwjymrp7xnjeycxma6qtdzv979qqd3kwue
+    encrypted_suffix: Templates
+stores:
+  yaml:
+    indent: 2

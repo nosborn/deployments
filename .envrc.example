@@ -1,0 +1,4 @@
+YAMLLINT_CONFIG_FILE="$(expand_path .yamllint)"
+export YAMLLINT_CONFIG_FILE
+
+PATH_add "$(brew --prefix helm@3)/bin"
