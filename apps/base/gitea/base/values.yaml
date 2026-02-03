@@ -1,0 +1,9 @@
+---
+ingress:
+  enabled: true
+persistence:
+  create: false
+postgresql-ha:
+  enabled: false
+valkey-cluster:
+  enabled: false

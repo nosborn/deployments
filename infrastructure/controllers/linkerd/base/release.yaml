@@ -1,0 +1,67 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: linkerd-crds
+  namespace: linkerd
+spec:
+  chart:
+    spec:
+      chart: linkerd-crds
+      sourceRef:
+        kind: HelmRepository
+        name: linkerd
+        namespace: flux-system
+      version: 2026.1.4
+  install:
+    crds: Create
+  interval: 1h
+  upgrade:
+    crds: CreateReplace
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: linkerd-control-plane
+  namespace: linkerd
+spec:
+  chart:
+    spec:
+      chart: linkerd-control-plane
+      sourceRef:
+        kind: HelmRepository
+        name: linkerd
+        namespace: flux-system
+      version: 2026.1.4
+  dependsOn:
+    - name: linkerd-crds
+  interval: 1h
+  valuesFrom:
+    - kind: Secret
+      name: linkerd-trust-anchor
+      targetPath: identityTrustAnchorsPEM
+      valuesKey: ca.crt
+    - kind: Secret
+      name: linkerd-identity-issuer
+      targetPath: identity.issuer.tls.crtPEM
+      valuesKey: tls.crt
+    - kind: Secret
+      name: linkerd-identity-issuer
+      targetPath: identity.issuer.tls.keyPEM
+      valuesKey: tls.key
+  values:
+    identity:
+      issuer:
+        scheme: kubernetes.io/tls
+    proxyInjector:
+      namespaceSelector:
+        matchExpressions:
+          - key: kubernetes.io/metadata.name
+            operator: NotIn
+            values:
+              - cert-manager
+              - flux-system
+              - kube-node-lease
+              - kube-public
+              - kube-system
+              - linkerd
