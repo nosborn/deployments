@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   annotations:
     linkerd.io/inject: disabled
-  name: linkerd
+  name: valkey-operator-system

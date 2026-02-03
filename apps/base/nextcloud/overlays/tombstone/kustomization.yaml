@@ -33,6 +33,9 @@ patches:
       kind: Deployment
   - patch: |-
       - op: add
+        path: /metadata/annotations/traefik.ingress.kubernetes.io~1router.middlewares
+        value: traefik-ip-allowlist-internal@kubernetescrd
+      - op: add
         path: /spec/hostnames
         value:
           - nextcloud.***REMOVED***

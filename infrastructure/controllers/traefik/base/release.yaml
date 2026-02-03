@@ -19,6 +19,8 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    additionalArguments:
+      - --entrypoints.websecure.http.middlewares=traefik-security-headers@kubernetescrd
     deployment:
       replicas: 2
     global:
@@ -27,16 +29,6 @@ spec:
     podDisruptionBudget:
       enabled: true
       maxUnavailable: 1
-    ports:
-      web:
-        http:
-          redirections:
-            entryPoint:
-              scheme: https
-              to: websecure
     providers:
       kubernetesGateway:
         enabled: true
-    additionalArguments:
-      - --entrypoints.web.http.middlewares=traefik-security-headers@kubernetescrd
-      - --entrypoints.websecure.http.middlewares=traefik-security-headers@kubernetescrd

@@ -1,0 +1,12 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    linkerd.io/inject: disabled
+  labels:
+    config.linkerd.io/admission-webhooks: disabled
+    linkerd.io/control-plane-ns: linkerd
+    linkerd.io/is-control-plane: !!str true
+    pod-security.kubernetes.io/enforce: privileged
+  name: linkerd

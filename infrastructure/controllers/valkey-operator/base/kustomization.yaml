@@ -5,5 +5,4 @@ kind: Kustomization
 namespace: valkey-operator-system
 
 resources:
-  - namespace.yaml
   - https://github.com/hyperspike/valkey-operator/releases/download/v0.0.61/install.yaml
