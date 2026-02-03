@@ -11,6 +11,10 @@ resources:
 patches:
   - patch: |-
       - op: add
+        path: /metadata/annotations
+        value:
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
+      - op: add
         path: /spec/rules/0/host
         value: passwords.***REMOVED***
     target:

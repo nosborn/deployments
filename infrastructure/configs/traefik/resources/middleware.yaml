@@ -2,6 +2,28 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
+  name: https-redirect
+  namespace: traefik
+spec:
+  redirectScheme:
+    permanent: true
+    scheme: https
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: ip-allowlist-internal
+  namespace: traefik
+spec:
+  ipAllowList:
+    sourceRange:
+      - 192.168.1.0/24
+      - ***REMOVED***
+      - ***REMOVED***
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
   name: security-headers
   namespace: traefik
 spec:

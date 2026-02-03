@@ -5,4 +5,5 @@ kind: Kustomization
 namespace: traefik
 
 resources:
+  - resources/ingress-redirect.yaml
   - resources/middleware.yaml

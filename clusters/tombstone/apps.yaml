@@ -5,18 +5,18 @@ metadata:
   name: gitea
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cert-manager-config
+    - name: cnpg
+    - name: traefik-config
   interval: 10m
+  path: ./apps/base/gitea/overlays/tombstone
+  prune: true
   retryInterval: 1m
-  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./apps/base/gitea/overlays/tombstone
-  prune: true
-  dependsOn:
-    - name: traefik-config
-    - name: cert-manager-config
-    - name: cnpg
+  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -24,19 +24,19 @@ metadata:
   name: immich
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cert-manager-config
+    - name: cnpg
+    - name: traefik-config
+    - name: valkey-operator
   interval: 10m
+  path: ./apps/base/immich/overlays/tombstone
+  prune: true
   retryInterval: 1m
-  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./apps/base/immich/overlays/tombstone
-  prune: true
-  dependsOn:
-    - name: traefik-config
-    - name: cert-manager-config
-    - name: valkey-operator
-    - name: cnpg
+  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -44,18 +44,18 @@ metadata:
   name: nextcloud
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cert-manager-config
+    - name: traefik-config
+    - name: valkey-operator
   interval: 10m
+  path: ./apps/base/nextcloud/overlays/tombstone
+  prune: true
   retryInterval: 1m
-  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./apps/base/nextcloud/overlays/tombstone
-  prune: true
-  dependsOn:
-    - name: traefik-config
-    - name: cert-manager-config
-    - name: valkey-operator
+  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -63,15 +63,15 @@ metadata:
   name: vaultwarden
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cert-manager-config
+    - name: sops-secrets-operator
+    - name: traefik-config
   interval: 10m
+  path: ./apps/base/vaultwarden/overlays/tombstone
+  prune: true
   retryInterval: 1m
-  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./apps/base/vaultwarden/overlays/tombstone
-  prune: true
-  dependsOn:
-    - name: traefik-config
-    - name: cert-manager-config
-    - name: sops-secrets-operator
+  timeout: 5m

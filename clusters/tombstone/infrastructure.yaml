@@ -2,32 +2,17 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: helm-repositories
-  namespace: flux-system
-spec:
-  interval: 10m
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/repositories
-  prune: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: cert-manager
   namespace: flux-system
 spec:
   interval: 10m
+  path: ./infrastructure/controllers/cert-manager/overlays/tombstone
+  prune: true
   retryInterval: 1m
-  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/controllers/cert-manager/overlays/tombstone
-  prune: true
+  timeout: 5m
   wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -36,33 +21,67 @@ metadata:
   name: cert-manager-config
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cert-manager
   interval: 10m
+  path: ./infrastructure/configs/cert-manager
+  prune: true
   retryInterval: 1m
-  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/configs/cert-manager
-  prune: true
-  dependsOn:
-    - name: cert-manager
+  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: linkerd-certs
+  name: cnpg
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: helm-repositories
   interval: 10m
+  path: ./infrastructure/controllers/cnpg/overlays/tombstone
+  prune: true
   retryInterval: 1m
-  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/configs/linkerd
-  prune: true
+  timeout: 5m
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: flux-webhook-config
+  namespace: flux-system
+spec:
   dependsOn:
-    - name: cert-manager
+    - name: cert-manager-config
+    - name: traefik
+  interval: 10m
+  path: ./infrastructure/configs/flux-webhook
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: helm-repositories
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./infrastructure/repositories
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -70,15 +89,6 @@ metadata:
   name: linkerd
   namespace: flux-system
 spec:
-  interval: 10m
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/controllers/linkerd/overlays/tombstone
-  prune: true
-  wait: true
   dependsOn:
     - name: helm-repositories
     - name: linkerd-certs
@@ -87,6 +97,33 @@ spec:
       kind: Deployment
       name: linkerd-destination
       namespace: linkerd
+  interval: 10m
+  path: ./infrastructure/controllers/linkerd/overlays/tombstone
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 5m
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: linkerd-certs
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cert-manager
+    - name: namespaces
+  interval: 10m
+  path: ./infrastructure/configs/linkerd
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -94,18 +131,17 @@ metadata:
   name: metallb
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: helm-repositories
   interval: 10m
+  path: ./infrastructure/controllers/metallb/overlays/tombstone
+  prune: true
   retryInterval: 1m
-  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/controllers/metallb/overlays/tombstone
-  prune: true
+  timeout: 5m
   wait: true
-  dependsOn:
-    - name: helm-repositories
-    - name: linkerd
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -113,53 +149,31 @@ metadata:
   name: metallb-config
   namespace: flux-system
 spec:
-  interval: 10m
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/configs/metallb
-  prune: true
   dependsOn:
     - name: metallb
+  interval: 10m
+  path: ./infrastructure/configs/metallb
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: traefik
+  name: namespaces
   namespace: flux-system
 spec:
   interval: 10m
+  path: ./infrastructure/namespaces
+  prune: true
   retryInterval: 1m
-  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/controllers/traefik/overlays/tombstone
-  prune: true
-  wait: true
-  dependsOn:
-    - name: helm-repositories
-    - name: linkerd
-    - name: metallb-config
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: traefik-config
-  namespace: flux-system
-spec:
-  interval: 10m
-  retryInterval: 1m
   timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  path: ./infrastructure/configs/traefik
-  prune: true
-  dependsOn:
-    - name: traefik
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -168,16 +182,14 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
+  path: ./infrastructure/controllers/reloader/overlays/tombstone
+  prune: true
   retryInterval: 1m
-  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/controllers/reloader/overlays/tombstone
-  prune: true
+  timeout: 5m
   wait: true
-  dependsOn:
-    - name: linkerd
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -185,19 +197,55 @@ metadata:
   name: sops-secrets-operator
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: helm-repositories
+    - name: reloader
   interval: 10m
+  path: ./infrastructure/controllers/sops-secrets-operator/overlays/tombstone
+  prune: true
   retryInterval: 1m
-  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/controllers/sops-secrets-operator/overlays/tombstone
-  prune: true
+  timeout: 5m
   wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: traefik
+  namespace: flux-system
+spec:
   dependsOn:
     - name: helm-repositories
     - name: linkerd
-    - name: reloader
+    - name: metallb-config
+  interval: 10m
+  path: ./infrastructure/controllers/traefik/overlays/tombstone
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 5m
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: traefik-config
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: traefik
+  interval: 10m
+  path: ./infrastructure/configs/traefik
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -206,32 +254,11 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m
-  retryInterval: 1m
-  timeout: 5m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
   path: ./infrastructure/controllers/valkey-operator/overlays/tombstone
   prune: true
-  wait: true
-  dependsOn:
-    - name: linkerd
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: cnpg
-  namespace: flux-system
-spec:
-  interval: 10m
   retryInterval: 1m
-  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./infrastructure/controllers/cnpg/overlays/tombstone
-  prune: true
+  timeout: 5m
   wait: true
-  dependsOn:
-    - name: helm-repositories
-    - name: linkerd

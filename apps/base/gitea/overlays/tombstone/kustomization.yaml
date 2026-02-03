@@ -18,6 +18,9 @@ patches:
       kind: Deployment
       name: gitea
   - patch: |-
+      - op: add
+        path: /metadata/annotations/traefik.ingress.kubernetes.io~1router.middlewares
+        value: traefik-ip-allowlist-internal@kubernetescrd
       - op: replace
         path: /spec/rules/0/hostname
         value: git.***REMOVED***
