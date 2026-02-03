@@ -34,5 +34,5 @@ jobs:
             -schema-location default
             -schema-location https://raw.githubusercontent.com/datreeio/CRDs-catalog/main/{{.Group}}/{{.ResourceKind}}_{{.ResourceAPIVersion}}.json
             -strict
-            apps/ bootstrap/ projects/
+            apps/ clusters/ infrastructure/
           entrypoint: /kubeconform
