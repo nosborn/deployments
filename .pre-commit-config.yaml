@@ -27,6 +27,8 @@ repos:
     rev: v1.38.0
     hooks:
       - id: yamllint
+        args:
+          - --strict
 
   - repo: https://github.com/rhysd/actionlint.git
     rev: v1.7.10
@@ -43,5 +45,3 @@ repos:
         exclude: .+/values\.yaml$
         types:
           - yaml
-
-minimum_pre_commit_version: !!str 4.5

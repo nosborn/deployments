@@ -24,7 +24,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Validate manifests
+      - name: Run kubeconform
         uses: docker://ghcr.io/yannh/kubeconform:v0.7.0
         with:
           args: >-
@@ -36,3 +36,13 @@ jobs:
             -strict
             apps/ clusters/ infrastructure/
           entrypoint: /kubeconform
+
+  yamllint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+
+      - name: Run yamllint
+        run: |
+          yamllint --config-file .yamllint --format github --strict .
