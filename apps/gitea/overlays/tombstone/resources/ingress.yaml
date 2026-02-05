@@ -1,0 +1,28 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: ownca
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-https-redirect@kubernetescrd,traefik-ip-allowlist-internal@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: gitea
+    app.kubernetes.io/name: gitea
+  name: gitea
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: git.***REMOVED***
+      http:
+        paths:
+          - backend:
+              service:
+                name: gitea-http
+                port:
+                  number: 3000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - git.***REMOVED***
+      secretName: git-home-arpa-tls

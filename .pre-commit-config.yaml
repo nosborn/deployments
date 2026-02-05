@@ -37,11 +37,16 @@ repos:
 
   - repo: local
     hooks:
+      - id: check-sops-encrypted
+        name: check-sops-encrypted
+        entry: .pre-commit-hooks.d/check-sops-encrypted.sh
+        files: sopssecret\.yaml$
+        language: script
       - id: kubeconform
         name: kubeconform
-        language: script
         entry: .pre-commit-hooks.d/kubeconform.sh
-        files: ^(apps|bootstrap|projects)/
         exclude: .+/values\.yaml$
+        files: ^(apps|bootstrap|projects)/
+        language: script
         types:
           - yaml

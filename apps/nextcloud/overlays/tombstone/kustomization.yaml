@@ -1,0 +1,53 @@
+# yamllint disable rule:line-length
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: nextcloud
+
+resources:
+  - ../../base
+  - resources/ingress.yaml
+  - resources/sopssecret.yaml
+
+patches:
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/securityContext/fsGroup
+        value: 980
+    target:
+      kind: Deployment
+      name: nextcloud
+
+# patches:
+#   # - patch: |-
+#   #     - op: add
+#   #       path: /spec/jobTemplate/spec/template/spec/containers/0/env/-
+#   #       value:
+#   #         name: NEXTCLOUD_TRUSTED_DOMAINS
+#   #         value: nextcloud.***REMOVED***
+#   #   target:
+#   #     kind: CronJob
+#   - patch: |-
+#       - op: add
+#         path: /spec/template/spec/containers/0/livenessProbe/httpGet/httpHeaders
+#         value:
+#           - name: Host
+#             value: nextcloud.***REMOVED***
+#     # - op: add
+#     #   path: /spec/template/spec/containers/0/env/-
+#     #   value:
+#     #     name: NEXTCLOUD_TRUSTED_DOMAINS
+#     #     value: nextcloud.***REMOVED***
+#     target:
+#       kind: Deployment
+#   - patch: |-
+#       - op: add
+#         path: /metadata/annotations/traefik.ingress.kubernetes.io~1router.middlewares
+#         value: traefik-ip-allowlist-internal@kubernetescrd
+#       - op: add
+#         path: /spec/hostnames
+#         value:
+#           - nextcloud.***REMOVED***
+#     target:
+#       kind: HTTPRoute

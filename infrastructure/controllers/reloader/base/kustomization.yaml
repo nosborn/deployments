@@ -5,4 +5,10 @@ kind: Kustomization
 namespace: reloader
 
 resources:
-  - github.com/stakater/Reloader/deployments/kubernetes?ref=v1.4.12
+  - resources/clusterrole.yaml
+  - resources/clusterrolebinding.yaml
+  - resources/deployment.yaml
+  - resources/namespace.yaml
+  - resources/role.yaml
+  - resources/rolebinding.yaml
+  - resources/serviceaccount.yaml

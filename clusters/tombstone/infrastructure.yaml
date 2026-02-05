@@ -12,7 +12,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  timeout: 5m
+  timeout: 10m
   wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -30,7 +30,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  timeout: 5m
+  timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -47,7 +48,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  timeout: 5m
+  timeout: 10m
   wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -66,7 +67,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  timeout: 5m
+  timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -81,49 +83,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: linkerd
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: helm-repositories
-    - name: linkerd-certs
-  healthChecks:
-    - apiVersion: apps/v1
-      kind: Deployment
-      name: linkerd-destination
-      namespace: linkerd
-  interval: 10m
-  path: ./infrastructure/controllers/linkerd/overlays/tombstone
-  prune: true
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  timeout: 5m
+  timeout: 10m
   wait: true
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: linkerd-certs
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: cert-manager
-    - name: namespaces
-  interval: 10m
-  path: ./infrastructure/configs/linkerd
-  prune: true
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  timeout: 5m
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -140,7 +101,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  timeout: 5m
+  timeout: 10m
   wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -158,22 +119,8 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: namespaces
-  namespace: flux-system
-spec:
-  interval: 10m
-  path: ./infrastructure/namespaces
-  prune: true
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  timeout: 5m
+  timeout: 10m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -188,7 +135,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  timeout: 5m
+  timeout: 10m
   wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -207,7 +154,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  timeout: 5m
+  timeout: 10m
   wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -218,7 +165,6 @@ metadata:
 spec:
   dependsOn:
     - name: helm-repositories
-    - name: linkerd
     - name: metallb-config
   interval: 10m
   path: ./infrastructure/controllers/traefik/overlays/tombstone
@@ -227,7 +173,7 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  timeout: 5m
+  timeout: 10m
   wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
@@ -245,20 +191,5 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: valkey-operator
-  namespace: flux-system
-spec:
-  interval: 10m
-  path: ./infrastructure/controllers/valkey-operator/overlays/tombstone
-  prune: true
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  timeout: 5m
+  timeout: 10m
   wait: true

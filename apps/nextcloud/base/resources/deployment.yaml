@@ -1,0 +1,176 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: app
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud
+  name: nextcloud
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: app
+      app.kubernetes.io/instance: nextcloud
+      app.kubernetes.io/name: nextcloud
+  template:
+    metadata:
+      annotations:
+        hooks-hash: 9525c2748a6c7cd0e28ec740623d0b3fa5a75c83b51ccfd136bc89c76737b204
+        nextcloud-config-hash: 8266a725d5474acb6adbf9f0609a3494dc3340a3ac306db90eac9ddb1b851960
+        php-config-hash: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
+      labels:
+        app.kubernetes.io/component: app
+        app.kubernetes.io/instance: nextcloud
+        app.kubernetes.io/name: nextcloud
+        nextcloud-redis-client: !!str true
+    spec:
+      containers:
+        - env:
+            - name: NEXTCLOUD_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: nextcloud-password
+            - name: NEXTCLOUD_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: nextcloud
+                  key: nextcloud-username
+            - name: NEXTCLOUD_DATA_DIR
+              value: /var/www/html/data
+            - name: REDIS_HOST
+              value: nextcloud-valkey
+            - name: REDIS_HOST_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: password
+                  name: nextcloud-redis
+            - name: REDIS_HOST_PORT
+              value: !!str 6379
+            - name: SQLITE_DATABASE
+              value: nextcloud
+          image: docker.io/library/nextcloud:32.0.5-apache
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /status.php
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          name: nextcloud
+          ports:
+            - containerPort: 80
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /status.php
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 5
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: false # true
+          volumeMounts:
+            - mountPath: /var/www/
+              name: nextcloud-main
+              subPath: root
+            - mountPath: /var/www/html
+              name: nextcloud-main
+              subPath: html
+            - mountPath: /var/www/html/config
+              name: nextcloud-main
+              subPath: config
+            - mountPath: /var/www/html/custom_apps
+              name: nextcloud-main
+              subPath: custom_apps
+            - mountPath: /var/www/html/data
+              name: nextcloud-main
+              subPath: data
+            - mountPath: /var/www/html/themes
+              name: nextcloud-main
+              subPath: themes
+            - mountPath: /var/www/tmp
+              name: nextcloud-main
+              subPath: tmp
+      securityContext:
+        # Will mount configuration files as www-data (id: 33) for nextcloud
+        fsGroup: 33
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - emptyDir: {}
+          name: nextcloud-main
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: valkey
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud-valkey
+  name: nextcloud-valkey
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: valkey
+      app.kubernetes.io/instance: nextcloud
+      app.kubernetes.io/name: nextcloud-valkey
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: valkey
+        app.kubernetes.io/instance: nextcloud
+        app.kubernetes.io/name: nextcloud-valkey
+    spec:
+      containers:
+        - args:
+            - --appendonly
+            - !!str yes
+          image: valkey/valkey:9.0.2
+          name: valkey
+          ports:
+            - containerPort: 6379
+              name: valkey
+          resources:
+            limits:
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 64Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      securityContext:
+        runAsGroup: 1000
+        runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: nextcloud-valkey-data

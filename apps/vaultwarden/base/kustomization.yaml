@@ -1,0 +1,25 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: vaultwarden
+
+resources:
+  - resources/deployment.yaml
+  - resources/ingress.yaml
+  - resources/namespace.yaml
+  - resources/networkpolicy.yaml
+  - resources/role.yaml
+  - resources/rolebinding.yaml
+  - resources/service.yaml
+  - resources/serviceaccount.yaml
+
+configMapGenerator:
+  - name: vaultwarden
+    envs:
+      - configs/vaultwarden.env
+    options:
+      labels:
+        app.kubernetes.io/component: vaultwarden
+        app.kubernetes.io/instance: vaultwarden
+        app.kubernetes.io/name: vaultwarden

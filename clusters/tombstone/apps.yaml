@@ -2,24 +2,6 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: domain-redirects
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: cert-manager-config
-    - name: traefik-config
-  interval: 10m
-  path: ./apps/base/domain-redirects/overlays/tombstone
-  prune: true
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
   name: gitea
   namespace: flux-system
 spec:
@@ -28,7 +10,7 @@ spec:
     - name: cnpg
     - name: traefik-config
   interval: 10m
-  path: ./apps/base/gitea/overlays/tombstone
+  path: ./apps/gitea/overlays/tombstone
   prune: true
   retryInterval: 1m
   sourceRef:
@@ -46,9 +28,8 @@ spec:
     - name: cert-manager-config
     - name: cnpg
     - name: traefik-config
-    - name: valkey-operator
   interval: 10m
-  path: ./apps/base/immich/overlays/tombstone
+  path: ./apps/immich/overlays/tombstone
   prune: true
   retryInterval: 1m
   sourceRef:
@@ -65,9 +46,26 @@ spec:
   dependsOn:
     - name: cert-manager-config
     - name: traefik-config
-    - name: valkey-operator
   interval: 10m
-  path: ./apps/base/nextcloud/overlays/tombstone
+  path: ./apps/nextcloud/overlays/tombstone
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: redirector
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cert-manager-config
+    - name: traefik-config
+  interval: 10m
+  path: ./apps/redirector/overlays/tombstone
   prune: true
   retryInterval: 1m
   sourceRef:
@@ -86,7 +84,7 @@ spec:
     - name: sops-secrets-operator
     - name: traefik-config
   interval: 10m
-  path: ./apps/base/vaultwarden/overlays/tombstone
+  path: ./apps/vaultwarden/overlays/tombstone
   prune: true
   retryInterval: 1m
   sourceRef:

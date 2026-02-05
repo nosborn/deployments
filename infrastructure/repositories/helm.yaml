@@ -2,11 +2,20 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: linkerd
+  name: cnpg
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://helm.linkerd.io/edge
+  url: https://cloudnative-pg.github.io/charts
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: gitea
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://dl.gitea.com/charts/
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
@@ -20,16 +29,7 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: traefik
-  namespace: flux-system
-spec:
-  interval: 1h
-  url: https://traefik.github.io/charts
----
-apiVersion: source.toolkit.fluxcd.io/v1
-kind: HelmRepository
-metadata:
-  name: sops-secrets-operator
+  name: sops
   namespace: flux-system
 spec:
   interval: 1h
@@ -38,8 +38,8 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: cnpg
+  name: traefik
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://cloudnative-pg.github.io/charts
+  url: https://traefik.github.io/charts
