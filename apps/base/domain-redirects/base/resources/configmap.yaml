@@ -15,7 +15,24 @@ data:
         listen 8080;
         server_name x.com *.x.com;
 
+        add_header Referrer-Policy "no-referrer" always;
         return 301 https://xcancel.com$request_uri;
+      }
+
+      server {
+        listen 8080;
+        server_name instagram.com *.instagram.com;
+
+        add_header Referrer-Policy "no-referrer" always;
+        return 301 https://imginn.com$request_uri;
+      }
+
+      server {
+        listen 8080;
+        server_name medium.com *.medium.com;
+
+        add_header Referrer-Policy "no-referrer" always;
+        return 301 https://scribe.rip$request_uri;
       }
 
       # Default server to handle health checks
