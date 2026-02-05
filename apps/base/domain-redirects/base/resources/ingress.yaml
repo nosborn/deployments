@@ -1,0 +1,33 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: x-com
+  namespace: domain-redirects
+spec:
+  rules:
+    - host: x.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: domain-redirects
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+    - host: "*.x.com"
+      http:
+        paths:
+          - backend:
+              service:
+                name: domain-redirects
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - x.com
+        - "*.x.com"
+      secretName: x-com-tls

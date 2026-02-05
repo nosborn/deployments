@@ -2,6 +2,24 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: domain-redirects
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: cert-manager-config
+    - name: traefik-config
+  interval: 10m
+  path: ./apps/base/domain-redirects/overlays/tombstone
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 5m
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: gitea
   namespace: flux-system
 spec:

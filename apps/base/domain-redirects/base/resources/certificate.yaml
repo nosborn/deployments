@@ -1,0 +1,16 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: x-com
+  namespace: domain-redirects
+spec:
+  dnsNames:
+    - x.com
+    - "*.x.com"
+  duration: 168h
+  issuerRef:
+    kind: ClusterIssuer
+    name: ownca
+  renewBefore: 8h
+  secretName: x-com-tls

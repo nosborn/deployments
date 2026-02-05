@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: domain-redirects
+  namespace: domain-redirects
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: domain-redirects
+  template:
+    metadata:
+      labels:
+        app: domain-redirects
+    spec:
+      containers:
+        - image: docker.io/library/nginx:1.27-alpine
+          name: nginx
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          resources:
+            limits:
+              memory: 64Mi
+            requests:
+              cpu: 10m
+              memory: 32Mi
+          volumeMounts:
+            - mountPath: /etc/nginx/nginx.conf
+              name: config
+              subPath: nginx.conf
+      volumes:
+        - configMap:
+            name: domain-redirects-nginx
+          name: config
