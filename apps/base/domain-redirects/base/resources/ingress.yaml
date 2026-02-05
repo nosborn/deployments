@@ -2,10 +2,50 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: x-com
+  name: domain-redirects
   namespace: domain-redirects
 spec:
   rules:
+    - host: instagram.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: domain-redirects
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+    - host: "*.instagram.com"
+      http:
+        paths:
+          - backend:
+              service:
+                name: domain-redirects
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+    - host: medium.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: domain-redirects
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
+    - host: "*.medium.com"
+      http:
+        paths:
+          - backend:
+              service:
+                name: domain-redirects
+                port:
+                  name: http
+            path: /
+            pathType: Prefix
     - host: x.com
       http:
         paths:
@@ -27,6 +67,14 @@ spec:
             path: /
             pathType: Prefix
   tls:
+    - hosts:
+        - instagram.com
+        - "*.instagram.com"
+      secretName: instagram-com-tls
+    - hosts:
+        - medium.com
+        - "*.medium.com"
+      secretName: medium-com-tls
     - hosts:
         - x.com
         - "*.x.com"
