@@ -3,7 +3,7 @@ version: 2
 updates:
   - package-ecosystem: docker
     directories:
-      - apps/**/resources
+      - /**/resources
     schedule:
       interval: weekly
     ignore:
