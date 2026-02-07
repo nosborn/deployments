@@ -6,8 +6,12 @@ namespace: redirector
 
 resources:
   - resources/certificate.yaml
-  - resources/configmap.yaml
   - resources/deployment.yaml
   - resources/ingress.yaml
   - resources/namespace.yaml
   - resources/service.yaml
+
+configMapGenerator:
+  - files:
+      - configs/nginx.conf
+    name: redirector-nginx

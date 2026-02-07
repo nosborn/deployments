@@ -18,6 +18,25 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
+  name: nextcloud-postgres
+spec:
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: nextcloud
+      ports:
+        - port: 5432
+          protocol: TCP
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: nextcloud-postgres
+  policyTypes:
+    - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
   name: nextcloud-valkey
 spec:
   ingress:

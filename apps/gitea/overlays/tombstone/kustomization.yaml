@@ -27,5 +27,5 @@ patches:
         path: /spec/template/spec/securityContext/runAsUser
         value: 987
     target:
-      kind: Deployment
+      kind: StatefulSet
       name: gitea

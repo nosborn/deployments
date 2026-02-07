@@ -11,6 +11,6 @@ spec:
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
-    name: ownca
+    name: selfsigned
   renewBefore: 8h
   secretName: vaultwarden-tls

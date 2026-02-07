@@ -16,8 +16,21 @@ patches:
         path: /spec/template/spec/securityContext/fsGroup
         value: 980
     target:
-      kind: Deployment
+      kind: StatefulSet
       name: nextcloud
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/securityContext/fsGroup
+        value: 980
+      - op: add
+        path: /spec/template/spec/securityContext/runAsGroup
+        value: 980
+      - op: add
+        path: /spec/template/spec/securityContext/runAsUser
+        value: 986
+    target:
+      kind: StatefulSet
+      name: nextcloud-postgres
 
 # patches:
 #   # - patch: |-
@@ -40,7 +53,7 @@ patches:
 #     #     name: NEXTCLOUD_TRUSTED_DOMAINS
 #     #     value: nextcloud.***REMOVED***
 #     target:
-#       kind: Deployment
+#       kind: StatefulSet
 #   - patch: |-
 #       - op: add
 #         path: /metadata/annotations/traefik.ingress.kubernetes.io~1router.middlewares

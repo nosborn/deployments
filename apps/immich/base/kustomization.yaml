@@ -5,7 +5,6 @@ kind: Kustomization
 namespace: immich
 
 resources:
-  - resources/cluster.yaml
   - resources/deployment.yaml
   - resources/httproute.yaml # TODO: use Ingress
   - resources/namespace.yaml

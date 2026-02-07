@@ -23,6 +23,7 @@ spec:
   values:
     additionalArguments:
       - --entrypoints.websecure.http.middlewares=traefik-security-headers@kubernetescrd
+      - --serversTransport.insecureSkipVerify=true
     deployment:
       replicas: 2
     global:

@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   annotations:
     secret.reloader.stakater.com/reload: gitea-admin
@@ -14,8 +14,7 @@ spec:
     matchLabels:
       app.kubernetes.io/instance: gitea
       app.kubernetes.io/name: gitea
-  strategy:
-    type: Recreate
+  serviceName: gitea-http
   template:
     metadata:
       labels:
@@ -193,7 +192,7 @@ spec:
           name: temp
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/instance: gitea
@@ -201,12 +200,11 @@ metadata:
   name: gitea-valkey
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/instance: gitea
       app.kubernetes.io/name: gitea-valkey
+  serviceName: gitea-valkey-headless
   template:
     metadata:
       labels:

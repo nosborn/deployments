@@ -45,6 +45,17 @@ spec:
                       name: nextcloud
                 - name: NEXTCLOUD_DATA_DIR
                   value: /var/www/html/data
+                - name: POSTGRES_DB
+                  value: nextcloud
+                - name: POSTGRES_HOST
+                  value: nextcloud-postgres
+                - name: POSTGRES_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      key: postgres-password
+                      name: nextcloud-postgres
+                - name: POSTGRES_USER
+                  value: nextcloud
                 - name: REDIS_HOST
                   value: nextcloud-redis
                 - name: REDIS_HOST_PASSWORD
@@ -54,8 +65,6 @@ spec:
                       name: nextcloud-redis
                 - name: REDIS_HOST_PORT
                   value: !!str 6379
-                - name: SQLITE_DATABASE
-                  value: nextcloud
               image: docker.io/library/nextcloud:32.0.5-apache
               imagePullPolicy: IfNotPresent
               name: nextcloud-cron
@@ -87,7 +96,8 @@ spec:
             # Will mount configuration files as www-data (id: 33) for nextcloud
             fsGroup: 33
           volumes:
-            - emptyDir: {}
-              name: nextcloud-main
+            - name: nextcloud-main
+              persistentVolumeClaim:
+                claimName: nextcloud-data
   schedule: "*/5 * * * *"
   successfulJobsHistoryLimit: 3

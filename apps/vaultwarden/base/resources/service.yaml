@@ -20,3 +20,26 @@ spec:
     app.kubernetes.io/instance: vaultwarden
     app.kubernetes.io/name: vaultwarden
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: vaultwarden
+    app.kubernetes.io/instance: vaultwarden
+    app.kubernetes.io/name: vaultwarden-headless
+  name: vaultwarden-headless
+  namespace: vaultwarden
+spec:
+  clusterIP: None
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: https
+      port: 443
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app.kubernetes.io/component: vaultwarden
+    app.kubernetes.io/instance: vaultwarden
+    app.kubernetes.io/name: vaultwarden
+  type: ClusterIP

@@ -1,3 +1,4 @@
+# yamllint disable rule:line-length
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -6,7 +7,7 @@ metadata:
     reloader.stakater.com/auto: !!str true
   name: redirector
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: redirector
@@ -16,7 +17,7 @@ spec:
         app: redirector
     spec:
       containers:
-        - image: docker.io/library/nginx:1.27-alpine
+        - image: docker.io/library/nginx:1.29.4-alpine-slim
           name: nginx
           ports:
             - containerPort: 8080
@@ -40,11 +41,34 @@ spec:
             requests:
               cpu: 10m
               memory: 32Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 101
+            runAsNonRoot: true
+            runAsUser: 101
           volumeMounts:
             - mountPath: /etc/nginx/nginx.conf
               name: config
               subPath: nginx.conf
+            - mountPath: /run
+              name: run
+            - mountPath: /var/cache/nginx
+              name: cache
+      securityContext:
+        fsGroup: 101
+        seccompProfile:
+          type: RuntimeDefault
       volumes:
+        - emptyDir: {}
+          name: cache
         - configMap:
             name: redirector-nginx
           name: config
+        - emptyDir:
+            medium: Memory
+            sizeLimit: 1Mi
+          name: run

@@ -17,9 +17,9 @@ spec:
         paths:
           - backend:
               service:
-                name: http
+                name: nextcloud
                 port:
-                  number: 3000
+                  number: 80
             path: /
             pathType: Prefix
   tls:
