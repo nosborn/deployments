@@ -1,6 +1,6 @@
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/component: app
@@ -9,19 +9,15 @@ metadata:
   name: nextcloud
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/component: app
       app.kubernetes.io/instance: nextcloud
       app.kubernetes.io/name: nextcloud
+  serviceName: nextcloud-headless
   template:
     metadata:
-      annotations:
-        hooks-hash: 9525c2748a6c7cd0e28ec740623d0b3fa5a75c83b51ccfd136bc89c76737b204
-        nextcloud-config-hash: 8266a725d5474acb6adbf9f0609a3494dc3340a3ac306db90eac9ddb1b851960
-        php-config-hash: 44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a
+      annotations: {}
       labels:
         app.kubernetes.io/component: app
         app.kubernetes.io/instance: nextcloud
@@ -42,6 +38,17 @@ spec:
                   key: nextcloud-username
             - name: NEXTCLOUD_DATA_DIR
               value: /var/www/html/data
+            - name: POSTGRES_DB
+              value: nextcloud
+            - name: POSTGRES_HOST
+              value: nextcloud-postgres
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: postgres-password
+                  name: nextcloud-postgres
+            - name: POSTGRES_USER
+              value: nextcloud
             - name: REDIS_HOST
               value: nextcloud-valkey
             - name: REDIS_HOST_PASSWORD
@@ -51,8 +58,6 @@ spec:
                   name: nextcloud-redis
             - name: REDIS_HOST_PORT
               value: !!str 6379
-            - name: SQLITE_DATABASE
-              value: nextcloud
           image: docker.io/library/nextcloud:32.0.5-apache
           imagePullPolicy: IfNotPresent
           livenessProbe:
@@ -82,6 +87,10 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
+              add:
+                - CHOWN
+                - DAC_OVERRIDE
+                - NET_BIND_SERVICE
               drop:
                 - ALL
             runAsNonRoot: false # true
@@ -113,11 +122,12 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       volumes:
-        - emptyDir: {}
-          name: nextcloud-main
+        - name: nextcloud-main
+          persistentVolumeClaim:
+            claimName: nextcloud-data
 ---
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   labels:
     app.kubernetes.io/component: valkey
@@ -126,13 +136,12 @@ metadata:
   name: nextcloud-valkey
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
   selector:
     matchLabels:
       app.kubernetes.io/component: valkey
       app.kubernetes.io/instance: nextcloud
       app.kubernetes.io/name: nextcloud-valkey
+  serviceName: nextcloud-valkey-headless
   template:
     metadata:
       labels:

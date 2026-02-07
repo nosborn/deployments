@@ -6,10 +6,11 @@ namespace: nextcloud
 
 resources:
   - resources/cronjob.yaml
-  - resources/deployment.yaml
   - resources/httproute.yaml # TODO: use Ingress
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/service.yaml
+  - resources/statefulset-postgres.yaml
+  - resources/statefulset.yaml

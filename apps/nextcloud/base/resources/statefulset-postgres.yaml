@@ -1,0 +1,86 @@
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  labels:
+    app.kubernetes.io/component: postgres
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud-postgres
+  name: nextcloud-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: postgres
+      app.kubernetes.io/instance: nextcloud
+      app.kubernetes.io/name: nextcloud-postgres
+  serviceName: nextcloud-postgres-headless
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: postgres
+        app.kubernetes.io/instance: nextcloud
+        app.kubernetes.io/name: nextcloud-postgres
+    spec:
+      containers:
+        - env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+            - name: POSTGRES_DB
+              value: nextcloud
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  key: postgres-password
+                  name: nextcloud-postgres
+            - name: POSTGRES_USER
+              value: nextcloud
+          image: docker.io/library/postgres:17
+          livenessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - nextcloud
+            failureThreshold: 3
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          name: postgres
+          ports:
+            - containerPort: 5432
+              name: postgres
+              protocol: TCP
+          readinessProbe:
+            exec:
+              command:
+                - pg_isready
+                - -U
+                - nextcloud
+            failureThreshold: 3
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: data
+            - mountPath: /tmp
+              name: tmp
+            - mountPath: /var/run/postgresql
+              name: run
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: nextcloud-data
+        - emptyDir: {}
+          name: run
+        - emptyDir: {}
+          name: tmp

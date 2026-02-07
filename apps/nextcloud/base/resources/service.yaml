@@ -18,3 +18,98 @@ spec:
     app.kubernetes.io/instance: nextcloud
     app.kubernetes.io/name: nextcloud
   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: app
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud-headless
+  name: nextcloud-headless
+spec:
+  clusterIP: None
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app.kubernetes.io/component: app
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud-valkey
+  name: nextcloud-valkey
+spec:
+  ports:
+    - name: valkey
+      port: 6379
+  selector:
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud-valkey
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: postgres
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud-postgres
+  name: nextcloud-postgres
+spec:
+  ports:
+    - name: postgres
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+  selector:
+    app.kubernetes.io/component: postgres
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud-postgres
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: postgres
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud-postgres-headless
+  name: nextcloud-postgres-headless
+spec:
+  clusterIP: None
+  ports:
+    - name: postgres
+      port: 5432
+      protocol: TCP
+      targetPort: 5432
+  selector:
+    app.kubernetes.io/component: postgres
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud-postgres
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud-valkey-headless
+  name: nextcloud-valkey-headless
+spec:
+  clusterIP: None
+  ports:
+    - name: valkey
+      port: 6379
+  selector:
+    app.kubernetes.io/instance: nextcloud
+    app.kubernetes.io/name: nextcloud-valkey
+  type: ClusterIP
