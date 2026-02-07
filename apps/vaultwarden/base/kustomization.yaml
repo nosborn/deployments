@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: vaultwarden
 
 resources:
+  - resources/certificate.yaml
   - resources/deployment.yaml
   - resources/ingress.yaml
   - resources/namespace.yaml
@@ -13,6 +14,7 @@ resources:
   - resources/rolebinding.yaml
   - resources/service.yaml
   - resources/serviceaccount.yaml
+  - resources/serverstransport.yaml
 
 configMapGenerator:
   - name: vaultwarden
