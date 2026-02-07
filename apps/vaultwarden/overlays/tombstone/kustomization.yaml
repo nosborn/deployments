@@ -21,6 +21,8 @@ patches:
         value:
           cert-manager.io/cluster-issuer: ownca
           traefik.ingress.kubernetes.io/router.middlewares: traefik-https-redirect@kubernetescrd,traefik-ip-allowlist-internal@kubernetescrd
+          traefik.ingress.kubernetes.io/service.serversscheme: https
+          traefik.ingress.kubernetes.io/service.serverstransport: vaultwarden-vaultwarden@kubernetescrd
       - op: add
         path: /spec/rules/0/host
         value: passwords.***REMOVED***
