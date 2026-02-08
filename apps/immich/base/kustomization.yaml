@@ -11,3 +11,4 @@ resources:
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/service.yaml
+  - resources/statefulset.yaml
