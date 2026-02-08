@@ -58,6 +58,8 @@ spec:
               name: run
             - mountPath: /var/cache/nginx
               name: cache
+      imagePullSecrets:
+        - name: docker-hub
       securityContext:
         fsGroup: 101
         seccompProfile:

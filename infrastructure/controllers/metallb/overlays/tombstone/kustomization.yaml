@@ -11,5 +11,6 @@ patches:
         path: /spec/addresses
         value:
           - ***REMOVED***
+          - ***REMOVED***
     target:
       kind: IPAddressPool
