@@ -1,12 +1,21 @@
 ---
 version: 2
+
 updates:
   - package-ecosystem: docker
     directories:
       - /**/resources
+    groups:
+      immich:
+        patterns:
+          - immich-app/*
+      valkey:
+        patterns:
+          - valkey/valkey
     schedule:
-      interval: weekly
-    ignore:
-      - dependency-name: "*"
-        update-types:
-          - version-update:semver-major
+      interval: daily
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
