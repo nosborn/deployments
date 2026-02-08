@@ -9,11 +9,13 @@ resources:
   - resources/ingress.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
+  - resources/persistentvolume.yaml
+  - resources/persistentvolumeclaim.yaml
   - resources/role.yaml
   - resources/rolebinding.yaml
   - resources/service.yaml
   - resources/serviceaccount.yaml
-  - resources/statefulset.yaml
+  - resources/deployment.yaml
 
 configMapGenerator:
   - name: vaultwarden

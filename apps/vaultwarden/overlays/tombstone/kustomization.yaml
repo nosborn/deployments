@@ -17,6 +17,19 @@ configMapGenerator:
 patches:
   - patch: |-
       - op: add
+        path: /spec/template/spec/securityContext/fsGroup
+        value: 983
+      - op: add
+        path: /spec/template/spec/securityContext/runAsGroup
+        value: 983
+      - op: add
+        path: /spec/template/spec/securityContext/runAsUser
+        value: 989
+    target:
+      kind: Deployment
+      name: vaultwarden
+  - patch: |-
+      - op: add
         path: /metadata/annotations
         value:
           cert-manager.io/cluster-issuer: ownca
@@ -33,12 +46,3 @@ patches:
             secretName: passwords-home-arpa-tls
     target:
       kind: Ingress
-  - patch: |-
-      - op: add
-        path: /spec/template/spec/containers/0/securityContext/runAsGroup
-        value: 983
-      - op: add
-        path: /spec/template/spec/containers/0/securityContext/runAsUser
-        value: 989
-    target:
-      kind: StatefulSet

@@ -65,10 +65,21 @@ spec:
                       name: nextcloud-redis
                 - name: REDIS_HOST_PORT
                   value: !!str 6379
-              image: docker.io/library/nextcloud:32.0.5-apache
+              image: docker.io/library/nextcloud:32.0.5-fpm
               imagePullPolicy: IfNotPresent
               name: nextcloud-cron
               resources: {}
+              # securityContext:
+              #   allowPrivilegeEscalation: false
+              #   capabilities:
+              #     # add:
+              #     #   - CHOWN
+              #     #   - DAC_OVERRIDE
+              #     #   - NET_BIND_SERVICE
+              #     drop:
+              #       - ALL
+              #   readOnlyRootFilesystem: true
+              #   runAsNonRoot: true
               volumeMounts:
                 - mountPath: /var/www/
                   name: nextcloud-main
@@ -95,7 +106,6 @@ spec:
             - name: docker-hub
           restartPolicy: Never
           securityContext:
-            # Will mount configuration files as www-data (id: 33) for nextcloud
             fsGroup: 33
             seccompProfile:
               type: RuntimeDefault

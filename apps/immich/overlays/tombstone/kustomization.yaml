@@ -4,16 +4,9 @@ kind: Kustomization
 
 resources:
   - ../../base
+  - resources/sopssecret.yaml
 
 patches:
-  - patch: |-
-      - op: add
-        path: /metadata/annotations
-        value:
-          link.argocd.argoproj.io/external-link: https://immich.***REMOVED***
-    target:
-      kind: Deployment
-      name: immich-server
   - patch: |-
       - op: add
         path: /metadata/annotations/traefik.ingress.kubernetes.io~1router.middlewares

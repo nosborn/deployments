@@ -23,6 +23,9 @@ metadata:
     app.kubernetes.io/name: gitea-valkey
   name: gitea-valkey
 spec:
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
   ports:
     - name: valkey
       port: 6379
@@ -40,6 +43,9 @@ metadata:
   name: gitea-valkey-headless
 spec:
   clusterIP: None
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
   ports:
     - name: valkey
       port: 6379
