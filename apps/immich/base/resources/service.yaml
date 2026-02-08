@@ -6,7 +6,6 @@ metadata:
     app.kubernetes.io/instance: immich
     app.kubernetes.io/name: machine-learning
     app.kubernetes.io/service: immich-machine-learning
-    app.kubernetes.io/version: v2.0.0
   name: immich-machine-learning
   namespace: immich
 spec:
@@ -28,7 +27,6 @@ metadata:
     app.kubernetes.io/instance: immich
     app.kubernetes.io/name: server
     app.kubernetes.io/service: immich-server
-    app.kubernetes.io/version: v2.0.0
   name: immich-server
   namespace: immich
 spec:
@@ -48,12 +46,55 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/instance: immich
+    app.kubernetes.io/name: server-headless
+    app.kubernetes.io/service: immich-server-headless
+  name: immich-server-headless
+  namespace: immich
+spec:
+  clusterIP: None
+  ports:
+    - name: http
+      port: 2283
+      protocol: TCP
+      targetPort: http
+  selector:
+    app.kubernetes.io/controller: main
+    app.kubernetes.io/instance: immich
+    app.kubernetes.io/name: server
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: immich
     app.kubernetes.io/name: valkey
     app.kubernetes.io/service: immich-valkey
-    app.kubernetes.io/version: v2.0.0
   name: immich-valkey
   namespace: immich
 spec:
+  ports:
+    - name: redis
+      port: 6379
+      protocol: TCP
+      targetPort: redis
+  selector:
+    app.kubernetes.io/controller: main
+    app.kubernetes.io/instance: immich
+    app.kubernetes.io/name: valkey
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/instance: immich
+    app.kubernetes.io/name: valkey-headless
+    app.kubernetes.io/service: immich-valkey
+  name: immich-valkey-headless
+  namespace: immich
+spec:
+  clusterIP: None
   ports:
     - name: redis
       port: 6379

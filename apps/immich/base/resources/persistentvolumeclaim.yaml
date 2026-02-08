@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: immich-library
+  name: immich-data
   namespace: immich
 spec:
   accessModes:
@@ -10,8 +10,9 @@ spec:
   resources:
     requests:
       storage: 100Gi
-  storageClassName: manual
-  volumeName: immich-library
+  storageClassName: local-storage
+  volumeMode: Filesystem
+  volumeName: immich-data
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
