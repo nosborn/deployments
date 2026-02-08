@@ -11,7 +11,7 @@ updates:
           - immich-app/*
       valkey:
         patterns:
-          - valkey/valkey
+          - valkey-io/valkey
     schedule:
       interval: daily
 

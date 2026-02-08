@@ -215,7 +215,7 @@ spec:
         - args:
             - --appendonly
             - !!str yes
-          image: valkey/valkey:9.0.2
+          image: ghcr.io/valkey-io/valkey:9.0.2
           name: gitea-valkey
           ports:
             - containerPort: 6379

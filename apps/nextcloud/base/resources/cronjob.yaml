@@ -91,10 +91,14 @@ spec:
                 - mountPath: /var/www/tmp
                   name: nextcloud-main
                   subPath: tmp
+          imagePullSecrets:
+            - name: docker-hub
           restartPolicy: Never
           securityContext:
             # Will mount configuration files as www-data (id: 33) for nextcloud
             fsGroup: 33
+            seccompProfile:
+              type: RuntimeDefault
           volumes:
             - name: nextcloud-main
               persistentVolumeClaim:
