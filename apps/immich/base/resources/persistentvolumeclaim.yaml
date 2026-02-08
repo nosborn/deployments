@@ -3,22 +3,19 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: immich-data
-  namespace: immich
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 100Gi
-  storageClassName: local-storage
+  storageClassName: openebs-hostpath-retain
   volumeMode: Filesystem
-  volumeName: immich-data
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: immich-valkey-data
-  namespace: immich
 spec:
   accessModes:
     - ReadWriteOnce

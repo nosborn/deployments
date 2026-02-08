@@ -10,28 +10,6 @@ resources:
   - resources/ingress.yaml
   - resources/sopssecret.yaml
 
-patches:
-  - patch: |-
-      - op: add
-        path: /spec/template/spec/securityContext/fsGroup
-        value: 980
-    target:
-      kind: StatefulSet
-      name: nextcloud
-  - patch: |-
-      - op: add
-        path: /spec/template/spec/securityContext/fsGroup
-        value: 980
-      - op: add
-        path: /spec/template/spec/securityContext/runAsGroup
-        value: 980
-      - op: add
-        path: /spec/template/spec/securityContext/runAsUser
-        value: 986
-    target:
-      kind: StatefulSet
-      name: nextcloud-postgres
-
 # patches:
 #   # - patch: |-
 #   #     - op: add

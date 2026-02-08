@@ -9,9 +9,8 @@ spec:
   resources:
     requests:
       storage: 10Gi
-  storageClassName: local-storage
+  storageClassName: openebs-hostpath-retain
   volumeMode: Filesystem
-  volumeName: nextcloud-data
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim

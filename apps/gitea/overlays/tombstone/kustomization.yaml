@@ -17,7 +17,7 @@ configMapGenerator:
 
 patches:
   - patch: |-
-      - op: replace
+      - op: add
         path: /spec/template/spec/securityContext/fsGroup
         value: 981
       - op: add
@@ -27,5 +27,5 @@ patches:
         path: /spec/template/spec/securityContext/runAsUser
         value: 987
     target:
-      kind: StatefulSet
+      kind: Deployment
       name: gitea
