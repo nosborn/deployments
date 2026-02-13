@@ -9,6 +9,7 @@ metadata:
   name: nextcloud
 spec:
   replicas: 1
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app.kubernetes.io/component: app
@@ -138,6 +139,7 @@ metadata:
   name: nextcloud-postgres
 spec:
   replicas: 1
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app.kubernetes.io/component: postgres
@@ -227,6 +229,7 @@ metadata:
   name: nextcloud-valkey
 spec:
   replicas: 1
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app.kubernetes.io/component: valkey

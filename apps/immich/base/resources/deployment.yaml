@@ -9,7 +9,7 @@ metadata:
   name: immich-machine-learning
 spec:
   replicas: 1
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app.kubernetes.io/controller: main
@@ -101,7 +101,7 @@ metadata:
   name: immich-server
 spec:
   replicas: 1
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app.kubernetes.io/controller: main
@@ -199,6 +199,7 @@ metadata:
   name: immich-postgres
 spec:
   replicas: 1
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app.kubernetes.io/component: postgres
@@ -288,7 +289,7 @@ metadata:
   name: immich-valkey
 spec:
   replicas: 1
-  revisionHistoryLimit: 3
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app.kubernetes.io/controller: main

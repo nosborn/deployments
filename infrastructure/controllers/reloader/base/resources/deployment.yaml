@@ -5,7 +5,7 @@ metadata:
   name: reloader
 spec:
   replicas: 1
-  revisionHistoryLimit: 10
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app: reloader

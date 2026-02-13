@@ -1,0 +1,168 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: ownca
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-https-redirect@kubernetescrd,traefik-ip-allowlist-internal@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: lidarr
+  name: lidarr
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: lidarr.***REMOVED***
+      http:
+        paths:
+          - backend:
+              service:
+                name: lidarr
+                port:
+                  number: 8686
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - lidarr.***REMOVED***
+      secretName: lidarr-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: ownca
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-https-redirect@kubernetescrd,traefik-ip-allowlist-internal@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: nzbget
+  name: nzbget
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: nzbget.***REMOVED***
+      http:
+        paths:
+          - backend:
+              service:
+                name: nzbget
+                port:
+                  number: 6789
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - nzbget.***REMOVED***
+      secretName: nzbget-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: ownca
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-https-redirect@kubernetescrd,traefik-ip-allowlist-internal@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: ombi
+  name: ombi
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: ombi.***REMOVED***
+      http:
+        paths:
+          - backend:
+              service:
+                name: ombi
+                port:
+                  number: 5000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - ombi.***REMOVED***
+      secretName: ombi-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: ownca
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-https-redirect@kubernetescrd,traefik-ip-allowlist-internal@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: prowlarr
+  name: prowlarr
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: prowlarr.***REMOVED***
+      http:
+        paths:
+          - backend:
+              service:
+                name: prowlarr
+                port:
+                  number: 9696
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - prowlarr.***REMOVED***
+      secretName: prowlarr-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: ownca
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-https-redirect@kubernetescrd,traefik-ip-allowlist-internal@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: radarr
+  name: radarr
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: radarr.***REMOVED***
+      http:
+        paths:
+          - backend:
+              service:
+                name: radarr
+                port:
+                  number: 7878
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - radarr.***REMOVED***
+      secretName: radarr-tls
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: ownca
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-https-redirect@kubernetescrd,traefik-ip-allowlist-internal@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: sonarr
+  name: sonarr
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: sonarr.***REMOVED***
+      http:
+        paths:
+          - backend:
+              service:
+                name: sonarr
+                port:
+                  number: 8989
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - sonarr.***REMOVED***
+      secretName: sonarr-tls
