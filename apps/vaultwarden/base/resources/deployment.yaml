@@ -12,6 +12,7 @@ metadata:
   namespace: vaultwarden
 spec:
   replicas: 1
+  revisionHistoryLimit: 0
   selector:
     matchLabels:
       app.kubernetes.io/component: vaultwarden

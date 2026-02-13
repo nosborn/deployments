@@ -1,0 +1,531 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    secret.reloader.stakater.com/reload: lidarr-config
+  labels:
+    app.kubernetes.io/component: lidarr
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: lidarr
+  name: lidarr
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: lidarr
+      app.kubernetes.io/instance: media-server
+      app.kubernetes.io/name: lidarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations: {}
+      labels:
+        app.kubernetes.io/component: lidarr
+        app.kubernetes.io/instance: media-server
+        app.kubernetes.io/name: lidarr
+    spec:
+      containers:
+        - env:
+            - name: LANG
+              value: en_GB.UTF-8
+          image: ghcr.io/nosborn/lidarr:3.1.0.4875
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: lidarr
+          ports:
+            - containerPort: 8686
+              name: http
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+            - mountPath: /data/config.xml
+              name: config
+              readOnly: true
+              subPath: config.xml
+            - mountPath: /library
+              name: library
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: config
+          secret:
+            secretName: lidarr-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: lidarr-data
+        - name: library
+          persistentVolumeClaim:
+            claimName: media-library
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    secret.reloader.stakater.com/reload: nzbget-config
+  labels:
+    app.kubernetes.io/component: nzbget
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: nzbget
+  name: nzbget
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: nzbget
+      app.kubernetes.io/instance: media-server
+      app.kubernetes.io/name: nzbget
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations: {}
+      labels:
+        app.kubernetes.io/component: nzbget
+        app.kubernetes.io/instance: media-server
+        app.kubernetes.io/name: nzbget
+    spec:
+      containers:
+        - env:
+            - name: LANG
+              value: en_GB.UTF-8
+          image: ghcr.io/nosborn/nzbget:26.0
+          imagePullPolicy: Always
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - /app/nzbget
+                  - --configfile=/data/nzbget.conf
+                  - --quit
+          livenessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: http
+            timeoutSeconds: 1
+          name: nzbget
+          ports:
+            - containerPort: 6789
+              name: http
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: http
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /app/nzbget.conf
+              name: config
+              readOnly: true
+              subPath: nzbget.conf
+            - mountPath: /downloads
+              name: downloads
+            - mountPath: /library
+              name: library
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: config
+          secret:
+            secretName: nzbget-config
+        - name: downloads
+          persistentVolumeClaim:
+            claimName: nzbget-downloads
+        - name: library
+          persistentVolumeClaim:
+            claimName: media-library
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: ombi
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: ombi
+  name: ombi
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: ombi
+      app.kubernetes.io/instance: media-server
+      app.kubernetes.io/name: ombi
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: ombi
+      labels:
+        app.kubernetes.io/component: ombi
+        app.kubernetes.io/instance: media-server
+        app.kubernetes.io/name: ombi
+    spec:
+      containers:
+        - env:
+            - name: LANG
+              value: en_GB.UTF-8
+          image: ghcr.io/nosborn/ombi:4.53.4
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 10
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: http
+            timeoutSeconds: 1
+          name: ombi
+          ports:
+            - containerPort: 5000
+              name: http
+          readinessProbe:
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            tcpSocket:
+              port: http
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+            - mountPath: /tmp
+              name: tmp
+      initContainers:
+        - args:
+            - --migrate
+          env:
+            - name: LANG
+              value: en_GB.UTF-8
+          image: ghcr.io/nosborn/ombi:4.53.4
+          imagePullPolicy: Always
+          name: ombi-migrate
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: ombi-data
+        - emptyDir:
+            medium: Memory
+          name: tmp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    secret.reloader.stakater.com/reload: prowlarr-config
+  labels:
+    app.kubernetes.io/component: prowlarr
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: prowlarr
+  name: prowlarr
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: prowlarr
+      app.kubernetes.io/instance: media-server
+      app.kubernetes.io/name: prowlarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations: {}
+      labels:
+        app.kubernetes.io/component: prowlarr
+        app.kubernetes.io/instance: media-server
+        app.kubernetes.io/name: prowlarr
+    spec:
+      containers:
+        - env:
+            - name: LANG
+              value: en_GB.UTF-8
+          image: ghcr.io/nosborn/prowlarr:2.3.0.5236
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: prowlarr
+          ports:
+            - containerPort: 9696
+              name: http
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+            - mountPath: /data/config.xml
+              name: config
+              readOnly: true
+              subPath: config.xml
+            - mountPath: /libraru
+              name: library
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: config
+          secret:
+            secretName: prowlarr-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: prowlarr-data
+        - name: library
+          persistentVolumeClaim:
+            claimName: media-library
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    secret.reloader.stakater.com/reload: radarr-confg
+  labels:
+    app.kubernetes.io/component: radarr
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: radarr
+  name: radarr
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: radarr
+      app.kubernetes.io/instance: media-server
+      app.kubernetes.io/name: radarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations: {}
+      labels:
+        app.kubernetes.io/component: radarr
+        app.kubernetes.io/instance: media-server
+        app.kubernetes.io/name: radarr
+    spec:
+      containers:
+        - env:
+            - name: LANG
+              value: en_GB.UTF-8
+          image: ghcr.io/nosborn/radarr:6.0.4.10291
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: radarr
+          ports:
+            - containerPort: 7878
+              name: http
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+            - mountPath: /data/config.xml
+              name: config
+              readOnly: true
+              subPath: config.xml
+            - mountPath: /library
+              name: library
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: config
+          secret:
+            secretName: radarr-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: radarr-data
+        - name: library
+          persistentVolumeClaim:
+            claimName: media-library
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    secret.reloader.stakater.com/reload: sonarr-config
+  labels:
+    app.kubernetes.io/component: sonarr
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: sonarr
+  name: sonarr
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: sonarr
+      app.kubernetes.io/instance: media-server
+      app.kubernetes.io/name: sonarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations: {}
+      labels:
+        app.kubernetes.io/component: sonarr
+        app.kubernetes.io/instance: media-server
+        app.kubernetes.io/name: sonarr
+    spec:
+      containers:
+        - env:
+            - name: LANG
+              value: en_GB.UTF-8
+          image: ghcr.io/nosborn/sonarr:4.0.16.2944
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: sonarr
+          ports:
+            - containerPort: 8989
+              name: http
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+            - mountPath: /data/config.xml
+              name: config
+              readOnly: true
+              subPath: config.xml
+            - mountPath: /library
+              name: library
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: config
+          secret:
+            secretName: sonarr-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: sonarr-data
+        - name: library
+          persistentVolumeClaim:
+            claimName: media-library

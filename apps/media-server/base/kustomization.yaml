@@ -1,0 +1,26 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: media
+
+resources:
+  - resources/deployment.yaml
+  - resources/namespace.yaml
+  # - resources/networkpolicy.yaml
+  - resources/persistentvolume.yaml
+  - resources/persistentvolumeclaim.yaml
+  - resources/service.yaml
+
+# configMapGenerator:
+#   - envs:
+#       - configs/app-ini.env
+#     name: gitea-app-ini-env
+#   - envs:
+#       - configs/config.env
+#     name: gitea-config-env
+#   - files:
+#       - scripts/configure_gitea.sh
+#       - scripts/configure_gpg_environment.sh
+#       - scripts/init_directory_structure.sh
+#     name: gitea-init
