@@ -26,7 +26,7 @@ metadata:
     app.kubernetes.io/component: postgres
     app.kubernetes.io/instance: immich
     app.kubernetes.io/name: immich-postgres
-  name: nextcloud-postgres
+  name: immich-postgres
 spec:
   ipFamilies:
     - IPv4

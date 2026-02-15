@@ -1,8 +1,0 @@
-# yamllint disable rule:line-length
----
-apiVersion: v1
-kind: Namespace
-metadata:
-  labels:
-    pod-security.kubernetes.io/enforce: restricted
-  name: nextcloud
