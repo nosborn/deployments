@@ -1,0 +1,104 @@
+# yamllint disable rule:line-length
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  labels:
+    app.kubernetes.io/component: vaultwarden-backup
+    app.kubernetes.io/instance: vaultwarden
+    app.kubernetes.io/name: vaultwarden
+  name: vaultwarden-backup
+spec:
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: vaultwarden-backup
+            app.kubernetes.io/instance: vaultwarden
+            app.kubernetes.io/name: vaultwarden
+        spec:
+          containers:
+            - command:
+                - /bin/sh
+                - -c
+                - f="/data/backups/db-$(TZ=UTC date +%Y%m%dT%H%M%SZ).sqlite3"; sqlite3 /data/db.sqlite3 ".backup ${f}" && gzip -9 "${f}"
+              image: docker.io/alpine/sqlite:3.51.2
+              imagePullPolicy: IfNotPresent
+              name: backup
+              resources: {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+              volumeMounts:
+                - mountPath: /data
+                  name: data
+          imagePullSecrets:
+            - name: docker-hub
+          restartPolicy: Never
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+          serviceAccountName: vaultwarden
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: vaultwarden-data
+      ttlSecondsAfterFinished: 86400
+  schedule: 30 2 * * *
+  timeZone: Etc/UTC
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  labels:
+    app.kubernetes.io/component: vaultwarden-checkpoint
+    app.kubernetes.io/instance: vaultwarden
+    app.kubernetes.io/name: vaultwarden
+  name: vaultwarden-checkpoint
+spec:
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/component: vaultwarden-checkpoint
+            app.kubernetes.io/instance: vaultwarden
+            app.kubernetes.io/name: vaultwarden
+        spec:
+          containers:
+            - args:
+                - /data/db.sqlite3
+                - PRAGMA wal_checkpoint(TRUNCATE);
+              image: docker.io/alpine/sqlite:3.51.2
+              imagePullPolicy: IfNotPresent
+              name: checkpoint
+              resources: {}
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop:
+                    - ALL
+                readOnlyRootFilesystem: true
+                runAsNonRoot: true
+              volumeMounts:
+                - mountPath: /data
+                  name: data
+          imagePullSecrets:
+            - name: docker-hub
+          restartPolicy: Never
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+          serviceAccountName: vaultwarden
+          volumes:
+            - name: data
+              persistentVolumeClaim:
+                claimName: vaultwarden-data
+      ttlSecondsAfterFinished: 21600
+  schedule: 0 */6 * * *
+  timeZone: Etc/UTC
