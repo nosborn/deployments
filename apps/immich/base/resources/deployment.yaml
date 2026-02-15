@@ -257,7 +257,7 @@ spec:
               drop:
                 - ALL
             readOnlyRootFilesystem: true
-            runAsNonRoot: true
+            runAsNonRoot: false # TODO: true
           volumeMounts:
             - mountPath: /tmp
               name: tmp

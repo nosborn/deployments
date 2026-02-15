@@ -41,7 +41,7 @@ metadata:
 spec:
   dependsOn:
     - name: cert-manager-config
-    - name: traefik
+    - name: traefik-config
   interval: 10m
   path: ./infrastructure/configs/flux-webhook
   prune: true
@@ -129,8 +129,25 @@ spec:
   dependsOn:
     - name: helm-repositories
     - name: reloader
+    - name: sops-secrets-operator-crds
   interval: 10m
   path: ./infrastructure/controllers/sops-secrets-operator/overlays/tombstone
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 10m
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: sops-secrets-operator-crds
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./infrastructure/configs/sops-secrets-operator-crds/overlays/tombstone
   prune: true
   retryInterval: 1m
   sourceRef:
@@ -148,8 +165,25 @@ spec:
   dependsOn:
     - name: helm-repositories
     - name: metallb-config
+    - name: traefik-crds
   interval: 10m
   path: ./infrastructure/controllers/traefik/overlays/tombstone
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 10m
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: traefik-crds
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./infrastructure/configs/traefik-crds/overlays/tombstone
   prune: true
   retryInterval: 1m
   sourceRef:
@@ -165,7 +199,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: traefik
+    - name: traefik-crds
   interval: 10m
   path: ./infrastructure/configs/traefik
   prune: true

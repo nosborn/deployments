@@ -6,34 +6,19 @@ metadata:
   name: sops-secrets-operator
   namespace: sops
 spec:
-  interval: 1h
   chart:
     spec:
       chart: sops-secrets-operator
-      version: 0.25.0
       sourceRef:
         kind: HelmRepository
         name: sops
         namespace: flux-system
+      version: 0.25.0
   install:
-    crds: Create
+    crds: Skip
     remediation:
       retries: 3
-  upgrade:
-    crds: CreateReplace
-  values:
-    extraEnv:
-      - name: SOPS_AGE_KEY_FILE
-        value: /etc/sops-age-key-file/key
-    secretsAsFiles:
-      - mountPath: /etc/sops-age-key-file
-        name: sops-age-key-file
-        secretName: sops-age-key-file
-    securityContext:
-      container:
-        enabled: true
-      enabled: true
-
+  interval: 1h
   postRenderers:
     - kustomize:
         patches:
@@ -51,3 +36,17 @@ spec:
                 path: /spec/template/spec/containers/0/securityContext/capabilities/drop
                 value:
                   - ALL
+  upgrade:
+    crds: Skip
+  values:
+    extraEnv:
+      - name: SOPS_AGE_KEY_FILE
+        value: /etc/sops-age-key-file/key
+    secretsAsFiles:
+      - mountPath: /etc/sops-age-key-file
+        name: sops-age-key-file
+        secretName: sops-age-key-file
+    securityContext:
+      container:
+        enabled: true
+      enabled: true
