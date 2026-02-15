@@ -7,6 +7,7 @@ metadata:
 spec:
   dependsOn:
     - name: cert-manager-config
+    - name: sops-secrets-operator-crds
     - name: traefik-config
   interval: 10m
   path: ./apps/gitea/overlays/tombstone
@@ -25,6 +26,7 @@ metadata:
 spec:
   dependsOn:
     - name: cert-manager-config
+    - name: sops-secrets-operator-crds
     - name: traefik-config
   interval: 10m
   path: ./apps/immich/overlays/tombstone
@@ -43,6 +45,7 @@ metadata:
 spec:
   dependsOn:
     - name: cert-manager-config
+    - name: sops-secrets-operator-crds
     - name: traefik-config
   interval: 10m
   path: ./apps/media-server/overlays/tombstone
@@ -61,6 +64,7 @@ metadata:
 spec:
   dependsOn:
     - name: cert-manager-config
+    - name: sops-secrets-operator-crds
     - name: traefik-config
   interval: 10m
   path: ./apps/redirector/overlays/tombstone
@@ -79,7 +83,7 @@ metadata:
 spec:
   dependsOn:
     - name: cert-manager-config
-    - name: sops-secrets-operator
+    - name: sops-secrets-operator-crds
     - name: traefik-config
   interval: 10m
   path: ./apps/vaultwarden/overlays/tombstone

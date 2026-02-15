@@ -5,33 +5,28 @@ metadata:
   name: traefik
   namespace: traefik
 spec:
-  interval: 1h
   chart:
     spec:
       chart: traefik
-      version: 39.0.0
       sourceRef:
         kind: HelmRepository
         name: traefik
         namespace: flux-system
+      version: 39.0.1
   install:
-    crds: Create
+    crds: Skip
     remediation:
       retries: 3
+  interval: 1h
   upgrade:
-    crds: CreateReplace
+    crds: Skip
   values:
     additionalArguments:
       - --entrypoints.websecure.http.middlewares=traefik-retry@kubernetescrd,traefik-security-headers@kubernetescrd
       - --serversTransport.insecureSkipVerify=true
-    deployment:
-      replicas: 2
     global:
       checkNewVersion: false
       sendAnonymousUsage: false
-    podDisruptionBudget:
-      enabled: true
-      maxUnavailable: 1
     providers:
       kubernetesGateway:
         enabled: true
