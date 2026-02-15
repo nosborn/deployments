@@ -6,6 +6,8 @@ namespace: vaultwarden
 
 resources:
   - resources/certificate.yaml
+  - resources/cronjob.yaml
+  - resources/deployment.yaml
   - resources/ingress.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
@@ -15,7 +17,7 @@ resources:
   - resources/rolebinding.yaml
   - resources/service.yaml
   - resources/serviceaccount.yaml
-  - resources/deployment.yaml
+  - resources/sopssecret.yaml
 
 configMapGenerator:
   - name: vaultwarden

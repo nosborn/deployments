@@ -2,6 +2,9 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  labels:
+    app.kubernetes.io/instance: vaultwarden
+    app.kubernetes.io/name: vaultwarden-tls
   name: vaultwarden-tls
 spec:
   dnsNames:
