@@ -9,7 +9,7 @@ spec:
   capacity:
     storage: 10Gi
   hostPath:
-    path: /var/lib/lidarr
+    path: /srv/lidarr
     type: Directory
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
@@ -41,7 +41,7 @@ spec:
   capacity:
     storage: 10Gi
   hostPath:
-    path: /var/lib/nzbget
+    path: /srv/nzbget
     type: Directory
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
@@ -57,7 +57,7 @@ spec:
   capacity:
     storage: 10Gi
   hostPath:
-    path: /var/lib/ombi
+    path: /srv/ombi
     type: Directory
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
@@ -73,7 +73,7 @@ spec:
   capacity:
     storage: 10Gi
   hostPath:
-    path: /var/lib/prowlarr
+    path: /srv/prowlarr
     type: Directory
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
@@ -89,7 +89,7 @@ spec:
   capacity:
     storage: 10Gi
   hostPath:
-    path: /var/lib/radarr
+    path: /srv/radarr
     type: Directory
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
@@ -105,7 +105,7 @@ spec:
   capacity:
     storage: 10Gi
   hostPath:
-    path: /var/lib/sonarr
+    path: /srv/sonarr
     type: Directory
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
