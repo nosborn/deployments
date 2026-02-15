@@ -5,12 +5,14 @@ kind: Kustomization
 namespace: gitea
 
 resources:
+  - resources/cronjob.yaml
+  - resources/deployment.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/service.yaml
-  - resources/deployment.yaml
+  - resources/sopssecret.yaml
 
 configMapGenerator:
   - envs:
