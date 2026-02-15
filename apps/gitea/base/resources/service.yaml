@@ -33,23 +33,3 @@ spec:
     app.kubernetes.io/instance: gitea
     app.kubernetes.io/name: gitea-valkey
   type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app.kubernetes.io/instance: gitea
-    app.kubernetes.io/name: gitea-valkey-headless
-  name: gitea-valkey-headless
-spec:
-  clusterIP: None
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
-  ports:
-    - name: valkey
-      port: 6379
-  selector:
-    app.kubernetes.io/instance: gitea
-    app.kubernetes.io/name: gitea-valkey
-  type: ClusterIP

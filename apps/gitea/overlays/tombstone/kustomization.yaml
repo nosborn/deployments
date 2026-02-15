@@ -18,6 +18,18 @@ configMapGenerator:
 patches:
   - patch: |-
       - op: add
+        path: /spec/jobTemplate/spec/template/spec/securityContext/fsGroup
+        value: 981
+      - op: add
+        path: /spec/jobTemplate/spec/template/spec/securityContext/runAsGroup
+        value: 981
+      - op: add
+        path: /spec/jobTemplate/spec/template/spec/securityContext/runAsUser
+        value: 987
+    target:
+      kind: CronJob
+  - patch: |-
+      - op: add
         path: /spec/template/spec/securityContext/fsGroup
         value: 981
       - op: add
