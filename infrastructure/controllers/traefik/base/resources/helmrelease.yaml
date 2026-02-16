@@ -30,6 +30,8 @@ spec:
     providers:
       kubernetesGateway:
         enabled: true
+      kubernetesIngress:
+        enabled: false
     service:
       spec:
         externalTrafficPolicy: Local

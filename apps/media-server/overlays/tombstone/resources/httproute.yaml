@@ -1,0 +1,132 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: lidarr
+  name: lidarr
+spec:
+  hostnames:
+    - lidarr.***REMOVED***
+  parentRefs:
+    - kind: Gateway
+      name: traefik
+      namespace: traefik
+      sectionName: websecure
+  rules:
+    - backendRefs:
+        - name: lidarr
+          port: 8686
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: nzbget
+  name: nzbget
+spec:
+  hostnames:
+    - nzbget.***REMOVED***
+  parentRefs:
+    - kind: Gateway
+      name: traefik
+      namespace: traefik
+      sectionName: websecure
+  rules:
+    - backendRefs:
+        - name: nzbget
+          port: 6789
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: ombi
+  name: ombi
+spec:
+  hostnames:
+    - ombi.***REMOVED***
+  parentRefs:
+    - kind: Gateway
+      name: traefik
+      namespace: traefik
+      sectionName: websecure
+  rules:
+    - backendRefs:
+        - name: ombi
+          port: 5000
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: prowlarr
+  name: prowlarr
+spec:
+  hostnames:
+    - prowlarr.***REMOVED***
+  parentRefs:
+    - kind: Gateway
+      name: traefik
+      namespace: traefik
+      sectionName: websecure
+  rules:
+    - backendRefs:
+        - name: prowlarr
+          port: 9696
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: radarr
+  name: radarr
+spec:
+  hostnames:
+    - radarr.***REMOVED***
+  parentRefs:
+    - kind: Gateway
+      name: traefik
+      namespace: traefik
+      sectionName: websecure
+  rules:
+    - backendRefs:
+        - name: radarr
+          port: 7878
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: sonarr
+  name: sonarr
+spec:
+  hostnames:
+    - sonarr.***REMOVED***
+  parentRefs:
+    - kind: Gateway
+      name: traefik
+      namespace: traefik
+      sectionName: websecure
+  rules:
+    - backendRefs:
+        - name: sonarr
+          port: 8989

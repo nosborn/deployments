@@ -5,8 +5,10 @@ kind: Kustomization
 namespace: gitea
 
 resources:
+  - resources/certificate.yaml
   - resources/cronjob.yaml
   - resources/deployment.yaml
+  - resources/httproute.yaml
   - resources/namespace.yaml
   # - resources/networkpolicy.yaml
   - resources/persistentvolume.yaml

@@ -41,18 +41,19 @@ patches:
       kind: Deployment
   - patch: |-
       - op: add
+        path: /spec/dnsNames
+        value:
+          - passwords.***REMOVED***
+    target:
+      kind: Certificate
+  - patch: |-
+      - op: add
         path: /metadata/annotations
         value:
-          cert-manager.io/cluster-issuer: ownca
-          traefik.ingress.kubernetes.io/router.middlewares: traefik-https-redirect@kubernetescrd,traefik-ip-allowlist-internal@kubernetescrd
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
       - op: add
-        path: /spec/rules/0/host
-        value: passwords.***REMOVED***
-      - op: add
-        path: /spec/tls
+        path: /spec/hostnames
         value:
-          - hosts:
-              - passwords.***REMOVED***
-            secretName: passwords-home-arpa-tls
+          - passwords.***REMOVED***
     target:
-      kind: Ingress
+      kind: HTTPRoute

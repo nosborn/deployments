@@ -7,7 +7,7 @@ namespace: redirector
 resources:
   - resources/certificate.yaml
   - resources/deployment.yaml
-  - resources/ingress.yaml
+  - resources/httproute.yaml
   - resources/namespace.yaml
   - resources/service.yaml
   - resources/sopssecret.yaml

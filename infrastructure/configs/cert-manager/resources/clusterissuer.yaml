@@ -14,8 +14,11 @@ spec:
     server: https://acme-v02.api.letsencrypt.org/directory
     solvers:
       - http01:
-          ingress:
-            ingressClassName: traefik
+          gatewayHTTPRoute:
+            parentRefs:
+              - kind: Gateway
+                name: traefik
+                namespace: traefik
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -32,8 +35,11 @@ spec:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     solvers:
       - http01:
-          ingress:
-            ingressClassName: traefik
+          gatewayHTTPRoute:
+            parentRefs:
+              - kind: Gateway
+                name: traefik
+                namespace: traefik
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
