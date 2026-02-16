@@ -56,6 +56,22 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: gateway-api-crds
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./infrastructure/configs/gateway-api-crds/overlays/tombstone
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 10m
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: helm-repositories
   namespace: flux-system
 spec:
@@ -76,6 +92,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    - name: gateway-api-crds
     - name: helm-repositories
   interval: 10m
   path: ./infrastructure/controllers/istio/overlays/tombstone
