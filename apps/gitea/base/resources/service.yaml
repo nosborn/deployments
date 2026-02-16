@@ -27,7 +27,7 @@ spec:
     - IPv4
   ipFamilyPolicy: SingleStack
   ports:
-    - name: valkey
+    - name: redis
       port: 6379
   selector:
     app.kubernetes.io/instance: gitea
