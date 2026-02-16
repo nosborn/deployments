@@ -12,7 +12,7 @@ spec:
         kind: HelmRepository
         name: istio
         namespace: flux-system
-      version: 1.28.3
+      version: 1.29.0
   install:
     crds: Create
     remediation:
@@ -34,7 +34,7 @@ spec:
         kind: HelmRepository
         name: istio
         namespace: flux-system
-      version: 1.28.3
+      version: 1.29.0
   install:
     remediation:
       retries: 3
@@ -52,6 +52,9 @@ spec:
               kind: Deployment
   values:
     autoscaleEnabled: false
+    global:
+      networkPolicy:
+        enabled: true
     profile: ambient
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -67,7 +70,7 @@ spec:
         kind: HelmRepository
         name: istio
         namespace: flux-system
-      version: 1.28.3
+      version: 1.29.0
   install:
     remediation:
       retries: 3
@@ -81,6 +84,10 @@ spec:
             target:
               kind: DaemonSet
   values:
+    global:
+      networkPolicy:
+        enabled: true
+    istioOwnedCNIConfig: true
     profile: ambient
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -96,7 +103,7 @@ spec:
         kind: HelmRepository
         name: istio
         namespace: flux-system
-      version: 1.28.3
+      version: 1.29.0
   install:
     remediation:
       retries: 3
@@ -110,4 +117,7 @@ spec:
             target:
               kind: DaemonSet
   values:
+    global:
+      networkPolicy:
+        enabled: true
     profile: ambient
