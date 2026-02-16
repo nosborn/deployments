@@ -39,14 +39,12 @@ patches:
         value: 989
     target:
       kind: Deployment
-      name: vaultwarden
   - patch: |-
       - op: add
         path: /metadata/annotations
         value:
           cert-manager.io/cluster-issuer: ownca
           traefik.ingress.kubernetes.io/router.middlewares: traefik-https-redirect@kubernetescrd,traefik-ip-allowlist-internal@kubernetescrd
-          traefik.ingress.kubernetes.io/service.serversscheme: https
       - op: add
         path: /spec/rules/0/host
         value: passwords.***REMOVED***

@@ -7,6 +7,7 @@ metadata:
     app.kubernetes.io/name: gitea
   name: gitea-http
 spec:
+  ipFamilyPolicy: PreferDualStack
   ports:
     - name: http
       port: 3000

@@ -2,8 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    secret.reloader.stakater.com/reload: vaultwarden,vaultwarden-tls
+  annotations: {}
   labels:
     app.kubernetes.io/component: vaultwarden
     app.kubernetes.io/instance: vaultwarden
@@ -38,22 +37,22 @@ spec:
             failureThreshold: 3
             httpGet:
               path: /alive
-              port: https
-              scheme: HTTPS
+              port: http
+              scheme: HTTP
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
           name: vaultwarden
           ports:
             - containerPort: 8080
-              name: https
+              name: http
               protocol: TCP
           readinessProbe:
             failureThreshold: 3
             httpGet:
               path: /alive
-              port: https
-              scheme: HTTPS
+              port: http
+              scheme: HTTP
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
@@ -70,9 +69,6 @@ spec:
               name: data
             - mountPath: /data/tmp
               name: data-tmp
-            - mountPath: /tls
-              name: tls
-              readOnly: true
       securityContext:
         seccompProfile:
           type: RuntimeDefault
@@ -85,6 +81,3 @@ spec:
           emptyDir:
             medium: Memory
             # sizeLimit: ...
-        - name: tls
-          secret:
-            secretName: vaultwarden-tls

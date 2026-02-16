@@ -15,7 +15,16 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://istio-release.storage.googleapis.com/charts
+  url: https://istio-release.storage.googleapis.com/charts/
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: kiali
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://kiali.org/helm-charts/
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
@@ -24,7 +33,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://metallb.github.io/metallb
+  url: https://metallb.github.io/metallb/
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
@@ -42,4 +51,4 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  url: https://traefik.github.io/charts
+  url: https://traefik.github.io/charts/

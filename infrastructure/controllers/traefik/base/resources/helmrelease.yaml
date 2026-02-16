@@ -33,3 +33,7 @@ spec:
     service:
       spec:
         externalTrafficPolicy: Local
+        ipFamilies:
+          - IPv4
+          - IPv6
+        ipFamilyPolicy: RequireDualStack
