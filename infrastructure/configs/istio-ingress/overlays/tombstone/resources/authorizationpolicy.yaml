@@ -1,0 +1,29 @@
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: deny-external-to-internal
+spec:
+  action: DENY
+  rules:
+    - from:
+        - source:
+            notIpBlocks:
+              - ***REMOVED***
+              - ***REMOVED***
+              - ***REMOVED***
+      to:
+        - operation:
+            hosts:
+              - git.***REMOVED***
+              - lidarr.***REMOVED***
+              - nzbget.***REMOVED***
+              - ombi.***REMOVED***
+              - passwords.***REMOVED***
+              - prowlarr.***REMOVED***
+              - radarr.***REMOVED***
+              - sonarr.***REMOVED***
+  targetRef:
+    group: gateway.networking.k8s.io
+    kind: Gateway
+    name: ingress

@@ -17,8 +17,8 @@ spec:
           gatewayHTTPRoute:
             parentRefs:
               - kind: Gateway
-                name: traefik
-                namespace: traefik
+                name: ingress
+                namespace: istio-gateways
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
@@ -38,8 +38,8 @@ spec:
           gatewayHTTPRoute:
             parentRefs:
               - kind: Gateway
-                name: traefik
-                namespace: traefik
+                name: ingress
+                namespace: istio-gateways
 ---
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer

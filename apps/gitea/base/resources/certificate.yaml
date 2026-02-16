@@ -4,6 +4,8 @@ kind: Certificate
 metadata:
   name: gitea
 spec:
+  dnsNames:
+    - gitea.example.com
   duration: 168h
   issuerRef:
     kind: ClusterIssuer

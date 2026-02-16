@@ -1,0 +1,302 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: istio-gateways
+
+resources:
+  - ../../base
+  - resources/authorizationpolicy.yaml
+
+patches:
+  - patch: |-
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: git.***REMOVED***
+          name: https-git-home-arpa
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: gitea-tls
+                namespace: gitea
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: immich.***REMOVED***
+          name: https-immich-home-arpa
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: immich-tls
+                namespace: immich
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: instagram.com
+          name: https-instagram-com
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: instagram-com-tls
+                namespace: redirector
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: "*.instagram.com"
+          name: https-instagram-com-wildcard
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: instagram-com-tls
+                namespace: redirector
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: lidarr.***REMOVED***
+          name: https-lidarr-home-arpa
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: lidarr-tls
+                namespace: media
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: medium.com
+          name: https-medium-com
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: medium-com-tls
+                namespace: redirector
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: "*.medium.com"
+          name: https-medium-com-wildcard
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: medium-com-tls
+                namespace: redirector
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: nzbget.***REMOVED***
+          name: https-nzbget-home-arpa
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: nzbget-tls
+                namespace: media
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: ombi.***REMOVED***
+          name: https-ombi-home-arpa
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: ombi-tls
+                namespace: media
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: passwords.***REMOVED***
+          name: https-passwords-home-arpa
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: vaultwarden-tls
+                namespace: vaultwarden
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: prowlarr.***REMOVED***
+          name: https-prowlarr-home-arpa
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: prowlarr-tls
+                namespace: media
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: radarr.***REMOVED***
+          name: https-radarr-home-arpa
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: radarr-tls
+                namespace: media
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: sonarr.***REMOVED***
+          name: https-sonarr-home-arpa
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: sonarr-tls
+                namespace: media
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: tombstone.osborn.io
+          name: https-tombstone-osborn-io
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: tombstone-osborn-io-tls
+                namespace: flux-system
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: twitter.com
+          name: https-twitter-com
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: twitter-com-tls
+                namespace: redirector
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: "*.twitter.com"
+          name: https-twitter-com-wildcard
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: twitter-com-tls
+                namespace: redirector
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: x.com
+          name: https-x-com
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: x-com-tls
+                namespace: redirector
+            mode: Terminate
+      - op: add
+        path: /spec/listeners/-
+        value:
+          allowedRoutes:
+            namespaces:
+              from: All
+          hostname: "*.x.com"
+          name: https-x-com-wildcard
+          port: 443
+          protocol: HTTPS
+          tls:
+            certificateRefs:
+              - kind: Secret
+                name: x-com-tls
+                namespace: redirector
+            mode: Terminate
+    target:
+      kind: Gateway

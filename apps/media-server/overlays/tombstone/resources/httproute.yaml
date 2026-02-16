@@ -2,8 +2,6 @@
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
   labels:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: lidarr
@@ -13,19 +11,32 @@ spec:
     - lidarr.***REMOVED***
   parentRefs:
     - kind: Gateway
-      name: traefik
-      namespace: traefik
-      sectionName: websecure
+      name: ingress
+      namespace: istio-gateways
   rules:
     - backendRefs:
         - name: lidarr
           port: 8686
+      filters:
+        - responseHeaderModifier:
+            set:
+              - name: Permissions-Policy
+                value: geolocation=(), microphone=(), camera=()
+              - name: Referrer-Policy
+                value: strict-origin-when-cross-origin
+              - name: X-Content-Type-Options
+                value: nosniff
+              - name: X-Frame-Options
+                value: DENY
+              - name: X-Robots-Tag
+                value: noindex, nofollow
+              - name: X-XSS-Protection
+                value: 1; mode=block
+          type: ResponseHeaderModifier
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
   labels:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: nzbget
@@ -35,19 +46,32 @@ spec:
     - nzbget.***REMOVED***
   parentRefs:
     - kind: Gateway
-      name: traefik
-      namespace: traefik
-      sectionName: websecure
+      name: ingress
+      namespace: istio-gateways
   rules:
     - backendRefs:
         - name: nzbget
           port: 6789
+      filters:
+        - responseHeaderModifier:
+            set:
+              - name: Permissions-Policy
+                value: geolocation=(), microphone=(), camera=()
+              - name: Referrer-Policy
+                value: strict-origin-when-cross-origin
+              - name: X-Content-Type-Options
+                value: nosniff
+              - name: X-Frame-Options
+                value: DENY
+              - name: X-Robots-Tag
+                value: noindex, nofollow
+              - name: X-XSS-Protection
+                value: 1; mode=block
+          type: ResponseHeaderModifier
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
   labels:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: ombi
@@ -57,19 +81,32 @@ spec:
     - ombi.***REMOVED***
   parentRefs:
     - kind: Gateway
-      name: traefik
-      namespace: traefik
-      sectionName: websecure
+      name: ingress
+      namespace: istio-gateways
   rules:
     - backendRefs:
         - name: ombi
           port: 5000
+      filters:
+        - responseHeaderModifier:
+            set:
+              - name: Permissions-Policy
+                value: geolocation=(), microphone=(), camera=()
+              - name: Referrer-Policy
+                value: strict-origin-when-cross-origin
+              - name: X-Content-Type-Options
+                value: nosniff
+              - name: X-Frame-Options
+                value: DENY
+              - name: X-Robots-Tag
+                value: noindex, nofollow
+              - name: X-XSS-Protection
+                value: 1; mode=block
+          type: ResponseHeaderModifier
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
   labels:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: prowlarr
@@ -79,19 +116,32 @@ spec:
     - prowlarr.***REMOVED***
   parentRefs:
     - kind: Gateway
-      name: traefik
-      namespace: traefik
-      sectionName: websecure
+      name: ingress
+      namespace: istio-gateways
   rules:
     - backendRefs:
         - name: prowlarr
           port: 9696
+      filters:
+        - responseHeaderModifier:
+            set:
+              - name: Permissions-Policy
+                value: geolocation=(), microphone=(), camera=()
+              - name: Referrer-Policy
+                value: strict-origin-when-cross-origin
+              - name: X-Content-Type-Options
+                value: nosniff
+              - name: X-Frame-Options
+                value: DENY
+              - name: X-Robots-Tag
+                value: noindex, nofollow
+              - name: X-XSS-Protection
+                value: 1; mode=block
+          type: ResponseHeaderModifier
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
   labels:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: radarr
@@ -101,19 +151,32 @@ spec:
     - radarr.***REMOVED***
   parentRefs:
     - kind: Gateway
-      name: traefik
-      namespace: traefik
-      sectionName: websecure
+      name: ingress
+      namespace: istio-gateways
   rules:
     - backendRefs:
         - name: radarr
           port: 7878
+      filters:
+        - responseHeaderModifier:
+            set:
+              - name: Permissions-Policy
+                value: geolocation=(), microphone=(), camera=()
+              - name: Referrer-Policy
+                value: strict-origin-when-cross-origin
+              - name: X-Content-Type-Options
+                value: nosniff
+              - name: X-Frame-Options
+                value: DENY
+              - name: X-Robots-Tag
+                value: noindex, nofollow
+              - name: X-XSS-Protection
+                value: 1; mode=block
+          type: ResponseHeaderModifier
 ---
 apiVersion: gateway.networking.k8s.io/v1
 kind: HTTPRoute
 metadata:
-  annotations:
-    traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
   labels:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: sonarr
@@ -123,10 +186,25 @@ spec:
     - sonarr.***REMOVED***
   parentRefs:
     - kind: Gateway
-      name: traefik
-      namespace: traefik
-      sectionName: websecure
+      name: ingress
+      namespace: istio-gateways
   rules:
     - backendRefs:
         - name: sonarr
           port: 8989
+      filters:
+        - responseHeaderModifier:
+            set:
+              - name: Permissions-Policy
+                value: geolocation=(), microphone=(), camera=()
+              - name: Referrer-Policy
+                value: strict-origin-when-cross-origin
+              - name: X-Content-Type-Options
+                value: nosniff
+              - name: X-Frame-Options
+                value: DENY
+              - name: X-Robots-Tag
+                value: noindex, nofollow
+              - name: X-XSS-Protection
+                value: 1; mode=block
+          type: ResponseHeaderModifier
