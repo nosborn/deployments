@@ -10,7 +10,7 @@ resources:
   - resources/deployment.yaml
   - resources/httproute.yaml
   - resources/namespace.yaml
-  # - resources/networkpolicy.yaml
+  - resources/networkpolicy.yaml
   - resources/peerauthentication.yaml
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml

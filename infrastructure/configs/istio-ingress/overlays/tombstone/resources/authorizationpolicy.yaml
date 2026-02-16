@@ -2,27 +2,20 @@
 apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
-  name: deny-external-to-internal
+  name: allow-local
 spec:
-  action: DENY
+  action: ALLOW
   rules:
     - from:
         - source:
-            notIpBlocks:
+            ipBlocks:
               - 192.168.1.0/24
               - ***REMOVED***
               - ***REMOVED***
-      to:
-        - operation:
-            hosts:
-              - git.***REMOVED***
-              - lidarr.***REMOVED***
-              - nzbget.***REMOVED***
-              - ombi.***REMOVED***
-              - passwords.***REMOVED***
-              - prowlarr.***REMOVED***
-              - radarr.***REMOVED***
-              - sonarr.***REMOVED***
+              - ***REMOVED***
+            notIpBlocks:
+              - 192.168.1.1/32
+              - 2a0b:9401:8b:1::1/128
   targetRef:
     group: gateway.networking.k8s.io
     kind: Gateway
