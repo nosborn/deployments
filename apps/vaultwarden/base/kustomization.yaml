@@ -5,12 +5,12 @@ kind: Kustomization
 namespace: vaultwarden
 
 resources:
-  - resources/certificate.yaml
   - resources/cronjob.yaml
   - resources/deployment.yaml
   - resources/ingress.yaml
   - resources/namespace.yaml
   # - resources/networkpolicy.yaml
+  - resources/peerauthentication.yaml
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/role.yaml

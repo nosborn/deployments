@@ -22,10 +22,7 @@ spec:
   postRenderers:
     - kustomize:
         patches:
-          - target:
-              kind: Deployment
-              name: sops-secrets-operator
-            patch: |
+          - patch: |
               - op: add
                 path: /metadata/annotations/secret.reloader.stakater.com~1reload
                 value: sops-age-key-file
@@ -36,6 +33,8 @@ spec:
                 path: /spec/template/spec/containers/0/securityContext/capabilities/drop
                 value:
                   - ALL
+            target:
+              kind: Deployment
   upgrade:
     crds: Skip
   values:

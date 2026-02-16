@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/name: lidarr
   name: lidarr
 spec:
+  ipFamilyPolicy: PreferDualStack
   ports:
     - name: http
       port: 8686
@@ -26,6 +27,7 @@ metadata:
     app.kubernetes.io/name: nzbget
   name: nzbget
 spec:
+  ipFamilyPolicy: PreferDualStack
   ports:
     - name: http
       port: 6789
@@ -44,6 +46,7 @@ metadata:
     app.kubernetes.io/name: ombi
   name: ombi
 spec:
+  ipFamilyPolicy: PreferDualStack
   ports:
     - name: http
       port: 5000
@@ -62,6 +65,7 @@ metadata:
     app.kubernetes.io/name: prowlarr
   name: prowlarr
 spec:
+  ipFamilyPolicy: PreferDualStack
   ports:
     - name: http
       port: 9696
@@ -80,6 +84,7 @@ metadata:
     app.kubernetes.io/name: radarr
   name: radarr
 spec:
+  ipFamilyPolicy: PreferDualStack
   ports:
     - name: http
       port: 7878
@@ -98,6 +103,7 @@ metadata:
     app.kubernetes.io/name: sonarr
   name: sonarr
 spec:
+  ipFamilyPolicy: PreferDualStack
   ports:
     - name: http
       port: 8989

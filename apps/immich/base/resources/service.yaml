@@ -8,6 +8,9 @@ metadata:
     app.kubernetes.io/service: immich-machine-learning
   name: immich-machine-learning
 spec:
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
   ports:
     - name: http
       port: 3003
@@ -51,6 +54,7 @@ metadata:
     app.kubernetes.io/service: immich-server
   name: immich-server
 spec:
+  ipFamilyPolicy: PreferDualStack
   ports:
     - name: http
       port: 2283
