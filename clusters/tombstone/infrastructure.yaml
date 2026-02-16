@@ -71,6 +71,24 @@ spec:
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
+  name: istio
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: helm-repositories
+  interval: 10m
+  path: ./infrastructure/controllers/istio/overlays/tombstone
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 10m
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
   name: metallb
   namespace: flux-system
 spec:
@@ -199,6 +217,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
+    - name: istio
     - name: traefik-crds
   interval: 10m
   path: ./infrastructure/configs/traefik
