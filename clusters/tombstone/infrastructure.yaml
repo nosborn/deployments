@@ -23,6 +23,7 @@ metadata:
 spec:
   dependsOn:
     - name: cert-manager
+    - name: traefik-config
   interval: 10m
   path: ./infrastructure/configs/cert-manager
   prune: true
@@ -218,6 +219,7 @@ metadata:
 spec:
   dependsOn:
     - name: istio
+    - name: traefik
     - name: traefik-crds
   interval: 10m
   path: ./infrastructure/configs/traefik

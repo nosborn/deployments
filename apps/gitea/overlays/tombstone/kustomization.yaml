@@ -6,7 +6,6 @@ namespace: gitea
 
 resources:
   - ../../base
-  - resources/ingress.yaml
   - resources/sopssecret.yaml
 
 configMapGenerator:
@@ -41,3 +40,21 @@ patches:
     target:
       kind: Deployment
       name: gitea
+  - patch: |-
+      - op: add
+        path: /spec/dnsNames
+        value:
+          - git.***REMOVED***
+    target:
+      kind: Certificate
+  - patch: |-
+      - op: add
+        path: /metadata/annotations
+        value:
+          traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
+      - op: add
+        path: /spec/hostnames
+        value:
+          - git.***REMOVED***
+    target:
+      kind: HTTPRoute

@@ -6,7 +6,7 @@ namespace: immich
 
 resources:
   - resources/deployment.yaml
-  - resources/httproute.yaml # TODO: use Ingress
+  - resources/httproute.yaml
   - resources/namespace.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/service.yaml

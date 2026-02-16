@@ -6,7 +6,8 @@ namespace: media
 
 resources:
   - ../../base
-  - resources/ingress.yaml
+  - resources/certificate.yaml
+  - resources/httproute.yaml
   - resources/sopssecret.yaml
 
 patches:
