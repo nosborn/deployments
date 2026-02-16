@@ -9,10 +9,25 @@ metadata:
 spec:
   parentRefs:
     - kind: Gateway
-      name: traefik
-      namespace: traefik
-      sectionName: websecure
+      name: ingress
+      namespace: istio-gateways
   rules:
     - backendRefs:
         - name: vaultwarden
           port: 80
+      filters:
+        - responseHeaderModifier:
+            set:
+              - name: Permissions-Policy
+                value: geolocation=(), microphone=(), camera=()
+              - name: Referrer-Policy
+                value: strict-origin-when-cross-origin
+              - name: X-Content-Type-Options
+                value: nosniff
+              - name: X-Frame-Options
+                value: DENY
+              - name: X-Robots-Tag
+                value: noindex, nofollow
+              - name: X-XSS-Protection
+                value: 1; mode=block
+          type: ResponseHeaderModifier

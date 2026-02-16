@@ -41,17 +41,13 @@ patches:
       kind: Deployment
       name: gitea
   - patch: |-
-      - op: add
+      - op: replace
         path: /spec/dnsNames
         value:
           - git.***REMOVED***
     target:
       kind: Certificate
   - patch: |-
-      - op: add
-        path: /metadata/annotations
-        value:
-          traefik.ingress.kubernetes.io/router.middlewares: traefik-ip-allowlist-internal@kubernetescrd
       - op: add
         path: /spec/hostnames
         value:

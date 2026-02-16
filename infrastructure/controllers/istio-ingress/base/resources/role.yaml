@@ -1,0 +1,22 @@
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  annotations: {}
+  labels:
+    app: ingress
+    app.kubernetes.io/instance: ingress
+    app.kubernetes.io/name: ingress
+    app.kubernetes.io/part-of: istio
+    istio.io/dataplane-mode: none
+    istio: ingress
+  name: ingress
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch

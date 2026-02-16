@@ -8,7 +8,7 @@ spec:
   dependsOn:
     - name: cert-manager-config
     - name: sops-secrets-operator-crds
-    - name: traefik-config
+    - name: istio-ingress-config
   interval: 10m
   path: ./apps/gitea/overlays/tombstone
   prune: true
@@ -27,7 +27,7 @@ spec:
   dependsOn:
     - name: cert-manager-config
     - name: sops-secrets-operator-crds
-    - name: traefik-config
+    - name: istio-ingress-config
   interval: 10m
   path: ./apps/immich/overlays/tombstone
   prune: true
@@ -63,7 +63,7 @@ spec:
   dependsOn:
     - name: cert-manager-config
     - name: sops-secrets-operator-crds
-    - name: traefik-config
+    - name: istio-ingress-config
   interval: 10m
   path: ./apps/media-server/overlays/tombstone
   prune: true
@@ -82,7 +82,7 @@ spec:
   dependsOn:
     - name: cert-manager-config
     - name: sops-secrets-operator-crds
-    - name: traefik-config
+    - name: istio-ingress-config
   interval: 10m
   path: ./apps/redirector/overlays/tombstone
   prune: true
@@ -101,7 +101,7 @@ spec:
   dependsOn:
     - name: istio
     - name: sops-secrets-operator-crds
-    - name: traefik-config
+    - name: istio-ingress-config
   interval: 10m
   path: ./apps/vaultwarden/overlays/tombstone
   prune: true

@@ -5,8 +5,8 @@ metadata:
   name: instagram-com
 spec:
   dnsNames:
-    - instagram.com
     - "*.instagram.com"
+    - instagram.com
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
@@ -20,8 +20,8 @@ metadata:
   name: medium-com
 spec:
   dnsNames:
-    - medium.com
     - "*.medium.com"
+    - medium.com
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
@@ -35,8 +35,8 @@ metadata:
   name: twitter-com
 spec:
   dnsNames:
-    - twitter.com
     - "*.twitter.com"
+    - twitter.com
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
@@ -50,8 +50,8 @@ metadata:
   name: x-com
 spec:
   dnsNames:
-    - x.com
     - "*.x.com"
+    - x.com
   duration: 168h
   issuerRef:
     kind: ClusterIssuer

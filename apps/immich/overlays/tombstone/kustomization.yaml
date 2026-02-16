@@ -8,9 +8,13 @@ resources:
 
 patches:
   - patch: |-
-      - op: add
-        path: /metadata/annotations/traefik.ingress.kubernetes.io~1router.middlewares
-        value: traefik-ip-allowlist-internal@kubernetescrd
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - immich.***REMOVED***
+    target:
+      kind: Certificate
+  - patch: |-
       - op: add
         path: /spec/hostnames
         value:

@@ -8,3 +8,4 @@ resources:
   - resources/certificate.yaml
   - resources/httproute.yaml
   - resources/networkpolicy.yaml
+  - resources/referencegrant.yaml
