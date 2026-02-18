@@ -7,10 +7,9 @@ namespace: immich
 resources:
   - resources/certificate.yaml
   - resources/deployment.yaml
-  - resources/httproute.yaml
+  - resources/ingressroute.yaml
   - resources/namespace.yaml
   - resources/peerauthentication.yaml
   - resources/persistentvolumeclaim.yaml
-  - resources/referencegrant.yaml
   - resources/service.yaml
   - resources/sopssecret.yaml

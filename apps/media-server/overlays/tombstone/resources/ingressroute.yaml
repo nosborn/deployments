@@ -1,0 +1,144 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: lidarr
+  name: lidarr
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`lidarr.***REMOVED***`)
+      middlewares:
+        - name: ip-allowlist
+          namespace: traefik
+        - name: security-headers
+          namespace: traefik
+      services:
+        - name: lidarr
+          port: 8686
+  tls:
+    secretName: lidarr-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: nzbget
+  name: nzbget
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`nzbget.***REMOVED***`)
+      middlewares:
+        - name: ip-allowlist
+          namespace: traefik
+        - name: security-headers
+          namespace: traefik
+      services:
+        - name: nzbget
+          port: 6789
+  tls:
+    secretName: nzbget-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: ombi
+  name: ombi
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`ombi.***REMOVED***`)
+      middlewares:
+        - name: ip-allowlist
+          namespace: traefik
+        - name: security-headers
+          namespace: traefik
+      services:
+        - name: ombi
+          port: 5000
+  tls:
+    secretName: ombi-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: prowlarr
+  name: prowlarr
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`prowlarr.***REMOVED***`)
+      middlewares:
+        - name: ip-allowlist
+          namespace: traefik
+        - name: security-headers
+          namespace: traefik
+      services:
+        - name: prowlarr
+          port: 9696
+  tls:
+    secretName: prowlarr-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: radarr
+  name: radarr
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`radarr.***REMOVED***`)
+      middlewares:
+        - name: ip-allowlist
+          namespace: traefik
+        - name: security-headers
+          namespace: traefik
+      services:
+        - name: radarr
+          port: 7878
+  tls:
+    secretName: radarr-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: sonarr
+  name: sonarr
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`sonarr.***REMOVED***`)
+      middlewares:
+        - name: ip-allowlist
+          namespace: traefik
+        - name: security-headers
+          namespace: traefik
+      services:
+        - name: sonarr
+          port: 8989
+  tls:
+    secretName: sonarr-tls

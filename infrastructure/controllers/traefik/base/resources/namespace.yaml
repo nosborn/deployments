@@ -5,4 +5,4 @@ metadata:
   labels:
     istio.io/dataplane-mode: ambient
     pod-security.kubernetes.io/enforce: restricted
-  name: istio-gateways
+  name: traefik

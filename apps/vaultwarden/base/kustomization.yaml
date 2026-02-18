@@ -8,13 +8,12 @@ resources:
   - resources/certificate.yaml
   - resources/cronjob.yaml
   - resources/deployment.yaml
-  - resources/httproute.yaml
+  - resources/ingressroute.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
   - resources/peerauthentication.yaml
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
-  - resources/referencegrant.yaml
   - resources/role.yaml
   - resources/rolebinding.yaml
   - resources/service.yaml

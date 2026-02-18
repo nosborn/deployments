@@ -1,0 +1,19 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: flux-webhook
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`tombstone.osborn.io`) && PathPrefix(`/hook/`)
+      middlewares:
+        - name: security-headers
+          namespace: traefik
+      services:
+        - name: notification-controller
+          port: 80
+  tls:
+    secretName: tombstone-osborn-io-tls

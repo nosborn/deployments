@@ -15,9 +15,9 @@ patches:
     target:
       kind: Certificate
   - patch: |-
-      - op: add
-        path: /spec/hostnames
-        value:
-          - immich.***REMOVED***
+      - op: replace
+        path: /spec/routes/0/match
+        value: "Host(`immich.***REMOVED***`)"
     target:
-      kind: HTTPRoute
+      kind: IngressRoute
+      name: immich

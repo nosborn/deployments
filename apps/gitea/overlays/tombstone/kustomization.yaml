@@ -48,9 +48,9 @@ patches:
     target:
       kind: Certificate
   - patch: |-
-      - op: add
-        path: /spec/hostnames
-        value:
-          - git.***REMOVED***
+      - op: replace
+        path: /spec/routes/0/match
+        value: "Host(`git.***REMOVED***`)"
     target:
-      kind: HTTPRoute
+      kind: IngressRoute
+      name: gitea
