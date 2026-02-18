@@ -201,6 +201,7 @@ spec:
   dependsOn:
     - name: helm-repositories
     - name: metallb-config
+    - name: traefik-crds
   interval: 10m
   path: ./infrastructure/controllers/traefik/overlays/tombstone
   prune: true
@@ -221,6 +222,22 @@ spec:
     - name: traefik
   interval: 10m
   path: ./infrastructure/configs/traefik/overlays/tombstone
+  prune: true
+  retryInterval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  timeout: 10m
+  wait: true
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: traefik-crds
+  namespace: flux-system
+spec:
+  interval: 10m
+  path: ./infrastructure/configs/traefik-crds/overlays/tombstone
   prune: true
   retryInterval: 1m
   sourceRef:

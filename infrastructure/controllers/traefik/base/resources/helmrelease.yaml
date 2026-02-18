@@ -13,9 +13,12 @@ spec:
         namespace: flux-system
       version: 39.0.1
   install:
+    crds: Skip
     remediation:
       retries: 3
   interval: 1h
+  upgrade:
+    crds: Skip
   values:
     global:
       checkNewVersion: false
