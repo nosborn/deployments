@@ -10,5 +10,5 @@ spec:
         namespaces:
           from: All
       name: http
-      port: 80
+      port: 8000
       protocol: HTTP
