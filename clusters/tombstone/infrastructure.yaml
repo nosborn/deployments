@@ -199,8 +199,8 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: helm-repositories
     - name: metallb-config
+    - name: sops-secrets-operator-crds
     - name: traefik-crds
   interval: 10m
   path: ./infrastructure/controllers/traefik/overlays/tombstone
