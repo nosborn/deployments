@@ -54,7 +54,9 @@ metadata:
     app.kubernetes.io/service: immich-server
   name: immich-server
 spec:
-  ipFamilyPolicy: PreferDualStack
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
   ports:
     - name: http
       port: 2283
