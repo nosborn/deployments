@@ -24,17 +24,11 @@ spec:
       runAsNonRoot: true
       seccompProfile:
         type: RuntimeDefault
-    ports:
-      web:
-        http:
-          redirections:
-            entryPoint:
-              permanent: true
-              scheme: https
-              to: websecure
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
+      kubernetesGateway:
+        enabled: true
       kubernetesIngress:
         enabled: false
     service:
