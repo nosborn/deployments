@@ -5,4 +5,7 @@ kind: Kustomization
 namespace: traefik
 
 resources:
+  - resources/gateway.yaml
+  - resources/gatewayclass.yaml
+  - resources/httproute.yaml
   - resources/middleware.yaml
