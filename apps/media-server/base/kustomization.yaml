@@ -11,5 +11,4 @@ resources:
   - resources/peerauthentication.yaml
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
-  - resources/referencegrant.yaml
   - resources/service.yaml

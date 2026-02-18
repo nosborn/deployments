@@ -6,6 +6,5 @@ namespace: flux-system
 
 resources:
   - resources/certificate.yaml
-  - resources/httproute.yaml
+  - resources/ingressroute.yaml
   - resources/networkpolicy.yaml
-  - resources/referencegrant.yaml
