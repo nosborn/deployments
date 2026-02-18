@@ -5,5 +5,13 @@ kind: Kustomization
 namespace: traefik
 
 resources:
-  - resources/helmrelease.yaml
+  - resources/clusterrole.yaml
+  - resources/clusterrolebinding.yaml
+  - resources/deployment.yaml
+  - resources/gateway.yaml
+  - resources/gatewayclass.yaml
+  - resources/ingressclass.yaml
   - resources/namespace.yaml
+  - resources/service.yaml
+  - resources/serviceaccount.yaml
+  - resources/sopssecret.yaml
