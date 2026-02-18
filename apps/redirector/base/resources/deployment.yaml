@@ -23,7 +23,7 @@ spec:
         app: redirector
     spec:
       containers:
-        - image: docker.io/library/nginx:1.29.4-alpine-slim
+        - image: ghcr.io/nosborn/nginx:1.28.2
           name: nginx
           ports:
             - containerPort: 8080
@@ -48,21 +48,17 @@ spec:
               drop:
                 - ALL
             readOnlyRootFilesystem: true
-            runAsGroup: 101
             runAsNonRoot: true
-            runAsUser: 101
           volumeMounts:
             - mountPath: /etc/nginx/nginx.conf
               name: config
               subPath: nginx.conf
-            - mountPath: /run
-              name: run
-            - mountPath: /var/cache/nginx
-              name: cache
-      imagePullSecrets:
-        - name: docker-hub
+            - mountPath: /etc/nginx/redirect.js
+              name: config
+              subPath: redirect.js
+            - mountPath: /tmp
+              name: tmp
       securityContext:
-        fsGroup: 101
         seccompProfile:
           type: RuntimeDefault
       volumes:
@@ -74,4 +70,4 @@ spec:
         - emptyDir:
             medium: Memory
             sizeLimit: 1Mi
-          name: run
+          name: tmp

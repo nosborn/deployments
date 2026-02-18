@@ -2,6 +2,20 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: go-skimresources-com
+spec:
+  dnsNames:
+    - go.skimresources.com
+  duration: 168h
+  issuerRef:
+    kind: ClusterIssuer
+    name: ownca
+  renewBefore: 8h
+  secretName: go-skimresources-com-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: instagram-com
 spec:
   dnsNames:
