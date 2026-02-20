@@ -2,111 +2,18 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: gitea
+  name: apps
   namespace: flux-system
 spec:
   dependsOn:
-    - name: cert-manager-config
-    - name: sops-secrets-operator-crds
-    - name: traefik-config
-  interval: 10m
-  path: ./apps/gitea/overlays/tombstone
-  prune: true
-  retryInterval: 1m
+    - name: infra-configs
+  interval: 1h
+  retryInterval: 2m
+  timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: immich
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: cert-manager-config
-    - name: sops-secrets-operator-crds
-    - name: traefik-config
-  interval: 10m
-  path: ./apps/immich/overlays/tombstone
+    namespace: flux-system
+  path: ./apps/tombstone
   prune: true
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: kiali
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: istio
-  interval: 10m
-  path: ./apps/kiali/overlays/tombstone
-  prune: true
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: media-server
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: cert-manager-config
-    - name: sops-secrets-operator-crds
-    - name: traefik-config
-  interval: 10m
-  path: ./apps/media-server/overlays/tombstone
-  prune: true
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: redirector
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: cert-manager-config
-    - name: sops-secrets-operator-crds
-    - name: traefik-config
-  interval: 10m
-  path: ./apps/redirector/overlays/tombstone
-  prune: true
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  timeout: 5m
----
-apiVersion: kustomize.toolkit.fluxcd.io/v1
-kind: Kustomization
-metadata:
-  name: vaultwarden
-  namespace: flux-system
-spec:
-  dependsOn:
-    - name: istio
-    - name: sops-secrets-operator-crds
-    - name: traefik-config
-  interval: 10m
-  path: ./apps/vaultwarden/overlays/tombstone
-  prune: true
-  retryInterval: 1m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-  timeout: 5m
+  wait: true

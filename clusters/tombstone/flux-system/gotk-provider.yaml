@@ -1,0 +1,11 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: github
+  namespace: flux-system
+spec:
+  address: https://github.com/nosborn/deployments
+  secretRef:
+    name: github-token
+  type: github
