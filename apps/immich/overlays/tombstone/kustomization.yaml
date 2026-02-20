@@ -11,13 +11,61 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - immich.***REMOVED***
+          - photos.***REMOVED***
     target:
       kind: Certificate
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
-        value: "Host(`immich.***REMOVED***`)"
+        value: "Host(`photos.***REMOVED***`)"
     target:
       kind: IngressRoute
       name: immich
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/securityContext/fsGroup
+        value: 987
+      - op: add
+        path: /spec/template/spec/containers/0/securityContext/runAsGroup
+        value: 987
+      - op: add
+        path: /spec/template/spec/containers/0/securityContext/runAsUser
+        value: 994
+      - op: add
+        path: /spec/template/spec/containers/0/resources
+        value:
+          limits:
+            cpu: "2"
+            memory: 2Gi
+    target:
+      kind: Deployment
+      name: immich-machine-learning
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/securityContext/fsGroup
+        value: 987
+      - op: add
+        path: /spec/template/spec/containers/0/securityContext/runAsGroup
+        value: 987
+      - op: add
+        path: /spec/template/spec/containers/0/securityContext/runAsUser
+        value: 994
+    target:
+      kind: Deployment
+      name: immich-server
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/securityContext/fsGroup
+        value: 987
+      - op: add
+        path: /spec/template/spec/containers/0/securityContext/runAsGroup
+        value: 987
+      - op: replace
+        path: /spec/template/spec/containers/0/securityContext/runAsNonRoot
+        value: true
+      - op: add
+        path: /spec/template/spec/containers/0/securityContext/runAsUser
+        value: 994
+    target:
+      kind: Deployment
+      name: immich-postgres
