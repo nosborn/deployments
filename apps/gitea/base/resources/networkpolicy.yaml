@@ -25,9 +25,9 @@ metadata:
 spec:
   ingress:
     - from:
-        - podSelector:
+        - namespaceSelector:
             matchLabels:
-              app.kubernetes.io/name: gitea
+              kubernetes.io/metadata.name: gitea
   podSelector:
     matchLabels:
       app.kubernetes.io/name: gitea-valkey

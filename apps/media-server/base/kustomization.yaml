@@ -7,7 +7,7 @@ namespace: media
 resources:
   - resources/deployment.yaml
   - resources/namespace.yaml
-  # - resources/networkpolicy.yaml
+  - resources/networkpolicy.yaml
   - resources/peerauthentication.yaml
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml

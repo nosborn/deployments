@@ -9,6 +9,7 @@ resources:
   - resources/deployment.yaml
   - resources/ingressroute.yaml
   - resources/namespace.yaml
+  - resources/networkpolicy.yaml
   - resources/peerauthentication.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/service.yaml
