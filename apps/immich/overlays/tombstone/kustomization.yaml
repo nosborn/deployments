@@ -23,20 +23,20 @@ patches:
       name: immich
   - patch: |-
       - op: add
-        path: /spec/template/spec/securityContext/fsGroup
-        value: 987
-      - op: add
-        path: /spec/template/spec/containers/0/securityContext/runAsGroup
-        value: 987
-      - op: add
-        path: /spec/template/spec/containers/0/securityContext/runAsUser
-        value: 994
-      - op: add
         path: /spec/template/spec/containers/0/resources
         value:
           limits:
-            cpu: "2"
+            cpu: !!str 2
             memory: 2Gi
+      - op: add
+        path: /spec/template/spec/securityContext/fsGroup
+        value: 987
+      - op: add
+        path: /spec/template/spec/securityContext/runAsGroup
+        value: 987
+      - op: add
+        path: /spec/template/spec/securityContext/runAsUser
+        value: 994
     target:
       kind: Deployment
       name: immich-machine-learning
@@ -45,27 +45,41 @@ patches:
         path: /spec/template/spec/securityContext/fsGroup
         value: 987
       - op: add
-        path: /spec/template/spec/containers/0/securityContext/runAsGroup
+        path: /spec/template/spec/securityContext/runAsGroup
         value: 987
       - op: add
-        path: /spec/template/spec/containers/0/securityContext/runAsUser
-        value: 994
-    target:
-      kind: Deployment
-      name: immich-server
-  - patch: |-
-      - op: add
-        path: /spec/template/spec/securityContext/fsGroup
-        value: 987
-      - op: add
-        path: /spec/template/spec/containers/0/securityContext/runAsGroup
-        value: 987
-      - op: replace
-        path: /spec/template/spec/containers/0/securityContext/runAsNonRoot
-        value: true
-      - op: add
-        path: /spec/template/spec/containers/0/securityContext/runAsUser
+        path: /spec/template/spec/securityContext/runAsUser
         value: 994
     target:
       kind: Deployment
       name: immich-postgres
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value:
+          mountPath: /dev/dri
+          name: dri
+      - op: add
+        path: /spec/template/spec/securityContext/fsGroup
+        value: 987
+      - op: add
+        path: /spec/template/spec/securityContext/supplementalGroups
+        value:
+          - 44  # video
+          - 105 # render
+      - op: add
+        path: /spec/template/spec/securityContext/runAsGroup
+        value: 987
+      - op: add
+        path: /spec/template/spec/securityContext/runAsUser
+        value: 994
+      - op: add
+        path: /spec/template/spec/volumes/-
+        value:
+          hostPath:
+            path: /dev/dri
+            type: Directory
+          name: dri
+    target:
+      kind: Deployment
+      name: immich-server
