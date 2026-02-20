@@ -1,4 +1,4 @@
-function skimresources(r) {
+function redirectToUrlParameter(r) {
   var url = r.args.url;
   if (url) {
     r.return(302, decodeURIComponent(url));
@@ -7,4 +7,4 @@ function skimresources(r) {
   }
 }
 
-export default { skimresources };
+export default { redirectToUrlParameter };
