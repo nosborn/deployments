@@ -9,8 +9,9 @@ spec:
   resources:
     requests:
       storage: 100Gi
-  storageClassName: openebs-hostpath-retain
+  storageClassName: local-storage
   volumeMode: Filesystem
+  volumeName: immich-data
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
