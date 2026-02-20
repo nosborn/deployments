@@ -1,8 +1,17 @@
 ---
 version: 2
 
+registries:
+  ghcr-io:
+    type: docker-registry
+    url: https://ghcr.io
+    username: x-access-token
+    password: ${{ secrets.GHCR_PAT }}
+
 updates:
   - package-ecosystem: docker
+    registries:
+      - ghcr-io
     directories:
       - /**/resources
     groups:
