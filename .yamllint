@@ -1,6 +1,9 @@
 ---
 extends: default
 
+ignore: |
+  clusters/*/flux-system/gotk-components.yaml
+
 rules:
   anchors:
     forbid-duplicated-anchors: true
