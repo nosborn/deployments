@@ -108,14 +108,14 @@ spec:
       type: Recreate
   valuesFrom:
     - kind: Secret
-      name: uptrace
+      name: helm-values
       targetPath: logs.general.otlp.grpc.headers.uptrace-dsn
-      valuesKey: dsn
+      valuesKey: uptrace_dsn
     - kind: Secret
-      name: uptrace
+      name: helm-values
       targetPath: metrics.otlp.grpc.headers.uptrace-dsn
-      valuesKey: dsn
+      valuesKey: uptrace_dsn
     - kind: Secret
-      name: uptrace
+      name: helm-values
       targetPath: tracing.otlp.grpc.headers.uptrace-dsn
-      valuesKey: dsn
+      valuesKey: uptrace_dsn

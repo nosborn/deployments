@@ -3,12 +3,27 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
+  - ../base/gitea
   - ../base/kiali
   - ../base/redirector
   - ../base/vaultwarden
   - resources/sopssecret.yaml
 
+configMapGenerator:
+  - behavior: merge
+    envs:
+      - configs/gitea-app-ini.env=app-ini.env
+    name: gitea-app-ini-env
+
 patches:
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - git.***REMOVED***
+    target:
+      kind: Certificate
+      namespace: gitea
   - patch: |-
       - op: replace
         path: /spec/dnsNames
@@ -17,6 +32,19 @@ patches:
     target:
       kind: Certificate
       namespace: vaultwarden
+  - patch: |-
+      - op: add
+        path: /spec/jobTemplate/spec/template/spec/securityContext/fsGroup
+        value: 981
+      - op: add
+        path: /spec/jobTemplate/spec/template/spec/securityContext/runAsGroup
+        value: 981
+      - op: add
+        path: /spec/jobTemplate/spec/template/spec/securityContext/runAsUser
+        value: 987
+    target:
+      kind: CronJob
+      namespace: gitea
   - patch: |-
       - op: add
         path: /spec/jobTemplate/spec/template/spec/securityContext/fsGroup
@@ -33,6 +61,20 @@ patches:
   - patch: |-
       - op: add
         path: /spec/template/spec/securityContext/fsGroup
+        value: 981
+      - op: add
+        path: /spec/template/spec/securityContext/runAsGroup
+        value: 981
+      - op: add
+        path: /spec/template/spec/securityContext/runAsUser
+        value: 987
+    target:
+      kind: Deployment
+      name: gitea
+      namespace: gitea
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/securityContext/fsGroup
         value: 983
       - op: add
         path: /spec/template/spec/securityContext/runAsGroup
@@ -43,6 +85,13 @@ patches:
     target:
       kind: Deployment
       namespace: vaultwarden
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: "Host(`git.***REMOVED***`)"
+    target:
+      kind: IngressRoute
+      namespace: gitea
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
