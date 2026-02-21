@@ -20,7 +20,7 @@ metadata:
 spec:
   parentRefs:
     - kind: Gateway
-      name: ingress
+      name: traefik-gateway
       sectionName: http
   rules:
     - filters:

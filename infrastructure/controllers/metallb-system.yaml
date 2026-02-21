@@ -32,7 +32,6 @@ spec:
         namespace: flux-system
       version: 0.15.3
   install:
-    crds: Create
     remediation:
       retries: 3
   interval: 1h
