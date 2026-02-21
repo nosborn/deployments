@@ -1,0 +1,27 @@
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Alert
+metadata:
+  name: uptrace
+  namespace: flux-system
+spec:
+  eventSources:
+    - kind: GitRepository
+      name: "*"
+    - kind: HelmRelease
+      name: "*"
+    - kind: Kustomization
+      name: "*"
+  providerRef:
+    name: uptrace
+---
+apiVersion: notification.toolkit.fluxcd.io/v1beta3
+kind: Provider
+metadata:
+  name: uptrace
+  namespace: flux-system
+spec:
+  address: https://api.uptrace.dev/v1/traces
+  secretRef:
+    name: uptrace
+  type: otel
