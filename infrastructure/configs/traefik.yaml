@@ -21,7 +21,7 @@ spec:
   parentRefs:
     - kind: Gateway
       name: traefik-gateway
-      sectionName: websecure
+      sectionName: web
   rules:
     - filters:
         - requestRedirect:

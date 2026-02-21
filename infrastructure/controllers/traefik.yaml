@@ -78,6 +78,9 @@ spec:
       traefik:
         expose:
           default: true
+    service:
+      spec:
+        externalTrafficPolicy: Local
     providers:
       # kubernetesCRD:
       #   allowCrossNamespace: true
