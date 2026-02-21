@@ -1,3 +1,4 @@
+# yamllint disable rule:line-length
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
@@ -37,4 +38,49 @@ spec:
   interval: 1h
   upgrade:
     crds: CreateReplace
-  values: {}
+  values:
+    certificatesResolvers:
+      letsencrypt:
+        acme:
+          caServer: https://acme-staging-v02.api.letsencrypt.org/directory # FIXME
+          httpChallenge:
+            entryPoint: web
+          keyType: RSA4096 # TODO
+          profile: shortlived
+          storage: /data/acme.json
+          tlsChallenge: {}
+    deployment:
+      podAnnotations:
+        ambient.istio.io/bypass-inbound-capture: true
+      revisionHistoryLimit: 0
+    global:
+      checkNewVersion: false
+      sendAnonymousUsage: false
+    ingressClass:
+      enabled: false
+    ingressRoute:
+      dashboard:
+        enabled: true
+        # entryPoints:
+        #   - websecure
+        # middlewares:
+        #   - name: ip-allowlist
+        #     namespace: traefik
+        #   - name: security-headers
+        #     namespace: traefik
+        # tls:
+        #   secretName: traefik-dashboard-tls
+    persistence:
+      enabled: true
+      storageClass: openebs-hostpath
+    ports:
+      traefik:
+        expose:
+          default: true
+    providers:
+      kubernetesGateway:
+        enabled: true
+      kubernetesIngress:
+        enabled: false
+    updateStrategy:
+      type: Recreate

@@ -16,6 +16,15 @@ spec:
             - 2a0b:9401:8b:1:3e07:54ff:fe5c:dd07/128
       target:
         kind: IPAddressPool
+        name: default
+        # - patch: |-
+        #     - op: replace
+        #       path: /spec/routes/0/match
+        #       value: Host(`traefik.***REMOVED***`)
+        #   target:
+        #     kind: IngressRoute
+        #     name: traefik-dashboard
+        #     namespace: traefik
   prune: true
   retryInterval: 2m
   sourceRef:
