@@ -14,9 +14,7 @@ spec:
       match: Host(`vaultwarden.example.com`)
       middlewares:
         - name: ip-allowlist
-          namespace: traefik
         - name: security-headers
-          namespace: traefik
       services:
         - name: vaultwarden
           port: 80
