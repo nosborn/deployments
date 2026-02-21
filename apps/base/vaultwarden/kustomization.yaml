@@ -9,9 +9,10 @@ resources:
   - resources/cronjob.yaml
   - resources/deployment.yaml
   - resources/ingressroute.yaml
+  - resources/middleware.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
-  - resources/peerauthentication.yaml
+  # - resources/peerauthentication.yaml
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/role.yaml

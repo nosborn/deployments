@@ -5,3 +5,48 @@ kind: Kustomization
 resources:
   # - ../base/kiali
   - ../base/redirector
+  - ../base/vaultwarden
+  - resources/sopssecret.yaml
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - passwords.***REMOVED***
+    target:
+      kind: Certificate
+      namespace: vaultwarden
+  - patch: |-
+      - op: add
+        path: /spec/jobTemplate/spec/template/spec/securityContext/fsGroup
+        value: 983
+      - op: add
+        path: /spec/jobTemplate/spec/template/spec/securityContext/runAsGroup
+        value: 983
+      - op: add
+        path: /spec/jobTemplate/spec/template/spec/securityContext/runAsUser
+        value: 989
+    target:
+      kind: CronJob
+      namespace: vaultwarden
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/securityContext/fsGroup
+        value: 983
+      - op: add
+        path: /spec/template/spec/securityContext/runAsGroup
+        value: 983
+      - op: add
+        path: /spec/template/spec/securityContext/runAsUser
+        value: 989
+    target:
+      kind: Deployment
+      namespace: vaultwarden
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: "Host(`passwords.***REMOVED***`)"
+    target:
+      kind: IngressRoute
+      namespace: vaultwarden
