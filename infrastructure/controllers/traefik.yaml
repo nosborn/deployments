@@ -50,10 +50,10 @@ spec:
           tlsChallenge: {}
     deployment:
       podAnnotations:
-        # ambient.istio.io/bypass-inbound-capture: !!str true
         traffic.sidecar.istio.io/excludeInboundPorts: 80,443,8080
-        # traffic.sidecar.istio.io/excludeOutboundIPRanges: ${KUBERNETES_SVC_IP}/32
       revisionHistoryLimit: 0
+    experimental:
+      otlpLogs: true
     global:
       checkNewVersion: false
       sendAnonymousUsage: false
@@ -71,6 +71,17 @@ spec:
         #     namespace: traefik
         # tls:
         #   secretName: traefik-dashboard-tls
+    logs:
+      general:
+        otlp:
+          enabled: true
+          grpc:
+            enabled: true
+    metrics:
+      otlp:
+        enabled: true
+        grpc:
+          enabled: true
     persistence:
       enabled: true
       storageClass: openebs-hostpath
@@ -78,15 +89,33 @@ spec:
       traefik:
         expose:
           default: true
-    service:
-      spec:
-        externalTrafficPolicy: Local
     providers:
-      # kubernetesCRD:
-      #   allowCrossNamespace: true
+      kubernetesCRD:
+        allowCrossNamespace: true
       kubernetesGateway:
         enabled: true
       kubernetesIngress:
         enabled: false
+    service:
+      spec:
+        externalTrafficPolicy: Local
+    tracing:
+      otlp:
+        enabled: true
+        grpc:
+          enabled: true
     updateStrategy:
       type: Recreate
+  valuesFrom:
+    - kind: Secret
+      name: uptrace
+      targetPath: logs.general.otlp.grpc.endpoint
+      valuesKey: dsn
+    - kind: Secret
+      name: uptrace
+      targetPath: metrics.otlp.grpc.endpoint
+      valuesKey: dsn
+    - kind: Secret
+      name: uptrace
+      targetPath: tracing.otlp.grpc.endpoint
+      valuesKey: dsn
