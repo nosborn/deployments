@@ -1,3 +1,40 @@
+# yamllint disable rule:line-length
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirector-instagram
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`instagram.com`) || Host(`www.instagram.com`)
+      middlewares:
+        - name: ip-allowlist
+      services:
+        - name: redirector
+          port: 80
+  tls:
+    secretName: instagram-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirector-medium
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`medium.com`) || Host(`www.medium.com`)
+      middlewares:
+        - name: ip-allowlist
+      services:
+        - name: redirector
+          port: 80
+  tls:
+    secretName: medium-tls
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
@@ -11,50 +48,11 @@ spec:
       match: Host(`go.skimresources.com`)
       middlewares:
         - name: ip-allowlist
-        - name: security-headers
       services:
         - name: redirector
           port: 80
   tls:
-    secretName: go-skimresources-com-tls
----
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
-metadata:
-  name: redirector-instagram
-spec:
-  entryPoints:
-    - websecure
-  routes:
-    - kind: Rule
-      match: Host(`instagram.com`) || HostRegexp(`^[^.]+\.instagram\.com$`)
-      middlewares:
-        - name: ip-allowlist
-        - name: security-headers
-      services:
-        - name: redirector
-          port: 80
-  tls:
-    secretName: instagram-com-tls
----
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
-metadata:
-  name: redirector-medium
-spec:
-  entryPoints:
-    - websecure
-  routes:
-    - kind: Rule
-      match: Host(`medium.com`) || HostRegexp(`^[^.]+\.medium\.com$`)
-      middlewares:
-        - name: ip-allowlist
-        - name: security-headers
-      services:
-        - name: redirector
-          port: 80
-  tls:
-    secretName: medium-com-tls
+    secretName: skimresources-tls
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
@@ -65,31 +63,11 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`twitter.com`) || HostRegexp(`^[^.]+\.twitter\.com$`)
+      match: Host(`twitter.com`) || Host(`www.twitter.com`) || Host(`www.x.com`) || Host(`x.com`)
       middlewares:
         - name: ip-allowlist
-        - name: security-headers
       services:
         - name: redirector
           port: 80
   tls:
-    secretName: twitter-com-tls
----
-apiVersion: traefik.io/v1alpha1
-kind: IngressRoute
-metadata:
-  name: redirector-x
-spec:
-  entryPoints:
-    - websecure
-  routes:
-    - kind: Rule
-      match: Host(`x.com`) || HostRegexp(`^[^.]+\.x\.com$`)
-      middlewares:
-        - name: ip-allowlist
-        - name: security-headers
-      services:
-        - name: redirector
-          port: 80
-  tls:
-    secretName: x-com-tls
+    secretName: twitter-tls
