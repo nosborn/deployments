@@ -2,31 +2,30 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: vaultwarden
+namespace: gitea
 
 resources:
   - resources/certificate.yaml
   - resources/cronjob.yaml
   - resources/deployment.yaml
   - resources/ingressroute.yaml
-  - resources/middleware.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
   - resources/peerauthentication.yaml
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
-  - resources/role.yaml
-  - resources/rolebinding.yaml
   - resources/service.yaml
-  - resources/serviceaccount.yaml
   - resources/sopssecret.yaml
 
 configMapGenerator:
-  - name: vaultwarden
-    envs:
-      - configs/vaultwarden.env
-    options:
-      labels:
-        app.kubernetes.io/component: vaultwarden
-        app.kubernetes.io/instance: vaultwarden
-        app.kubernetes.io/name: vaultwarden
+  - envs:
+      - configs/app-ini.env
+    name: gitea-app-ini-env
+  - envs:
+      - configs/config.env
+    name: gitea-config-env
+  - files:
+      - scripts/configure_gitea.sh
+      - scripts/configure_gpg_environment.sh
+      - scripts/init_directory_structure.sh
+    name: gitea-init
