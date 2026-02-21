@@ -37,10 +37,15 @@ spec:
   values:
     reloader:
       deployment:
+        containerSecurityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
         revisionHistoryLimit: 0
       netpol:
         enabled: true
-      readOnlyRootFilesystem: true
+      readOnlyRootFileSystem: true
       reloadOnCreate: true
       reloadOnDelete: true
       syncAfterRestart: true
