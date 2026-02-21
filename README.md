@@ -1,7 +1,7 @@
-# deployments
+# flux-system
 
-[![CI](https://github.com/nosborn/deployments/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/nosborn/deployments/actions/workflows/ci.yml)
-[![Dependabot Updates](https://github.com/nosborn/deployments/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/nosborn/deployments/actions/workflows/dependabot/dependabot-updates)
+[![CI](https://github.com/nosborn/flux-system/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/nosborn/flux-system/actions/workflows/ci.yml)
+[![Dependabot Updates](https://github.com/nosborn/flux-system/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/nosborn/flux-system/actions/workflows/dependabot/dependabot-updates)
 
 ## License
 
