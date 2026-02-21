@@ -10,3 +10,13 @@ resources:
   - reloader.yaml
   - sops-secrets-operator.yaml
   - traefik.yaml
+
+patches:
+  - patch: |
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value: --enable-certificate-owner-ref=true
+    target:
+      kind: Deployment
+      name: cert-manager
+      namespace: cert-manager
