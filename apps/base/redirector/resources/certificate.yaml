@@ -2,7 +2,37 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: go-skimresources-com
+  name: instagram
+spec:
+  dnsNames:
+    - instagram.com
+    - www.instagram.com
+  duration: 168h
+  issuerRef:
+    kind: ClusterIssuer
+    name: ownca
+  renewBefore: 8h
+  secretName: instagram-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: medium
+spec:
+  dnsNames:
+    - medium.com
+    - www.medium.com
+  duration: 168h
+  issuerRef:
+    kind: ClusterIssuer
+    name: ownca
+  renewBefore: 8h
+  secretName: medium-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: skimresources
 spec:
   dnsNames:
     - go.skimresources.com
@@ -11,64 +41,21 @@ spec:
     kind: ClusterIssuer
     name: ownca
   renewBefore: 8h
-  secretName: go-skimresources-com-tls
+  secretName: skimresources-tls
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: instagram-com
+  name: twitter
 spec:
   dnsNames:
-    - "*.instagram.com"
-    - instagram.com
-  duration: 168h
-  issuerRef:
-    kind: ClusterIssuer
-    name: ownca
-  renewBefore: 8h
-  secretName: instagram-com-tls
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: medium-com
-spec:
-  dnsNames:
-    - "*.medium.com"
-    - medium.com
-  duration: 168h
-  issuerRef:
-    kind: ClusterIssuer
-    name: ownca
-  renewBefore: 8h
-  secretName: medium-com-tls
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: twitter-com
-spec:
-  dnsNames:
-    - "*.twitter.com"
     - twitter.com
-  duration: 168h
-  issuerRef:
-    kind: ClusterIssuer
-    name: ownca
-  renewBefore: 8h
-  secretName: twitter-com-tls
----
-apiVersion: cert-manager.io/v1
-kind: Certificate
-metadata:
-  name: x-com
-spec:
-  dnsNames:
-    - "*.x.com"
+    - www.twitter.com
+    - www.x.com
     - x.com
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
     name: ownca
   renewBefore: 8h
-  secretName: x-com-tls
+  secretName: twitter-tls
