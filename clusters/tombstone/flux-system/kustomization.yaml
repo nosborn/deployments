@@ -11,6 +11,9 @@ resources:
 
 patches:
   - patch: |
+      - op: add
+        path: /spec/revisionHistoryLimit
+        value: 0
       - op: replace
         path: /spec/template/spec/containers/0/resources
         value: {}

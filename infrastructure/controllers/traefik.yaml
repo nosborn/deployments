@@ -41,16 +41,13 @@ spec:
     certificatesResolvers:
       letsencrypt:
         acme:
-          caServer: https://acme-staging-v02.api.letsencrypt.org/directory # FIXME
-          httpChallenge:
-            entryPoint: web
-          keyType: RSA4096 # TODO
+          keyType: EC256
           profile: shortlived
           storage: /data/acme.json
-          tlsChallenge: {}
+          tlsChallenge: !!str true
     deployment:
       podAnnotations:
-        traffic.sidecar.istio.io/excludeInboundPorts: 80,443,8080
+        ambient.istio.io/bypass-inbound-capture: !!str true
       revisionHistoryLimit: 0
     experimental:
       otlpLogs: true
@@ -77,11 +74,13 @@ spec:
           enabled: true
           grpc:
             enabled: true
+            endpoint: api.uptrace.dev:4317
     metrics:
       otlp:
         enabled: true
         grpc:
           enabled: true
+          endpoint: api.uptrace.dev:4317
     persistence:
       enabled: true
       storageClass: openebs-hostpath
@@ -104,18 +103,19 @@ spec:
         enabled: true
         grpc:
           enabled: true
+          endpoint: api.uptrace.dev:4317
     updateStrategy:
       type: Recreate
   valuesFrom:
     - kind: Secret
       name: uptrace
-      targetPath: logs.general.otlp.grpc.endpoint
+      targetPath: logs.general.otlp.grpc.headers.uptrace-dsn
       valuesKey: dsn
     - kind: Secret
       name: uptrace
-      targetPath: metrics.otlp.grpc.endpoint
+      targetPath: metrics.otlp.grpc.headers.uptrace-dsn
       valuesKey: dsn
     - kind: Secret
       name: uptrace
-      targetPath: tracing.otlp.grpc.endpoint
+      targetPath: tracing.otlp.grpc.headers.uptrace-dsn
       valuesKey: dsn
