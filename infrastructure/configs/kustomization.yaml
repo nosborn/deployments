@@ -4,5 +4,7 @@ kind: Kustomization
 
 resources:
   - cert-manager.yaml
+  - flux-webhook.yaml
+  - istio-system.yaml
   - metallb.yaml
   - traefik.yaml
