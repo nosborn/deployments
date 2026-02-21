@@ -5,7 +5,7 @@ metadata:
   name: github
   namespace: flux-system
 spec:
-  address: https://github.com/nosborn/deployments
+  address: https://github.com/nosborn/flux-system
   secretRef:
     name: github-token
   type: github
