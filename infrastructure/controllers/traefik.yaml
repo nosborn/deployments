@@ -32,7 +32,6 @@ spec:
         namespace: flux-system
       version: 39.0.2
   install:
-    crds: Create
     remediation:
       retries: 3
   interval: 1h
@@ -51,7 +50,9 @@ spec:
           tlsChallenge: {}
     deployment:
       podAnnotations:
-        ambient.istio.io/bypass-inbound-capture: true
+        # ambient.istio.io/bypass-inbound-capture: !!str true
+        traffic.sidecar.istio.io/excludeInboundPorts: 80,443,8080
+        # traffic.sidecar.istio.io/excludeOutboundIPRanges: ${KUBERNETES_SVC_IP}/32
       revisionHistoryLimit: 0
     global:
       checkNewVersion: false
@@ -78,6 +79,8 @@ spec:
         expose:
           default: true
     providers:
+      kubernetesCRD:
+        allowCrossNamespace: true
       kubernetesGateway:
         enabled: true
       kubernetesIngress:
