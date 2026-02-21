@@ -11,9 +11,7 @@ spec:
       match: Host(`go.skimresources.com`)
       middlewares:
         - name: ip-allowlist
-          namespace: traefik
         - name: security-headers
-          namespace: traefik
       services:
         - name: redirector
           port: 80
@@ -32,9 +30,7 @@ spec:
       match: Host(`instagram.com`) || HostRegexp(`^[^.]+\.instagram\.com$`)
       middlewares:
         - name: ip-allowlist
-          namespace: traefik
         - name: security-headers
-          namespace: traefik
       services:
         - name: redirector
           port: 80
@@ -53,9 +49,7 @@ spec:
       match: Host(`medium.com`) || HostRegexp(`^[^.]+\.medium\.com$`)
       middlewares:
         - name: ip-allowlist
-          namespace: traefik
         - name: security-headers
-          namespace: traefik
       services:
         - name: redirector
           port: 80
@@ -74,9 +68,7 @@ spec:
       match: Host(`twitter.com`) || HostRegexp(`^[^.]+\.twitter\.com$`)
       middlewares:
         - name: ip-allowlist
-          namespace: traefik
         - name: security-headers
-          namespace: traefik
       services:
         - name: redirector
           port: 80
@@ -95,9 +87,7 @@ spec:
       match: Host(`x.com`) || HostRegexp(`^[^.]+\.x\.com$`)
       middlewares:
         - name: ip-allowlist
-          namespace: traefik
         - name: security-headers
-          namespace: traefik
       services:
         - name: redirector
           port: 80

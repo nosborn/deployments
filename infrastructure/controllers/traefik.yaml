@@ -79,8 +79,8 @@ spec:
         expose:
           default: true
     providers:
-      kubernetesCRD:
-        allowCrossNamespace: true
+      # kubernetesCRD:
+      #   allowCrossNamespace: true
       kubernetesGateway:
         enabled: true
       kubernetesIngress:
