@@ -4,7 +4,7 @@ kind: Kustomization
 
 resources:
   - ../base/gitea
-  - ../base/kiali
+  - ../base/linkerd-viz
   - ../base/redirector
   - ../base/vaultwarden
   - resources/sopssecret.yaml
@@ -12,7 +12,7 @@ resources:
 configMapGenerator:
   - behavior: merge
     envs:
-      - configs/gitea-app-ini.env=app-ini.env
+      - configs/gitea-app-ini.env
     name: gitea-app-ini-env
 
 patches:

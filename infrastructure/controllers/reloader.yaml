@@ -11,8 +11,9 @@ spec:
 apiVersion: v1
 kind: Namespace
 metadata:
+  annotations:
+    linkerd.io/inject: disabled
   labels:
-    istio-injection: disabled
     pod-security.kubernetes.io/enforce: restricted
   name: reloader
 ---

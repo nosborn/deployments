@@ -1,0 +1,32 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: linkerd-viz
+  namespace: linkerd-viz
+spec:
+  chart:
+    spec:
+      chart: linkerd-viz
+      sourceRef:
+        kind: HelmRepository
+        name: linkerd-edge
+        namespace: flux-system
+      version: 2026.2.1
+  install:
+    remediation:
+      retries: 3
+  interval: 1h
+  # postRenderers:
+  #   - kustomize:
+  #       patches:
+  #         - patch: |
+  #             - op: replace
+  #               path: /spec/revisionHistoryLimit
+  #               value: 0
+  #             - op: remove
+  #               path: /spec/template/spec/containers/0/resources
+  #           target:
+  #             kind: Deployment
+  values:
+    createNamespaceMetadataJob: true # TODO: false

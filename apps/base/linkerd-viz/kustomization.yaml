@@ -4,4 +4,4 @@ kind: Kustomization
 
 resources:
   - resources/helmrelease.yaml
-  - resources/helmrepository.yaml
+  - resources/namespace.yaml

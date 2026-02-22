@@ -11,8 +11,9 @@ spec:
 apiVersion: v1
 kind: Namespace
 metadata:
+  annotations:
+    linkerd.io/inject: disabled
   labels:
-    istio-injection: disabled
     pod-security.kubernetes.io/enforce: privileged
     pod-security.kubernetes.io/warn: baseline
   name: metallb-system
@@ -38,6 +39,8 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    controller:
+      priorityClassName: system-cluster-critical
     networkpolicies:
       enabled: true
     speaker:

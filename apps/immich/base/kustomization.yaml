@@ -11,7 +11,6 @@ resources:
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
   - resources/persistentvolume.yaml
-  - resources/peerauthentication.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/service.yaml
   - resources/sopssecret.yaml

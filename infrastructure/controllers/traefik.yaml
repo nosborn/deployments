@@ -12,9 +12,11 @@ spec:
 apiVersion: v1
 kind: Namespace
 metadata:
+  annotations:
+    linkerd.io/inject: ingress
   labels:
-    istio.io/dataplane-mode: ambient
-    pod-security.kubernetes.io/enforce: restricted
+    pod-security.kubernetes.io/enforce: privileged # for linkerd-init
+    pod-security.kubernetes.io/warn: restricted
   name: traefik
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
@@ -41,13 +43,14 @@ spec:
     certificatesResolvers:
       letsencrypt:
         acme:
+          caServer: https://acme-staging-v02.api.letsencrypt.org/directory # FIXME
           keyType: EC256
           profile: shortlived
           storage: /data/acme.json
           tlsChallenge: !!str true
     deployment:
-      podAnnotations:
-        ambient.istio.io/bypass-inbound-capture: !!str true
+      # podAnnotations:
+      #   linkerd.io/inject: ingress
       revisionHistoryLimit: 0
     experimental:
       otlpLogs: true
@@ -88,6 +91,8 @@ spec:
       traefik:
         expose:
           default: true
+      websecure:
+        allowACMEByPass: false # TODO: true?
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
