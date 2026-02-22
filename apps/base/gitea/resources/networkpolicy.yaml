@@ -2,7 +2,11 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
+  labels:
+    app.kubernetes.io/instance: gitea
+    app.kubernetes.io/name: gitea
   name: gitea
+  namespace: gitea
 spec:
   ingress:
     - from:
@@ -21,15 +25,48 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
+  labels:
+    app.kubernetes.io/instance: gitea
+    app.kubernetes.io/name: gitea-valkey
   name: gitea-valkey
+  namespace: gitea
 spec:
+  egress:
+    - ports:
+        - port: 53
+          protocol: TCP
+        - port: 53
+          protocol: UDP
+      to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+    - ports:
+        - port: 8080
+          protocol: TCP
+        - port: 8086
+          protocol: TCP
+        - port: 8090
+          protocol: TCP
+      to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: linkerd
   ingress:
     - from:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: gitea
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/instance: gitea
+              app.kubernetes.io/name: gitea
   podSelector:
     matchLabels:
+      app.kubernetes.io/instance: gitea
       app.kubernetes.io/name: gitea-valkey
   policyTypes:
     - Egress

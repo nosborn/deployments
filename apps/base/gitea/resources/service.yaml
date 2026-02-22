@@ -6,6 +6,7 @@ metadata:
     app.kubernetes.io/instance: gitea
     app.kubernetes.io/name: gitea
   name: gitea-http
+  namespace: gitea
 spec:
   ipFamilies:
     - IPv4
@@ -25,6 +26,7 @@ metadata:
     app.kubernetes.io/instance: gitea
     app.kubernetes.io/name: gitea-valkey
   name: gitea-valkey
+  namespace: gitea
 spec:
   ipFamilies:
     - IPv4
