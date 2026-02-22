@@ -6,6 +6,7 @@ metadata:
     app.kubernetes.io/instance: gitea
     app.kubernetes.io/name: gitea
   name: gitea
+  namespace: gitea
 spec:
   entryPoints:
     - websecure
