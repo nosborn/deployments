@@ -1,0 +1,91 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: linkerd-edge
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://helm.linkerd.io/edge
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    linkerd.io/inject: disabled
+  labels:
+    config.linkerd.io/admission-webhooks: disabled
+    linkerd.io/control-plane-ns: linkerd
+    linkerd.io/is-control-plane: !!str true
+    pod-security.kubernetes.io/enforce: privileged
+  name: linkerd
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: linkerd-crds
+  namespace: linkerd
+spec:
+  chart:
+    spec:
+      chart: linkerd-crds
+      sourceRef:
+        kind: HelmRepository
+        name: linkerd-edge
+        namespace: flux-system
+      version: 2026.2.1
+  install:
+    remediation:
+      retries: 3
+  interval: 1h
+  upgrade:
+    crds: CreateReplace
+  values:
+    installGatewayAPI: true
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: linkerd-control-plane
+  namespace: linkerd
+spec:
+  chart:
+    spec:
+      chart: linkerd-control-plane
+      sourceRef:
+        kind: HelmRepository
+        name: linkerd-edge
+        namespace: flux-system
+      version: 2026.2.1
+  install:
+    remediation:
+      retries: 3
+  interval: 1h
+  upgrade:
+    crds: CreateReplace
+  values:
+    controller:
+      tracing:
+        enabled: false # TODO: true
+        endpoint: api.uptrace.dev:4317
+    disableIPv6: true # TODO: false
+    priorityClassName: system-cluster-critical
+    proxy:
+      nativeSidecar: true
+      tracing:
+        enabled: false # TODO: true
+    revisionHistoryLimit: 0
+    webhookFailurePolicy: Fail
+  valuesFrom:
+    - kind: Secret
+      name: helm-values
+      targetPath: identity.issuer.tls.crtPEM
+      valuesKey: identity_issuer_certificate
+    - kind: Secret
+      name: helm-values
+      targetPath: identity.issuer.tls.keyPEM
+      valuesKey: identity_issuer_key
+    - kind: Secret
+      name: helm-values
+      targetPath: identityTrustAnchorsPEM
+      valuesKey: identity_trust_anchors

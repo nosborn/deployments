@@ -29,3 +29,10 @@ patches:
     target:
       kind: Deployment
       name: kustomize-controller
+  - patch: |
+      - op: add
+        path: /metadata/annotations
+        value:
+          linkerd.io/inject: disabled
+    target:
+      kind: Namespace
