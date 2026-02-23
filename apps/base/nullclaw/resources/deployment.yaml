@@ -1,0 +1,82 @@
+# yamllint disable rule:line-length
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    reloader.stakater.com/auto: !!str true
+  name: nullclaw
+  namespace: nullclaw
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: nullclaw
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: nullclaw
+      labels:
+        app: nullclaw
+    spec:
+      containers:
+        - image: ghcr.io/nosborn/nullclaw:2026.2.21
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: nullclaw
+          ports:
+            - containerPort: 3000
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /app/config.json
+              name: config
+              subPath: config.json
+            - mountPath: /app/.nullclaw
+              name: data
+            - mountPath: /app/.nullclaw/workspace
+              name: workspace
+      securityContext:
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - secret:
+            secretName: nullclaw-config
+          name: config
+        - emptyDir: {}
+          name: data
+        - name: workspace
+          persistentVolumeClaim:
+            claimName: nullclaw-workspace
