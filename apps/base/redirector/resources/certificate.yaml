@@ -22,8 +22,8 @@ metadata:
   namespace: redirector
 spec:
   dnsNames:
+    - "*.medium.com"
     - medium.com
-    - www.medium.com
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
