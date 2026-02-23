@@ -49,8 +49,8 @@ spec:
           storage: /data/acme.json
           tlsChallenge: !!str true
     deployment:
-      # podAnnotations:
-      #   linkerd.io/inject: ingress
+      podAnnotations:
+        config.linkerd.io/skip-inbound-ports: 80,443
       revisionHistoryLimit: 0
     experimental:
       otlpLogs: true
