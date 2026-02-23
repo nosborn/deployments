@@ -50,7 +50,7 @@ spec:
           tlsChallenge: !!str true
     deployment:
       podAnnotations:
-        config.linkerd.io/skip-inbound-ports: 80,443
+        config.linkerd.io/skip-inbound-ports: 8000,8443
       revisionHistoryLimit: 0
     experimental:
       otlpLogs: true
