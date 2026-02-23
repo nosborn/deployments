@@ -5,8 +5,7 @@ metadata:
   name: lidarr
   namespace: media
 spec:
-  dnsNames:
-    - lidarr.***REMOVED***
+  dnsNames: []
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
@@ -20,8 +19,7 @@ metadata:
   name: nzbget
   namespace: media
 spec:
-  dnsNames:
-    - nzbget.***REMOVED***
+  dnsNames: []
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
@@ -35,8 +33,7 @@ metadata:
   name: ombi
   namespace: media
 spec:
-  dnsNames:
-    - ombi.***REMOVED***
+  dnsNames: []
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
@@ -50,8 +47,7 @@ metadata:
   name: prowlarr
   namespace: media
 spec:
-  dnsNames:
-    - prowlarr.***REMOVED***
+  dnsNames: []
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
@@ -65,8 +61,7 @@ metadata:
   name: radarr
   namespace: media
 spec:
-  dnsNames:
-    - radarr.***REMOVED***
+  dnsNames: []
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
@@ -80,8 +75,7 @@ metadata:
   name: sonarr
   namespace: media
 spec:
-  dnsNames:
-    - sonarr.***REMOVED***
+  dnsNames: []
   duration: 168h
   issuerRef:
     kind: ClusterIssuer

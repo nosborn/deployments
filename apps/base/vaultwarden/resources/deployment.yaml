@@ -20,6 +20,8 @@ spec:
     type: Recreate
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: vaultwarden
       labels:
         app.kubernetes.io/component: vaultwarden
         app.kubernetes.io/instance: vaultwarden
