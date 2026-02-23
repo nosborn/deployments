@@ -21,7 +21,8 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations: {}
+      annotations:
+        kubectl.kubernetes.io/default-container: lidarr
       labels:
         app.kubernetes.io/component: lidarr
         app.kubernetes.io/instance: media-server
@@ -107,7 +108,8 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations: {}
+      annotations:
+        kubectl.kubernetes.io/default-container: nzbget
       labels:
         app.kubernetes.io/component: nzbget
         app.kubernetes.io/instance: media-server
@@ -294,7 +296,8 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations: {}
+      annotations:
+        kubectl.kubernetes.io/default-container: prowlarr
       labels:
         app.kubernetes.io/component: prowlarr
         app.kubernetes.io/instance: media-server
@@ -380,7 +383,8 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations: {}
+      annotations:
+        kubectl.kubernetes.io/default-container: radarr
       labels:
         app.kubernetes.io/component: radarr
         app.kubernetes.io/instance: media-server
@@ -466,7 +470,8 @@ spec:
     type: Recreate
   template:
     metadata:
-      annotations: {}
+      annotations:
+        kubectl.kubernetes.io/default-container: sonarr
       labels:
         app.kubernetes.io/component: sonarr
         app.kubernetes.io/instance: media-server

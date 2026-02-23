@@ -19,6 +19,8 @@ spec:
     type: RollingUpdate
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: main
       labels:
         app.kubernetes.io/controller: main
         app.kubernetes.io/instance: immich
@@ -115,6 +117,8 @@ spec:
     type: Recreate
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: main
       labels:
         app.kubernetes.io/controller: main
         app.kubernetes.io/instance: immich
@@ -213,6 +217,8 @@ spec:
     type: Recreate
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: postgres
       labels:
         app.kubernetes.io/component: postgres
         app.kubernetes.io/instance: immich
@@ -303,6 +309,8 @@ spec:
     type: Recreate
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: main
       labels:
         app.kubernetes.io/controller: main
         app.kubernetes.io/instance: immich

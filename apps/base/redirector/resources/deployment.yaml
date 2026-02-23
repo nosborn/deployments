@@ -20,16 +20,13 @@ spec:
     type: RollingUpdate
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: nginx
       labels:
         app: redirector
     spec:
       containers:
         - image: docker.io/nginxinc/nginx-unprivileged:1.29.5-alpine
-          name: nginx
-          ports:
-            - containerPort: 8080
-              name: http
-              protocol: TCP
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -39,6 +36,11 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
+          name: nginx
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
           readinessProbe:
             failureThreshold: 3
             httpGet:

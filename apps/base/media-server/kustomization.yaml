@@ -5,6 +5,7 @@ kind: Kustomization
 namespace: media
 
 resources:
+  - resources/certificate.yaml
   - resources/deployment.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
