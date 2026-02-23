@@ -2,12 +2,12 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations: {}
   labels:
     app.kubernetes.io/component: vaultwarden
     app.kubernetes.io/instance: vaultwarden
     app.kubernetes.io/name: vaultwarden
   name: vaultwarden
+  namespace: vaultwarden
 spec:
   replicas: 1
   revisionHistoryLimit: 0

@@ -4,6 +4,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: redirector-instagram
+  namespace: redirector
 spec:
   entryPoints:
     - websecure
@@ -22,6 +23,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: redirector-medium
+  namespace: redirector
 spec:
   entryPoints:
     - websecure
@@ -40,6 +42,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: redirector-skimresources
+  namespace: redirector
 spec:
   entryPoints:
     - websecure
@@ -58,6 +61,7 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   name: redirector-twitter
+  namespace: redirector
 spec:
   entryPoints:
     - websecure

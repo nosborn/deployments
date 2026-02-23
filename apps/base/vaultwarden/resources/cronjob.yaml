@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/instance: vaultwarden
     app.kubernetes.io/name: vaultwarden
   name: vaultwarden-backup
+  namespace: vaultwarden
 spec:
   jobTemplate:
     spec:
@@ -60,6 +61,7 @@ metadata:
     app.kubernetes.io/instance: vaultwarden
     app.kubernetes.io/name: vaultwarden
   name: vaultwarden-checkpoint
+  namespace: vaultwarden
 spec:
   jobTemplate:
     spec:

@@ -3,6 +3,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: redirector
+  namespace: redirector
 spec:
   ipFamilies:
     - IPv4

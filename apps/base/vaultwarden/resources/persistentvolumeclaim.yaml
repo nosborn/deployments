@@ -6,6 +6,7 @@ metadata:
     app.kubernetes.io/instance: vaultwarden
     app.kubernetes.io/name: vaultwarden-data
   name: vaultwarden-data
+  namespace: vaultwarden
 spec:
   accessModes:
     - ReadWriteOnce
