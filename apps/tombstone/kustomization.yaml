@@ -5,8 +5,11 @@ kind: Kustomization
 resources:
   - ../base/gitea
   - ../base/linkerd-viz
+  - ../base/media-server
   - ../base/redirector
   - ../base/vaultwarden
+  - resources/certificate.yaml
+  - resources/ingressroute.yaml
   - resources/sopssecret.yaml
 
 configMapGenerator:
@@ -73,6 +76,34 @@ patches:
       kind: Deployment
       name: gitea
       namespace: gitea
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: TZ
+          value: Europe/London
+      - op: add
+        path: /spec/template/spec/securityContext/fsGroup
+        value: 996
+      - op: add
+        path: /spec/template/spec/securityContext/runAsGroup
+        value: 996
+      - op: add
+        path: /spec/template/spec/securityContext/runAsUser
+        value: 999
+    target:
+      kind: Deployment
+      namespace: media
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/initContainers/0/env/-
+        value:
+          name: TZ
+          value: Europe/London
+    target:
+      kind: Deployment
+      name: ombi
+      namespace: media
   - patch: |-
       - op: add
         path: /spec/template/spec/securityContext/fsGroup
