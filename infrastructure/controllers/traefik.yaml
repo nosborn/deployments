@@ -72,6 +72,8 @@ spec:
         # tls:
         #   secretName: traefik-dashboard-tls
     logs:
+      access:
+        enabled: true
       general:
         otlp:
           enabled: true
