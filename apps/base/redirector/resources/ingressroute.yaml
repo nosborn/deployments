@@ -29,7 +29,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`medium.com`) || Host(`www.medium.com`)
+      match: Host(`medium.com`) || HostRegex(`^.+\.medium\.com$`)
       middlewares:
         - name: ip-allowlist
       services:
