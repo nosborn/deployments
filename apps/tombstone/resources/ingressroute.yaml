@@ -6,6 +6,7 @@ metadata:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: lidarr
   name: lidarr
+  namespace: media
 spec:
   entryPoints:
     - websecure
@@ -30,6 +31,7 @@ metadata:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: nzbget
   name: nzbget
+  namespace: media
 spec:
   entryPoints:
     - websecure
@@ -54,6 +56,7 @@ metadata:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: ombi
   name: ombi
+  namespace: media
 spec:
   entryPoints:
     - websecure
@@ -78,6 +81,7 @@ metadata:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: prowlarr
   name: prowlarr
+  namespace: media
 spec:
   entryPoints:
     - websecure
@@ -102,6 +106,7 @@ metadata:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: radarr
   name: radarr
+  namespace: media
 spec:
   entryPoints:
     - websecure
@@ -126,6 +131,7 @@ metadata:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: sonarr
   name: sonarr
+  namespace: media
 spec:
   entryPoints:
     - websecure
