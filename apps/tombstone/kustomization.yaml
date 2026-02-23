@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ../base/gitea
   - ../base/linkerd-viz
+  - ../base/nullclaw
   - ../base/redirector
   - ../base/vaultwarden
   - resources/sopssecret.yaml
@@ -14,6 +15,7 @@ configMapGenerator:
     envs:
       - configs/gitea-app-ini.env
     name: gitea-app-ini-env
+    namespace: gitea
 
 patches:
   - patch: |-
@@ -24,6 +26,14 @@ patches:
     target:
       kind: Certificate
       namespace: gitea
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - claw.***REMOVED***
+    target:
+      kind: Certificate
+      namespace: nullclaw
   - patch: |-
       - op: replace
         path: /spec/dnsNames

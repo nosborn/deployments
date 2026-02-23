@@ -203,6 +203,7 @@ metadata:
     app.kubernetes.io/instance: gitea
     app.kubernetes.io/name: gitea-valkey
   name: gitea-valkey
+  namespace: gitea
 spec:
   replicas: 1
   revisionHistoryLimit: 0
@@ -214,6 +215,8 @@ spec:
     type: Recreate
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: gitea-valkey
       labels:
         app.kubernetes.io/instance: gitea
         app.kubernetes.io/name: gitea-valkey

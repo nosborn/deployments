@@ -1,0 +1,14 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: nullclaw
+  namespace: nullclaw
+spec:
+  dnsNames: []
+  duration: 168h
+  issuerRef:
+    kind: ClusterIssuer
+    name: ownca
+  renewBefore: 8h
+  secretName: nullclaw-tls

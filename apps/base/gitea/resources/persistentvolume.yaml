@@ -6,7 +6,7 @@ metadata:
   namespace: gitea
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOncePod
   capacity:
     storage: 10Gi
   hostPath:
