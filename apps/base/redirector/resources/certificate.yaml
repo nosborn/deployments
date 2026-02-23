@@ -3,6 +3,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: instagram
+  namespace: redirector
 spec:
   dnsNames:
     - instagram.com
@@ -18,6 +19,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: medium
+  namespace: redirector
 spec:
   dnsNames:
     - medium.com
@@ -33,6 +35,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: skimresources
+  namespace: redirector
 spec:
   dnsNames:
     - go.skimresources.com
@@ -47,6 +50,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: twitter
+  namespace: redirector
 spec:
   dnsNames:
     - twitter.com

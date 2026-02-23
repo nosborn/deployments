@@ -6,6 +6,7 @@ metadata:
     app.kubernetes.io/instance: vaultwarden
     app.kubernetes.io/name: vaultwarden
   name: vaultwarden
+  namespace: vaultwarden
 spec:
   ingress:
     - from:
