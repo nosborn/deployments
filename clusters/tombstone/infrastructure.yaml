@@ -33,6 +33,7 @@ spec:
     name: infra-configs
   retryInterval: 2m
   timeout: 5m
+  wait: true
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
@@ -40,6 +41,8 @@ metadata:
   name: infra-controllers
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: flux-system
   interval: 1h
   path: ./
   prune: true
@@ -48,3 +51,4 @@ spec:
     kind: ExternalArtifact
     name: infra-controllers
   timeout: 5m
+  wait: true
