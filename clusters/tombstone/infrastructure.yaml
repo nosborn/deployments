@@ -26,11 +26,12 @@ spec:
         #     kind: IngressRoute
         #     name: traefik-dashboard
         #     namespace: traefik
-  path: ./
+  path: ./infrastructure/configs
   prune: true
   sourceRef:
-    kind: ExternalArtifact
-    name: infra-configs
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
   retryInterval: 2m
   timeout: 5m
   wait: true
@@ -42,11 +43,12 @@ metadata:
   namespace: flux-system
 spec:
   interval: 1h
-  path: ./
+  path: ./infrastructure/controllers
   prune: true
   retryInterval: 2m
   sourceRef:
-    kind: ExternalArtifact
-    name: infra-controllers
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
   timeout: 5m
   wait: true

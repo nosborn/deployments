@@ -5,4 +5,4 @@ set -euo pipefail
 cd "$(git rev-parse --show-toplevel)"
 
 mkdir -p clusters/tombstone/flux-system
-flux install --components-extra=source-watcher --export >clusters/tombstone/flux-system/gotk-components.yaml
+flux install --export >clusters/tombstone/flux-system/gotk-components.yaml
