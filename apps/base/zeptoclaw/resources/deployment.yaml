@@ -1,0 +1,82 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: zeptoclaw
+    app.kubernetes.io/instance: claw
+    app.kubernetes.io/name: zeptoclaw
+  name: zeptoclaw
+  namespace: claw
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: zeptoclaw
+      app.kubernetes.io/instance: claw
+      app.kubernetes.io/name: zeptoclaw
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: zeptoclaw
+      labels:
+        app.kubernetes.io/component: zeptoclaw
+        app.kubernetes.io/instance: claw
+        app.kubernetes.io/name: zeptoclaw
+    spec:
+      containers:
+        - env:
+            - name: TZ
+              value: Europe/London
+          envFrom:
+            # - configMapRef:
+            #     name: zeptoclaw
+            - secretRef:
+                name: zeptoclaw-env
+          image: ghcr.io/nosborn/zeptoclaw:0.5.8
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: zeptoclaw
+          ports:
+            - containerPort: 9090
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /readyz
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      securityContext:
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: zeptoclaw-data
