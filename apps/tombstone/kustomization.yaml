@@ -9,6 +9,7 @@ resources:
   - ../base/media-server
   - ../base/redirector
   - ../base/vaultwarden
+  - ../base/zeptoclaw
   - resources/ingressroute.yaml
   - resources/sopssecret.yaml
 
@@ -27,6 +28,7 @@ patches:
           - git.***REMOVED***
     target:
       kind: Certificate
+      name: gitea
       namespace: gitea
   - patch: |-
       - op: replace
@@ -35,6 +37,7 @@ patches:
           - photos.***REMOVED***
     target:
       kind: Certificate
+      name: immich
       namespace: immich
   - patch: |-
       - op: replace
@@ -97,7 +100,17 @@ patches:
           - passwords.***REMOVED***
     target:
       kind: Certificate
+      name: vaultwarden
       namespace: vaultwarden
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - claw.***REMOVED***
+    target:
+      kind: Certificate
+      name: zeptoclaw
+      namespace: claw
   - patch: |-
       - op: add
         path: /spec/jobTemplate/spec/template/spec/securityContext/fsGroup
@@ -247,14 +260,15 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
-        value: "Host(`git.***REMOVED***`)"
+        value: Host(`git.***REMOVED***`)
     target:
       kind: IngressRoute
+      name: gitea
       namespace: gitea
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
-        value: "Host(`photos.***REMOVED***`)"
+        value: Host(`photos.***REMOVED***`)
     target:
       kind: IngressRoute
       name: immich
@@ -262,7 +276,16 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
-        value: "Host(`passwords.***REMOVED***`)"
+        value: Host(`passwords.***REMOVED***`)
     target:
       kind: IngressRoute
+      name: vaultwarden
       namespace: vaultwarden
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`claw.***REMOVED***`)
+    target:
+      kind: IngressRoute
+      name: zeptoclaw
+      namespace: claw

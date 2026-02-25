@@ -1,0 +1,23 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  labels:
+    app.kubernetes.io/instance: claw
+    app.kubernetes.io/name: zeptoclaw
+  name: zeptoclaw
+  namespace: claw
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`zeptoclaw.example.com`)
+      middlewares:
+        - name: ip-allowlist
+        - name: security-headers
+      services:
+        - name: zeptoclaw
+          port: 80
+  tls:
+    secretName: zeptoclaw-tls

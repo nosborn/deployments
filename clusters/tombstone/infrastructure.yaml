@@ -41,8 +41,6 @@ metadata:
   name: infra-controllers
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: flux-system
   interval: 1h
   path: ./
   prune: true
