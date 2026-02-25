@@ -33,7 +33,7 @@ spec:
                 name: vaultwarden
             - secretRef:
                 name: vaultwarden
-          image: ghcr.io/dani-garcia/vaultwarden:1.35.3
+          image: ghcr.io/dani-garcia/vaultwarden:1.35.4
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
