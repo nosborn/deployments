@@ -11,7 +11,8 @@ spec:
   retryInterval: 2m
   timeout: 5m
   sourceRef:
-    kind: ExternalArtifact
-    name: apps
-  path: ./tombstone
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  path: ./apps/tombstone
   prune: true
