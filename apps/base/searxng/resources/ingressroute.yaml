@@ -1,0 +1,20 @@
+# yamllint disable rule:line-length
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: searxng
+  namespace: searxng
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: "" # patched in overlay
+      middlewares:
+        - name: ip-allowlist
+      services:
+        - name: searxng
+          port: 80
+  tls:
+    secretName: searxng-tls
