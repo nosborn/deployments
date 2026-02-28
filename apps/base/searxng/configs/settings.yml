@@ -1,0 +1,36 @@
+---
+use_default_settings: true
+
+# engines:
+#   - name: fdroid
+#     disabled: false
+#
+#   - name: apk mirror
+#     disabled: false
+#
+#   - name: mediathekviewweb
+#     categories: TV
+#     disabled: false
+
+general:
+  debug: false
+  instance_name: SearXNG
+
+# preferences:
+#   lock:
+#     - autocomplete
+#     - method
+
+search:
+  autocomplete: duckduckgo
+  formats:
+    - html
+  safe_search: 2
+
+server:
+  # base_url: http://example.com/location # ${SEARXNG_BASE_URL}
+  bind_address: 0.0.0.0
+  http_protocol_version: !!str 1.1
+  image_proxy: true
+  limiter: false
+  # secret_key: ultrasecretkey # ${SEARXNG_SECRET}

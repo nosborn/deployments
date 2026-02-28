@@ -1,0 +1,87 @@
+# yamllint disable rule:line-length
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    reloader.stakater.com/auto: !!str true
+  name: searxng
+  namespace: searxng
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: searxng
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: searxng
+      labels:
+        app: searxng
+    spec:
+      containers:
+        - env:
+            - name: FORCE_OWNERSHIP
+              value: !!str false
+          envFrom:
+            - secretRef:
+                name: searxng-env
+          image: ghcr.io/searxng/searxng:2026.2.28-a2108ce2e
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: searxng
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /healthz
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 977
+            runAsNonRoot: true
+            runAsUser: 977
+          volumeMounts:
+            - mountPath: /etc/searxng
+              name: config
+            - mountPath: /tmp
+              name: temp
+            - mountPath: /var/cache/searxng
+              name: data
+      securityContext:
+        fsGroup: 977
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - configMap:
+            name: searxng-config
+          name: config
+        - emptyDir: {}
+          name: data
+        - emptyDir: {}
+          name: temp

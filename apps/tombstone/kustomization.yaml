@@ -7,6 +7,7 @@ resources:
   - ../base/immich
   - ../base/media-server
   - ../base/redirector
+  - ../base/searxng
   - ../base/vaultwarden
   - resources/ingressroute.yaml
   - resources/sopssecret.yaml
@@ -82,6 +83,15 @@ patches:
       kind: Certificate
       name: radarr
       namespace: media
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - search.***REMOVED***
+    target:
+      kind: Certificate
+      name: searxng
+      namespace: searxng
   - patch: |-
       - op: replace
         path: /spec/dnsNames
@@ -235,6 +245,21 @@ patches:
       namespace: media
   - patch: |-
       - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: SEARXNG_BASE_URL
+          value: https://search.***REMOVED***
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: TZ
+          value: Europe/London
+    target:
+      kind: Deployment
+      name: searxng
+      namespace: searxng
+  - patch: |-
+      - op: add
         path: /spec/template/spec/securityContext/fsGroup
         value: 983
       - op: add
@@ -262,6 +287,14 @@ patches:
       kind: IngressRoute
       name: immich
       namespace: immich
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`search.***REMOVED***`)
+    target:
+      kind: IngressRoute
+      name: searxng
+      namespace: searxng
   - patch: |-
       - op: replace
         path: /spec/routes/0/match

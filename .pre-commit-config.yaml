@@ -47,7 +47,7 @@ repos:
       - id: kubeconform
         name: kubeconform
         entry: .pre-commit-hooks.d/kubeconform.sh
-        exclude: .+/values\.yaml$
+        exclude: ^.+/(configs/.+|values\.yaml)$
         files: ^(apps|bootstrap|projects)/
         language: script
         types:

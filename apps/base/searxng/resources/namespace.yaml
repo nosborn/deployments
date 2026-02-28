@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  annotations:
+    linkerd.io/inject: enabled
+  labels:
+    pod-security.kubernetes.io/enforce: privileged # for linkerd-init
+    pod-security.kubernetes.io/warn: restricted
+  name: searxng
