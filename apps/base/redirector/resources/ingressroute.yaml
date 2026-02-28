@@ -41,6 +41,25 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
+  name: redirector-reddit
+  namespace: redirector
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`out.reddit.com`)
+      middlewares:
+        - name: ip-allowlist
+      services:
+        - name: redirector
+          port: 80
+  tls:
+    secretName: reddit-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
   name: redirector-skimresources
   namespace: redirector
 spec:
@@ -60,6 +79,25 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
+  name: redirector-tiktok
+  namespace: redirector
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`tiktok.com`) || Host(`vm.tiktok.com`) || Host(`www.tiktok.com`)
+      middlewares:
+        - name: ip-allowlist
+      services:
+        - name: redirector
+          port: 80
+  tls:
+    secretName: tiktok-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
   name: redirector-twitter
   namespace: redirector
 spec:
@@ -75,3 +113,22 @@ spec:
           port: 80
   tls:
     secretName: twitter-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: redirector-youtube
+  namespace: redirector
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`youtu.be`) || Host(`www.youtube.com`) || Host(`youtube.com`)
+      middlewares:
+        - name: ip-allowlist
+      services:
+        - name: redirector
+          port: 80
+  tls:
+    secretName: youtube-tls

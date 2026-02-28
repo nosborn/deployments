@@ -34,6 +34,21 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: reddit
+  namespace: redirector
+spec:
+  dnsNames:
+    - out.reddit.com
+  duration: 168h
+  issuerRef:
+    kind: ClusterIssuer
+    name: ownca
+  renewBefore: 8h
+  secretName: reddit-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: skimresources
   namespace: redirector
 spec:
@@ -45,6 +60,23 @@ spec:
     name: ownca
   renewBefore: 8h
   secretName: skimresources-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: tiktok
+  namespace: redirector
+spec:
+  dnsNames:
+    - tiktok.com
+    - vm.tiktok.com
+    - www.tiktok.com
+  duration: 168h
+  issuerRef:
+    kind: ClusterIssuer
+    name: ownca
+  renewBefore: 8h
+  secretName: tiktok-tls
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -63,3 +95,20 @@ spec:
     name: ownca
   renewBefore: 8h
   secretName: twitter-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: youtube
+  namespace: redirector
+spec:
+  dnsNames:
+    - youtu.be
+    - youtube.com
+    - www.youtube.com
+  duration: 168h
+  issuerRef:
+    kind: ClusterIssuer
+    name: ownca
+  renewBefore: 8h
+  secretName: youtube-tls
