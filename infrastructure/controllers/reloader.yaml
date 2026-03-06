@@ -29,7 +29,7 @@ spec:
         kind: HelmRepository
         name: stakater
         namespace: flux-system
-      version: 2.2.8
+      version: 2.2.9
   install:
     remediation:
       retries: 3
@@ -42,6 +42,11 @@ spec:
           capabilities:
             drop:
               - ALL
+        priortyClassName: system-cluster-critical
+        resources:
+          requests:
+            cpu: 6m
+            memory: 22Mi
         revisionHistoryLimit: 0
       netpol:
         enabled: true
