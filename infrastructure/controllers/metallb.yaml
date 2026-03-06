@@ -11,8 +11,7 @@ spec:
 apiVersion: v1
 kind: Namespace
 metadata:
-  annotations:
-    linkerd.io/inject: disabled
+  annotations: {}
   labels:
     pod-security.kubernetes.io/enforce: privileged
     pod-security.kubernetes.io/warn: baseline

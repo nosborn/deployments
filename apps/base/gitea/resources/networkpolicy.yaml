@@ -44,17 +44,6 @@ spec:
           podSelector:
             matchLabels:
               k8s-app: kube-dns
-    - ports:
-        - port: 8080
-          protocol: TCP
-        - port: 8086
-          protocol: TCP
-        - port: 8090
-          protocol: TCP
-      to:
-        - namespaceSelector:
-            matchLabels:
-              kubernetes.io/metadata.name: linkerd
   ingress:
     - from:
         - namespaceSelector:
