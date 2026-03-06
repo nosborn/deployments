@@ -8,7 +8,7 @@ resources:
   - resources/ingressroute.yaml
   - resources/middleware.yaml
   - resources/namespace.yaml
-  - resources/networkpolicy.yaml
+  # - resources/networkpolicy.yaml -- TODO
   - resources/service.yaml
 
 configMapGenerator:

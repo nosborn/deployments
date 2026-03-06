@@ -9,7 +9,7 @@ resources:
   - resources/ingressroute.yaml
   - resources/middleware.yaml
   - resources/namespace.yaml
-  - resources/networkpolicy.yaml
+  # - resources/networkpolicy.yaml -- TODO
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/role.yaml
