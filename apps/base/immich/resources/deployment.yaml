@@ -62,6 +62,10 @@ spec:
             initialDelaySeconds: 0
             periodSeconds: 10
             timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 4m
+              memory: 254Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -165,6 +169,10 @@ spec:
             initialDelaySeconds: 0
             periodSeconds: 10
             timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 145m
+              memory: 431Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -261,6 +269,10 @@ spec:
             failureThreshold: 3
             initialDelaySeconds: 5
             periodSeconds: 10
+          resources:
+            requests:
+              cpu: 26m
+              memory: 27Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -353,7 +365,10 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 5
-          resources: {}
+          resources:
+            requests:
+              cpu: 15m
+              memory: 9Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
