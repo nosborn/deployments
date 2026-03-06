@@ -68,7 +68,10 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
-          resources: {}
+          resources:
+            requests:
+              cpu: 4m
+              memory: 93Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -250,7 +253,10 @@ spec:
             initialDelaySeconds: 5
             periodSeconds: 10
             timeoutSeconds: 5
-          resources: {}
+          resources:
+            requests:
+              cpu: 18m
+              memory: 8Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
