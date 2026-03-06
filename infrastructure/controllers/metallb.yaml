@@ -35,11 +35,24 @@ spec:
     remediation:
       retries: 3
   interval: 1h
+  postRenderers:
+    - kustomize:
+        patches:
+          - patch: |
+              - op: replace
+                path: /spec/revisionHistoryLimit
+                value: 0
+            target:
+              kind: Deployment
   upgrade:
     crds: CreateReplace
   values:
     controller:
       priorityClassName: system-cluster-critical
+      resources:
+        requests:
+          cpu: 5m
+          memory: 37Mi
     networkpolicies:
       enabled: true
     speaker:
