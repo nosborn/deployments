@@ -9,7 +9,7 @@ metadata:
   namespace: vaultwarden
 spec:
   accessModes:
-    - ReadWriteOncePod
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
