@@ -56,14 +56,17 @@ spec:
           #   periodSeconds: 10
           #   successThreshold: 1
           #   timeoutSeconds: 1
-          resources: {}
-          # securityContext:
-          #   allowPrivilegeEscalation: false
-          #   capabilities:
-          #     drop:
-          #       - ALL
-          #   readOnlyRootFilesystem: true
-          #   runAsNonRoot: true
+          resources:
+            requests:
+              cpu: 1m
+              memory: 69Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: false # TODO: true
+            runAsNonRoot: false # TODO: true
           volumeMounts:
             - mountPath: /var/www/FreshRSS/data
               name: data
