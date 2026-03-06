@@ -344,7 +344,7 @@ spec:
               name: config
               readOnly: true
               subPath: config.xml
-            - mountPath: /libraru
+            - mountPath: /library
               name: library
       securityContext:
         seccompProfile:
