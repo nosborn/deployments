@@ -12,10 +12,9 @@ spec:
 apiVersion: v1
 kind: Namespace
 metadata:
-  annotations:
-    linkerd.io/inject: ingress
+  annotations: {}
   labels:
-    pod-security.kubernetes.io/enforce: privileged # for linkerd-init
+    pod-security.kubernetes.io/enforce: baseline # TODO: restricted
     pod-security.kubernetes.io/warn: restricted
   name: traefik
 ---
@@ -49,8 +48,6 @@ spec:
           storage: /data/acme.json
           tlsChallenge: !!str true
     deployment:
-      podAnnotations:
-        config.linkerd.io/skip-inbound-ports: 8000,8443
       revisionHistoryLimit: 0
     experimental:
       otlpLogs: true
