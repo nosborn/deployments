@@ -10,6 +10,8 @@ metadata:
   name: vaultwarden-backup
   namespace: vaultwarden
 spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
@@ -51,6 +53,7 @@ spec:
                 claimName: vaultwarden-data
       ttlSecondsAfterFinished: 86400
   schedule: 30 2 * * *
+  successfulJobsHistoryLimit: 3
   timeZone: Etc/UTC
 ---
 apiVersion: batch/v1
@@ -63,6 +66,8 @@ metadata:
   name: vaultwarden-checkpoint
   namespace: vaultwarden
 spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
@@ -103,4 +108,5 @@ spec:
                 claimName: vaultwarden-data
       ttlSecondsAfterFinished: 21600
   schedule: 0 */6 * * *
+  successfulJobsHistoryLimit: 3
   timeZone: Etc/UTC
