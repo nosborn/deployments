@@ -9,6 +9,8 @@ metadata:
   name: gitea-checkpoint
   namespace: gitea
 spec:
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
       template:
@@ -42,11 +44,11 @@ spec:
           securityContext:
             seccompProfile:
               type: RuntimeDefault
-          serviceAccountName: gitea
           volumes:
             - name: data
               persistentVolumeClaim:
                 claimName: gitea-data
       ttlSecondsAfterFinished: 21600
   schedule: 0 */6 * * *
+  successfulJobsHistoryLimit: 3
   timeZone: Etc/UTC
