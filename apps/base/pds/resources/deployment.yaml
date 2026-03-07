@@ -2,6 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    secret.reloader.stakater.com/reload: pds-env
   labels:
     app.kubernetes.io/component: pds
     app.kubernetes.io/instance: pds
@@ -30,9 +32,9 @@ spec:
       containers:
         - envFrom:
             - configMapRef:
-                name: pds
+                name: pds-env
             - secretRef:
-                name: pds
+                name: pds-env
           image: ghcr.io/bluesky-social/pds:0.4.208
           imagePullPolicy: IfNotPresent
           # livenessProbe:
@@ -46,7 +48,7 @@ spec:
           #   timeoutSeconds: 1
           name: pds
           ports:
-            - containerPort: 8080
+            - containerPort: 3000
               name: http
               protocol: TCP
           # readinessProbe:
@@ -70,6 +72,9 @@ spec:
             - mountPath: /pds
               name: data
       securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsUser: 1000
         seccompProfile:
           type: RuntimeDefault
       volumes:

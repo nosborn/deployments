@@ -9,7 +9,6 @@ resources:
   - resources/middleware.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
-  - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/role.yaml
   - resources/rolebinding.yaml
@@ -18,10 +17,5 @@ resources:
 configMapGenerator:
   - envs:
       - configs/pds.env
-    name: pds
+    name: pds-env
     namespace: pds
-    options:
-      labels:
-        app.kubernetes.io/component: pds
-        app.kubernetes.io/instance: pds
-        app.kubernetes.io/name: pds

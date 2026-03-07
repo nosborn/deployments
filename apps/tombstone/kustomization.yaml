@@ -19,6 +19,11 @@ configMapGenerator:
       - configs/gitea-app-ini.env
     name: gitea-app-ini-env
     namespace: gitea
+  - behavior: merge
+    literals:
+      - PDS_HOSTNAME=pds.osborn.io
+    name: pds-env
+    namespace: pds
 
 patches:
   - patch: |-
@@ -254,20 +259,20 @@ patches:
       kind: Deployment
       name: ombi
       namespace: media
-  - patch: |-
-      - op: add
-        path: /spec/template/spec/securityContext/fsGroup
-        value: 978
-      - op: add
-        path: /spec/template/spec/securityContext/runAsGroup
-        value: 978
-      - op: add
-        path: /spec/template/spec/securityContext/runAsUser
-        value: 984
-    target:
-      kind: Deployment
-      name: pds
-      namespace: pds
+  # - patch: |-
+  #     - op: add
+  #       path: /spec/template/spec/securityContext/fsGroup
+  #       value: 978
+  #     - op: add
+  #       path: /spec/template/spec/securityContext/runAsGroup
+  #       value: 978
+  #     - op: add
+  #       path: /spec/template/spec/securityContext/runAsUser
+  #       value: 984
+  #   target:
+  #     kind: Deployment
+  #     name: pds
+  #     namespace: pds
   - patch: |-
       - op: add
         path: /spec/template/spec/containers/0/env/-
