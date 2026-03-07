@@ -3,10 +3,10 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   labels:
-    app.kubernetes.io/instance: tt-rss
-    app.kubernetes.io/name: tt-rss
-  name: tt-rss
-  namespace: rss
+    app.kubernetes.io/instance: freshrss
+    app.kubernetes.io/name: freshrss
+  name: freshrss
+  namespace: freshrss
 spec:
   entryPoints:
     - websecure
@@ -19,7 +19,7 @@ spec:
         - name: security-headers
           namespace: traefik
       services:
-        - name: tt-rss
+        - name: freshrss
           port: 80
   tls:
-    secretName: tt-rss-tls
+    secretName: freshrss-tls

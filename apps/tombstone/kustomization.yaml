@@ -3,12 +3,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
+  - ../base/freshrss
   - ../base/gitea
   - ../base/immich
   - ../base/media-server
   - ../base/redirector
   - ../base/searxng
-  - ../base/tt-rss
   - ../base/vaultwarden
   - resources/ingressroute.yaml
   - resources/sopssecret.yaml
@@ -21,6 +21,15 @@ configMapGenerator:
     namespace: gitea
 
 patches:
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - rss.home.arpa
+    target:
+      kind: Certificate
+      name: freshrss
+      namespace: freshrss
   - patch: |-
       - op: replace
         path: /spec/dnsNames
@@ -106,15 +115,6 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - rss.home.arpa
-    target:
-      kind: Certificate
-      name: tt-rss
-      namespace: rss
-  - patch: |-
-      - op: replace
-        path: /spec/dnsNames
-        value:
           - passwords.home.arpa
     target:
       kind: Certificate
@@ -146,6 +146,20 @@ patches:
     target:
       kind: CronJob
       namespace: vaultwarden
+  # - patch: |-
+  #     - op: add
+  #       path: /spec/template/spec/securityContext/fsGroup
+  #       value: 980
+  #     - op: add
+  #       path: /spec/template/spec/securityContext/runAsGroup
+  #       value: 980
+  #     - op: add
+  #       path: /spec/template/spec/securityContext/runAsUser
+  #       value: 986
+  #   target:
+  #     kind: Deployment
+  #     name: freshrss
+  #     namespace: freshrss
   - patch: |-
       - op: add
         path: /spec/template/spec/securityContext/fsGroup
@@ -271,30 +285,24 @@ patches:
   - patch: |-
       - op: add
         path: /spec/template/spec/securityContext/fsGroup
-        value: 979
+        value: 983
       - op: add
         path: /spec/template/spec/securityContext/runAsGroup
-        value: 979
+        value: 983
       - op: add
         path: /spec/template/spec/securityContext/runAsUser
-        value: 985
-    target:
-      kind: Deployment
-      name: tt-rss
-      namespace: rss
-  - patch: |-
-      - op: add
-        path: /spec/template/spec/securityContext/fsGroup
-        value: 980
-      - op: add
-        path: /spec/template/spec/securityContext/runAsGroup
-        value: 980
-      - op: add
-        path: /spec/template/spec/securityContext/runAsUser
-        value: 986
+        value: 989
     target:
       kind: Deployment
       namespace: vaultwarden
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`rss.home.arpa`)
+    target:
+      kind: IngressRoute
+      name: freshrss
+      namespace: freshrss
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
@@ -319,14 +327,6 @@ patches:
       kind: IngressRoute
       name: searxng
       namespace: searxng
-  - patch: |-
-      - op: replace
-        path: /spec/routes/0/match
-        value: Host(`rss.home.arpa`)
-    target:
-      kind: IngressRoute
-      name: tt-rss
-      namespace: rss
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
