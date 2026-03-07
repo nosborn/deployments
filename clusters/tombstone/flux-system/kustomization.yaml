@@ -14,8 +14,45 @@ patches:
       - op: add
         path: /spec/revisionHistoryLimit
         value: 0
-      - op: replace
-        path: /spec/template/spec/containers/0/resources
-        value: {}
     target:
       kind: Deployment
+  - patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests:
+            cpu: 4m
+            memory: 34Mi
+    target:
+      kind: Deployment
+      name: helm-controller
+  - patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests:
+            cpu: 5m
+            memory: 61Mi
+    target:
+      kind: Deployment
+      name: kustomize-controller
+  - patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests:
+            cpu: 6m
+            memory: 33Mi
+    target:
+      kind: Deployment
+      name: notification-controller
+  - patch: |
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests:
+            cpu: 2m
+            memory: 36Mi
+    target:
+      kind: Deployment
+      name: source-controller
