@@ -1,0 +1,78 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: pds
+    app.kubernetes.io/instance: pds
+    app.kubernetes.io/name: pds
+  name: pds
+  namespace: pds
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: pds
+      app.kubernetes.io/instance: pds
+      app.kubernetes.io/name: pds
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: pds
+      labels:
+        app.kubernetes.io/component: pds
+        app.kubernetes.io/instance: pds
+        app.kubernetes.io/name: pds
+    spec:
+      containers:
+        - envFrom:
+            - configMapRef:
+                name: pds
+            - secretRef:
+                name: pds
+          image: ghcr.io/bluesky-social/pds:0.4.208
+          imagePullPolicy: IfNotPresent
+          # livenessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /alive
+          #     port: http
+          #     scheme: HTTP
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+          name: pds
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          # readinessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /alive
+          #     port: http
+          #     scheme: HTTP
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+          resources: {} # TODO
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /pds
+              name: data
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: pds-data
