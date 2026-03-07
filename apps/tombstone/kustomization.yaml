@@ -7,6 +7,7 @@ resources:
   - ../base/gitea
   - ../base/immich
   - ../base/media-server
+  - ../base/pds
   - ../base/redirector
   - ../base/searxng
   - ../base/vaultwarden
@@ -21,15 +22,6 @@ configMapGenerator:
     namespace: gitea
 
 patches:
-  - patch: |-
-      - op: replace
-        path: /spec/dnsNames
-        value:
-          - rss.***REMOVED***
-    target:
-      kind: Certificate
-      name: freshrss
-      namespace: freshrss
   - patch: |-
       - op: replace
         path: /spec/dnsNames
@@ -75,6 +67,16 @@ patches:
       kind: Certificate
       name: ombi
       namespace: media
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - "*.pds.osborn.io"
+          - pds.osborn.io
+    target:
+      kind: Certificate
+      name: pds
+      namespace: pds
   - patch: |-
       - op: replace
         path: /spec/dnsNames
@@ -269,6 +271,20 @@ patches:
       namespace: media
   - patch: |-
       - op: add
+        path: /spec/template/spec/securityContext/fsGroup
+        value: 978
+      - op: add
+        path: /spec/template/spec/securityContext/runAsGroup
+        value: 978
+      - op: add
+        path: /spec/template/spec/securityContext/runAsUser
+        value: 984
+    target:
+      kind: Deployment
+      name: pds
+      namespace: pds
+  - patch: |-
+      - op: add
         path: /spec/template/spec/containers/0/env/-
         value:
           name: SEARXNG_BASE_URL
@@ -311,6 +327,14 @@ patches:
       kind: IngressRoute
       name: gitea
       namespace: gitea
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`pds.osborn.io`) || HostRegexp(`.+\.pds\.osborn\.io`)
+    target:
+      kind: IngressRoute
+      name: pds
+      namespace: pds
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
