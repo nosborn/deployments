@@ -2,37 +2,37 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  # annotations:
-  #   secret.reloader.stakater.com/reload: tt-rss-config
+  annotations:
+    secret.reloader.stakater.com/reload: freshrss-config
   labels:
-    app.kubernetes.io/instance: tt-rss
-    app.kubernetes.io/name: tt-rss
-  name: tt-rss
-  namespace: rss
+    app.kubernetes.io/instance: freshrss
+    app.kubernetes.io/name: freshrss
+  name: freshrss
+  namespace: freshrss
 spec:
   replicas: 1
   revisionHistoryLimit: 0
   selector:
     matchLabels:
-      app.kubernetes.io/instance: tt-rss
-      app.kubernetes.io/name: tt-rss
+      app.kubernetes.io/instance: freshrss
+      app.kubernetes.io/name: freshrss
   strategy:
     type: Recreate
   template:
     metadata:
       annotations:
-        kubectl.kubernetes.io/default-container: tt-rss
+        kubectl.kubernetes.io/default-container: freshrss
       labels:
-        app.kubernetes.io/instance: tt-rss
-        app.kubernetes.io/name: tt-rss
+        app.kubernetes.io/instance: freshrss
+        app.kubernetes.io/name: freshrss
     spec:
       containers:
-        # - env:
-        #     - name: CRON_MIN
-        #       value: 1,31
-        #     - name: TZ
-        #       value: Europe/London
-        - image: ghcr.io/tt-rss/tt-rss:latest
+        - env:
+            - name: CRON_MIN
+              value: 1,31
+            - name: TZ
+              value: Europe/London
+          image: ghcr.io/nosborn/freshrss:1.28.1
           imagePullPolicy: Always
           # livenessProbe:
           #   failureThreshold: 10
@@ -43,7 +43,7 @@ spec:
           #   periodSeconds: 10
           #   successThreshold: 1
           #   timeoutSeconds: 1
-          name: tt-rss
+          name: freshrss
           ports:
             - containerPort: 80
               name: http
@@ -65,16 +65,17 @@ spec:
             capabilities:
               drop:
                 - ALL
-            readOnlyRootFilesystem: true
-            runAsNonRoot: true
+            readOnlyRootFilesystem: false # TODO: true
+            runAsNonRoot: false # TODO: true
           volumeMounts:
-            - mountPath: /var/www/html/tt-rss
+            - mountPath: /var/www/FreshRSS/data
               name: data
       securityContext:
+        fsGroup: 33
         seccompProfile:
           type: RuntimeDefault
       terminationGracePeriodSeconds: 60
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: tt-rss-data
+            claimName: freshrss-data
