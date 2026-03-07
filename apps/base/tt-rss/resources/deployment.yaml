@@ -2,8 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    secret.reloader.stakater.com/reload: tt-rss-config
+  # annotations:
+  #   secret.reloader.stakater.com/reload: tt-rss-config
   labels:
     app.kubernetes.io/instance: tt-rss
     app.kubernetes.io/name: tt-rss
@@ -27,12 +27,12 @@ spec:
         app.kubernetes.io/name: tt-rss
     spec:
       containers:
-        - env:
-            - name: CRON_MIN
-              value: 1,31
-            - name: TZ
-              value: Europe/London
-          image: ghcr.io/tt-rss/tt-rss:latest
+        # - env:
+        #     - name: CRON_MIN
+        #       value: 1,31
+        #     - name: TZ
+        #       value: Europe/London
+        - image: ghcr.io/tt-rss/tt-rss:latest
           imagePullPolicy: Always
           # livenessProbe:
           #   failureThreshold: 10
@@ -65,13 +65,12 @@ spec:
             capabilities:
               drop:
                 - ALL
-            readOnlyRootFilesystem: false # TODO: true
-            runAsNonRoot: false # TODO: true
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
           volumeMounts:
-            - mountPath: /var/www/tt-rss/data
+            - mountPath: /var/www/html/tt-rss
               name: data
       securityContext:
-        fsGroup: 33
         seccompProfile:
           type: RuntimeDefault
       terminationGracePeriodSeconds: 60
