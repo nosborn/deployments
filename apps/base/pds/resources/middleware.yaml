@@ -2,25 +2,6 @@
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: ip-allowlist
-  namespace: pds
-spec:
-  ipAllowList:
-    sourceRange:
-      - ***REMOVED***
-      - ***REMOVED***
-      - ***REMOVED***
-      - ***REMOVED***
-      - ***REMOVED***
-      - ***REMOVED***
-      - ***REMOVED***
-      - ***REMOVED***
-      - ***REMOVED***
-      - ***REMOVED***
----
-apiVersion: traefik.io/v1alpha1
-kind: Middleware
-metadata:
   name: security-headers
   namespace: pds
 spec:
@@ -31,5 +12,6 @@ spec:
       Strict-Transport-Security: max-age=31536000
       X-Content-Type-Options: nosniff
       X-Frame-Options: DENY
+      X-Powered-By: ""
       X-Robots-Tag: noindex, nofollow
       X-XSS-Protection: 1; mode=block

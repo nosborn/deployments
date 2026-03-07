@@ -4,13 +4,10 @@ kind: Kustomization
 
 resources:
   - https://github.com/cert-manager/cert-manager/releases/download/v1.19.2/cert-manager.yaml
-  - https://raw.githubusercontent.com/SynologyOpenSource/synology-csi/refs/tags/v1.2.1/deploy/kubernetes/v1.20/controller.yml
-  - https://raw.githubusercontent.com/SynologyOpenSource/synology-csi/refs/tags/v1.2.1/deploy/kubernetes/v1.20/csi-driver.yml
-  - https://raw.githubusercontent.com/SynologyOpenSource/synology-csi/refs/tags/v1.2.1/deploy/kubernetes/v1.20/namespace.yml
-  - https://raw.githubusercontent.com/SynologyOpenSource/synology-csi/refs/tags/v1.2.1/deploy/kubernetes/v1.20/node.yml
   - metallb.yaml
   - reloader.yaml
   - sops-secrets-operator.yaml
+  - synology-csi.yaml
   - traefik.yaml
 
 patches:

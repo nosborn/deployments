@@ -9,10 +9,9 @@ metadata:
   namespace: pds
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOncePod
   resources:
     requests:
       storage: 1Gi
-  storageClassName: local-storage
+  storageClassName: synostorage
   volumeMode: Filesystem
-  volumeName: pds-data
