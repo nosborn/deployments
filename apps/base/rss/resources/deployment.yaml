@@ -1,0 +1,81 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    secret.reloader.stakater.com/reload: tt-rss-config
+  labels:
+    app.kubernetes.io/instance: tt-rss
+    app.kubernetes.io/name: tt-rss
+  name: tt-rss
+  namespace: rss
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: tt-rss
+      app.kubernetes.io/name: tt-rss
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: tt-rss
+      labels:
+        app.kubernetes.io/instance: tt-rss
+        app.kubernetes.io/name: tt-rss
+    spec:
+      containers:
+        - env:
+            - name: CRON_MIN
+              value: 1,31
+            - name: TZ
+              value: Europe/London
+          image: ghcr.io/tt-rss/tt-rss:latest
+          imagePullPolicy: Always
+          # livenessProbe:
+          #   failureThreshold: 10
+          #   httpGet:
+          #     path: /api/healthz
+          #     port: http
+          #   initialDelaySeconds: 200
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+          name: tt-rss
+          ports:
+            - containerPort: 80
+              name: http
+          # readinessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /api/healthz
+          #     port: http
+          #   initialDelaySeconds: 5
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 1m
+              memory: 69Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: false # TODO: true
+            runAsNonRoot: false # TODO: true
+          volumeMounts:
+            - mountPath: /var/www/tt-rss/data
+              name: data
+      securityContext:
+        fsGroup: 33
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: tt-rss-data
