@@ -3,13 +3,12 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  # - ../base/freshrss
   - ../base/gitea
   - ../base/immich
   - ../base/media-server
   - ../base/redirector
   - ../base/searxng
-  - ../base/rss
+  - ../base/tt-rss
   - ../base/vaultwarden
   - resources/ingressroute.yaml
   - resources/sopssecret.yaml
@@ -147,20 +146,6 @@ patches:
     target:
       kind: CronJob
       namespace: vaultwarden
-  # - patch: |-
-  #     - op: add
-  #       path: /spec/template/spec/securityContext/fsGroup
-  #       value: 980
-  #     - op: add
-  #       path: /spec/template/spec/securityContext/runAsGroup
-  #       value: 980
-  #     - op: add
-  #       path: /spec/template/spec/securityContext/runAsUser
-  #       value: 986
-  #   target:
-  #     kind: Deployment
-  #     name: freshrss
-  #     namespace: freshrss
   - patch: |-
       - op: add
         path: /spec/template/spec/securityContext/fsGroup
@@ -286,13 +271,13 @@ patches:
   - patch: |-
       - op: add
         path: /spec/template/spec/securityContext/fsGroup
-        value: 980
+        value: 979
       - op: add
         path: /spec/template/spec/securityContext/runAsGroup
-        value: 980
+        value: 979
       - op: add
         path: /spec/template/spec/securityContext/runAsUser
-        value: 986
+        value: 985
     target:
       kind: Deployment
       name: tt-rss
@@ -300,13 +285,13 @@ patches:
   - patch: |-
       - op: add
         path: /spec/template/spec/securityContext/fsGroup
-        value: 983
+        value: 980
       - op: add
         path: /spec/template/spec/securityContext/runAsGroup
-        value: 983
+        value: 980
       - op: add
         path: /spec/template/spec/securityContext/runAsUser
-        value: 989
+        value: 986
     target:
       kind: Deployment
       namespace: vaultwarden
