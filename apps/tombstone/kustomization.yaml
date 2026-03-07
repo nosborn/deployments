@@ -3,7 +3,6 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../base/freshrss
   - ../base/gitea
   - ../base/immich
   - ../base/media-server
@@ -148,20 +147,6 @@ patches:
     target:
       kind: CronJob
       namespace: vaultwarden
-  # - patch: |-
-  #     - op: add
-  #       path: /spec/template/spec/securityContext/fsGroup
-  #       value: 980
-  #     - op: add
-  #       path: /spec/template/spec/securityContext/runAsGroup
-  #       value: 980
-  #     - op: add
-  #       path: /spec/template/spec/securityContext/runAsUser
-  #       value: 986
-  #   target:
-  #     kind: Deployment
-  #     name: freshrss
-  #     namespace: freshrss
   - patch: |-
       - op: add
         path: /spec/template/spec/securityContext/fsGroup
@@ -311,14 +296,6 @@ patches:
     target:
       kind: Deployment
       namespace: vaultwarden
-  - patch: |-
-      - op: replace
-        path: /spec/routes/0/match
-        value: Host(`rss.***REMOVED***`)
-    target:
-      kind: IngressRoute
-      name: freshrss
-      namespace: freshrss
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
