@@ -1,0 +1,27 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - resources/certificate.yaml
+  - resources/deployment.yaml
+  - resources/ingressroute.yaml
+  - resources/middleware.yaml
+  - resources/namespace.yaml
+  - resources/networkpolicy.yaml
+  - resources/persistentvolume.yaml
+  - resources/persistentvolumeclaim.yaml
+  - resources/role.yaml
+  - resources/rolebinding.yaml
+  - resources/service.yaml
+
+configMapGenerator:
+  - envs:
+      - configs/pds.env
+    name: pds
+    namespace: pds
+    options:
+      labels:
+        app.kubernetes.io/component: pds
+        app.kubernetes.io/instance: pds
+        app.kubernetes.io/name: pds
