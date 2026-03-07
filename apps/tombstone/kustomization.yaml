@@ -3,12 +3,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../base/freshrss
+  # - ../base/freshrss
   - ../base/gitea
   - ../base/immich
   - ../base/media-server
   - ../base/redirector
   - ../base/searxng
+  - ../base/rss
   - ../base/vaultwarden
   - resources/ingressroute.yaml
   - resources/sopssecret.yaml
@@ -21,15 +22,6 @@ configMapGenerator:
     namespace: gitea
 
 patches:
-  - patch: |-
-      - op: replace
-        path: /spec/dnsNames
-        value:
-          - rss.***REMOVED***
-    target:
-      kind: Certificate
-      name: freshrss
-      namespace: freshrss
   - patch: |-
       - op: replace
         path: /spec/dnsNames
@@ -111,6 +103,15 @@ patches:
       kind: Certificate
       name: sonarr
       namespace: media
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - rss.***REMOVED***
+    target:
+      kind: Certificate
+      name: tt-rss
+      namespace: rss
   - patch: |-
       - op: replace
         path: /spec/dnsNames
@@ -285,6 +286,20 @@ patches:
   - patch: |-
       - op: add
         path: /spec/template/spec/securityContext/fsGroup
+        value: 980
+      - op: add
+        path: /spec/template/spec/securityContext/runAsGroup
+        value: 980
+      - op: add
+        path: /spec/template/spec/securityContext/runAsUser
+        value: 986
+    target:
+      kind: Deployment
+      name: tt-rss
+      namespace: rss
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/securityContext/fsGroup
         value: 983
       - op: add
         path: /spec/template/spec/securityContext/runAsGroup
@@ -295,14 +310,6 @@ patches:
     target:
       kind: Deployment
       namespace: vaultwarden
-  - patch: |-
-      - op: replace
-        path: /spec/routes/0/match
-        value: Host(`rss.***REMOVED***`)
-    target:
-      kind: IngressRoute
-      name: freshrss
-      namespace: freshrss
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
@@ -327,6 +334,14 @@ patches:
       kind: IngressRoute
       name: searxng
       namespace: searxng
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`rss.***REMOVED***`)
+    target:
+      kind: IngressRoute
+      name: tt-rss
+      namespace: rss
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
