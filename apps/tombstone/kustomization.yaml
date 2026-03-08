@@ -24,6 +24,11 @@ configMapGenerator:
       - PDS_HOSTNAME=pds.osborn.io
     name: pds-env
     namespace: pds
+  - behavior: merge
+    literals:
+      - DOMAIN=https://passwords.***REMOVED***
+    name: vaultwarden
+    namespace: vaultwarden
 
 patches:
   - patch: |-
@@ -139,19 +144,6 @@ patches:
     target:
       kind: CronJob
       namespace: gitea
-  - patch: |-
-      - op: add
-        path: /spec/jobTemplate/spec/template/spec/securityContext/fsGroup
-        value: 983
-      - op: add
-        path: /spec/jobTemplate/spec/template/spec/securityContext/runAsGroup
-        value: 983
-      - op: add
-        path: /spec/jobTemplate/spec/template/spec/securityContext/runAsUser
-        value: 989
-    target:
-      kind: CronJob
-      namespace: vaultwarden
   - patch: |-
       - op: add
         path: /spec/template/spec/securityContext/fsGroup
@@ -288,19 +280,6 @@ patches:
       kind: Deployment
       name: searxng
       namespace: searxng
-  - patch: |-
-      - op: add
-        path: /spec/template/spec/securityContext/fsGroup
-        value: 983
-      - op: add
-        path: /spec/template/spec/securityContext/runAsGroup
-        value: 983
-      - op: add
-        path: /spec/template/spec/securityContext/runAsUser
-        value: 989
-    target:
-      kind: Deployment
-      namespace: vaultwarden
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
