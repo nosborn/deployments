@@ -27,7 +27,7 @@ configMapGenerator:
   - behavior: merge
     literals:
       - DOMAIN=https://passwords.***REMOVED***
-    name: vaultwarden
+    name: vaultwarden-env
     namespace: vaultwarden
 
 patches:
