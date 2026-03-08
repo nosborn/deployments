@@ -13,6 +13,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: local-storage
+  storageClassName: synology-iscsi-storage
   volumeMode: Filesystem
-  volumeName: vaultwarden-data
