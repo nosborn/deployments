@@ -34,6 +34,16 @@ spec:
     remediation:
       retries: 3
   interval: 1h
+  postRenderers:
+    - kustomize:
+        patches:
+          - patch: |-
+              - op: replace
+                path: /spec/routes/0/match
+                value: Host(`traefik.***REMOVED***`)
+            target:
+              kind: IngressRoute
+              name: traefik-dashboard
   upgrade:
     crds: CreateReplace
   values:
@@ -61,15 +71,15 @@ spec:
     ingressRoute:
       dashboard:
         enabled: true
-        # entryPoints:
-        #   - websecure
-        # middlewares:
-        #   - name: ip-allowlist
-        #     namespace: traefik
-        #   - name: security-headers
-        #     namespace: traefik
-        # tls:
-        #   secretName: traefik-dashboard-tls
+        entryPoints:
+          - websecure
+        middlewares:
+          - name: ip-allowlist
+            namespace: traefik
+          - name: security-headers
+            namespace: traefik
+        tls:
+          secretName: traefik-dashboard-tls
     logs:
       access:
         enabled: true

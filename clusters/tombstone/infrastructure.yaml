@@ -18,14 +18,14 @@ spec:
       target:
         kind: IPAddressPool
         name: default
-        # - patch: |-
-        #     - op: replace
-        #       path: /spec/routes/0/match
-        #       value: Host(`traefik.***REMOVED***`)
-        #   target:
-        #     kind: IngressRoute
-        #     name: traefik-dashboard
-        #     namespace: traefik
+    - patch: |-
+        - op: replace
+          path: /spec/routes/0/match
+          value: Host(`traefik.***REMOVED***`)
+      target:
+        kind: IngressRoute
+        name: traefik-dashboard
+        namespace: traefik
   path: ./infrastructure/configs
   prune: true
   sourceRef:
