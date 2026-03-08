@@ -68,13 +68,16 @@ spec:
               drop:
                 - ALL
             readOnlyRootFilesystem: true
+            runAsGroup: 1000
             runAsNonRoot: true
+            runAsUser: 1000
           volumeMounts:
             - mountPath: /data
               name: data
             - mountPath: /data/tmp
               name: data-tmp
       securityContext:
+        fsGroup: 1000
         seccompProfile:
           type: RuntimeDefault
       serviceAccountName: vaultwarden

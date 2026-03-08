@@ -13,3 +13,18 @@ parameters:
   location: /volume1
 provisioner: csi.san.synology.com
 reclaimPolicy: Retain
+---
+allowVolumeExpansion: true
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    storageclass.kubernetes.io/is-default-class: !!str false
+  name: synology-iscsi-storage
+parameters:
+  dsm: ***REMOVED***
+  formatOptions: --nodiscard
+  fsType: btrfs
+  location: /volume1
+provisioner: csi.san.synology.com
+reclaimPolicy: Retain
