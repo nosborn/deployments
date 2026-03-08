@@ -7,6 +7,5 @@ resources:
   - flux-uptrace.yaml
   - flux-webhook.yaml
   - metallb.yaml
-  - modsecurity.yaml
   - synology-csi.yaml
   - traefik.yaml
