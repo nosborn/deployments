@@ -20,7 +20,7 @@ resources:
 configMapGenerator:
   - envs:
       - configs/vaultwarden.env
-    name: vaultwarden
+    name: vaultwarden-env
     namespace: vaultwarden
     options:
       labels:

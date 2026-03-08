@@ -2,6 +2,8 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    secret.reloader.stakater.com/reload: vaultwarden-env
   labels:
     app.kubernetes.io/component: vaultwarden
     app.kubernetes.io/instance: vaultwarden
@@ -30,9 +32,9 @@ spec:
       containers:
         - envFrom:
             - configMapRef:
-                name: vaultwarden
+                name: vaultwarden-env
             - secretRef:
-                name: vaultwarden
+                name: vaultwarden-env
           image: ghcr.io/dani-garcia/vaultwarden:1.35.4
           imagePullPolicy: IfNotPresent
           livenessProbe:

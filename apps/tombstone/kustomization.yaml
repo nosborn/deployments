@@ -27,7 +27,7 @@ configMapGenerator:
   - behavior: merge
     literals:
       - DOMAIN=https://passwords.home.arpa
-    name: vaultwarden
+    name: vaultwarden-env
     namespace: vaultwarden
 
 patches:
