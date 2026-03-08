@@ -15,8 +15,6 @@ spec:
       match: Host(`pds.example.com`) || HostRegexp(`.+\.pds\.example\.com`)
       middlewares:
         # - name: ip-allowlist
-        - name: modsecurity
-          namespace: traefik
         - name: security-headers
       services:
         - name: pds
