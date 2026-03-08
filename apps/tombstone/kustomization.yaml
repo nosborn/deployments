@@ -80,7 +80,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - "*.pds.osborn.io"
+          - nick.pds.osborn.io
           - pds.osborn.io
     target:
       kind: Certificate
@@ -251,20 +251,6 @@ patches:
       kind: Deployment
       name: ombi
       namespace: media
-  # - patch: |-
-  #     - op: add
-  #       path: /spec/template/spec/securityContext/fsGroup
-  #       value: 978
-  #     - op: add
-  #       path: /spec/template/spec/securityContext/runAsGroup
-  #       value: 978
-  #     - op: add
-  #       path: /spec/template/spec/securityContext/runAsUser
-  #       value: 984
-  #   target:
-  #     kind: Deployment
-  #     name: pds
-  #     namespace: pds
   - patch: |-
       - op: add
         path: /spec/template/spec/containers/0/env/-
@@ -291,7 +277,13 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
-        value: Host(`pds.osborn.io`) || HostRegexp(`.+\.pds\.osborn\.io`)
+        value: Host(`pds.osborn.io`) || Host(`nick.pds.osborn.io`)
+      - op: add
+        path: /spec/tls/domains
+        value:
+          - main: pds.osborn.io
+            sans:
+              - nick.pds.osborn.io
     target:
       kind: IngressRoute
       name: pds
