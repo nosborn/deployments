@@ -1,0 +1,74 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: jetstack
+  namespace: flux-system
+spec:
+  interval: 1h
+  type: oci
+  url: oci://quay.io/jetstack/charts
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    pod-security.kubernetes.io/enforce: baseline # TODO: restricted
+    pod-security.kubernetes.io/warn: privileged
+  name: cert-manager
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cert-manager
+  namespace: cert-manager
+spec:
+  chart:
+    spec:
+      chart: cert-manager
+      sourceRef:
+        kind: HelmRepository
+        name: jetstack
+        namespace: flux-system
+      version: 1.19.4
+  install:
+    remediation:
+      retries: 3
+  interval: 1h
+  postRenderers:
+    - kustomize:
+        patches:
+          - patch: |
+              - op: add
+                path: /metadata/annotations/secret.reloader.stakater.com~1reload
+                value: ownca-intermediate-ca
+            target:
+              kind: Deployment
+  upgrade:
+    crds: CreateReplace
+  values:
+    cainjector:
+      resources:
+        requests:
+          cpu: 2m
+          memory: 17Mi
+    crds:
+      enabled: true
+      keep: true
+    enableCertificateOwnerRef: true
+    global:
+      revisionHistoryLimit: 0
+      priorityClassName: system-cluster-critical
+    prometheus:
+      enabled: false
+    resources:
+      requests:
+        cpu: 2m
+        memory: 24Mi
+    startupapicheck:
+      resources: {}
+    webhook:
+      resources:
+        requests:
+          cpu: 3m
+          memory: 11Mi
