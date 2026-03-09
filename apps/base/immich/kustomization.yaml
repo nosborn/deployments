@@ -10,7 +10,6 @@ resources:
   - resources/ingressroute.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
-  - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/service.yaml
   - resources/sopssecret.yaml

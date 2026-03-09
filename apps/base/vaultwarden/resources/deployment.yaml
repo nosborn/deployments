@@ -86,7 +86,7 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: vaultwarden-data
+            claimName: vaultwarden
         - name: data-tmp
           emptyDir:
             medium: Memory
