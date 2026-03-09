@@ -72,7 +72,9 @@ spec:
               drop:
                 - ALL
             readOnlyRootFilesystem: true
+            runAsGroup: 1000
             runAsNonRoot: true
+            runAsUser: 1000
           startupProbe:
             failureThreshold: 60
             httpGet:
@@ -92,6 +94,7 @@ spec:
       hostNetwork: false
       hostPID: false
       securityContext:
+        fsGroup: 1000
         seccompProfile:
           type: RuntimeDefault
       serviceAccountName: default
@@ -179,7 +182,9 @@ spec:
               drop:
                 - ALL
             readOnlyRootFilesystem: true
+            runAsGroup: 1000
             runAsNonRoot: true
+            runAsUser: 1000
           startupProbe:
             failureThreshold: 30
             httpGet:
@@ -197,13 +202,14 @@ spec:
       hostNetwork: false
       hostPID: false
       securityContext:
+        fsGroup: 1000
         seccompProfile:
           type: RuntimeDefault
       serviceAccountName: default
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: immich-data
+            claimName: immich-library
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -295,7 +301,7 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: immich-data
+            claimName: immich-postgres
         - emptyDir: {}
           name: run
         - emptyDir: {}
@@ -404,4 +410,4 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: immich-valkey-data
+            claimName: immich-valkey
