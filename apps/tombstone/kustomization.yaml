@@ -165,32 +165,9 @@ patches:
           limits:
             cpu: !!str 1
             memory: 2Gi
-      - op: add
-        path: /spec/template/spec/securityContext/fsGroup
-        value: 987
-      - op: add
-        path: /spec/template/spec/securityContext/runAsGroup
-        value: 987
-      - op: add
-        path: /spec/template/spec/securityContext/runAsUser
-        value: 994
     target:
       kind: Deployment
       name: immich-machine-learning
-      namespace: immich
-  - patch: |-
-      - op: add
-        path: /spec/template/spec/securityContext/fsGroup
-        value: 987
-      - op: add
-        path: /spec/template/spec/securityContext/runAsGroup
-        value: 987
-      - op: add
-        path: /spec/template/spec/securityContext/runAsUser
-        value: 994
-    target:
-      kind: Deployment
-      name: immich-postgres
       namespace: immich
   - patch: |-
       - op: add
@@ -199,19 +176,10 @@ patches:
           mountPath: /dev/dri
           name: dri
       - op: add
-        path: /spec/template/spec/securityContext/fsGroup
-        value: 987
-      - op: add
         path: /spec/template/spec/securityContext/supplementalGroups
         value:
           - 44  # video
           - 105 # render
-      - op: add
-        path: /spec/template/spec/securityContext/runAsGroup
-        value: 987
-      - op: add
-        path: /spec/template/spec/securityContext/runAsUser
-        value: 994
       - op: add
         path: /spec/template/spec/volumes/-
         value:

@@ -2,21 +2,33 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: immich-data
+  name: immich-library
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOncePod
   resources:
     requests:
       storage: 100Gi
-  storageClassName: local-storage
+  storageClassName: synology-iscsi-storage
   volumeMode: Filesystem
-  volumeName: immich-data
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: immich-valkey-data
+  name: immich-postgres
+spec:
+  accessModes:
+    - ReadWriteOncePod
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: synology-iscsi-storage
+  volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: immich-valkey
 spec:
   accessModes:
     - ReadWriteOnce
