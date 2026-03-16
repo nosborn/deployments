@@ -70,9 +70,7 @@ spec:
               drop:
                 - ALL
             readOnlyRootFilesystem: true
-            runAsGroup: 1000
             runAsNonRoot: true
-            runAsUser: 1000
           volumeMounts:
             - mountPath: /data
               name: data
@@ -80,13 +78,15 @@ spec:
               name: data-tmp
       securityContext:
         fsGroup: 1000
+        runAsGroup: 1000
+        runAsUser: 1000
         seccompProfile:
           type: RuntimeDefault
       serviceAccountName: vaultwarden
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: vaultwarden
+            claimName: vaultwarden-data
         - name: data-tmp
           emptyDir:
             medium: Memory

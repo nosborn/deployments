@@ -53,7 +53,7 @@ spec:
           volumes:
             - name: data
               persistentVolumeClaim:
-                claimName: vaultwarden
+                claimName: vaultwarden-data
       ttlSecondsAfterFinished: 21600
   schedule: 0 */6 * * *
   successfulJobsHistoryLimit: 3

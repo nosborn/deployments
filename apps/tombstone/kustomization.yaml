@@ -133,33 +133,6 @@ patches:
       namespace: vaultwarden
   - patch: |-
       - op: add
-        path: /spec/jobTemplate/spec/template/spec/securityContext/fsGroup
-        value: 981
-      - op: add
-        path: /spec/jobTemplate/spec/template/spec/securityContext/runAsGroup
-        value: 981
-      - op: add
-        path: /spec/jobTemplate/spec/template/spec/securityContext/runAsUser
-        value: 987
-    target:
-      kind: CronJob
-      namespace: gitea
-  - patch: |-
-      - op: add
-        path: /spec/template/spec/securityContext/fsGroup
-        value: 981
-      - op: add
-        path: /spec/template/spec/securityContext/runAsGroup
-        value: 981
-      - op: add
-        path: /spec/template/spec/securityContext/runAsUser
-        value: 987
-    target:
-      kind: Deployment
-      name: gitea
-      namespace: gitea
-  - patch: |-
-      - op: add
         path: /spec/template/spec/containers/0/resources
         value:
           limits:
