@@ -21,6 +21,7 @@ spec:
             app.kubernetes.io/instance: vaultwarden
             app.kubernetes.io/name: vaultwarden
         spec:
+          activeDeadlineSeconds: 600
           containers:
             - args:
                 - /data/db.sqlite3
