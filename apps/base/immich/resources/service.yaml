@@ -7,6 +7,7 @@ metadata:
     app.kubernetes.io/name: machine-learning
     app.kubernetes.io/service: immich-machine-learning
   name: immich-machine-learning
+  namespace: immich
 spec:
   ipFamilies:
     - IPv4
@@ -30,6 +31,7 @@ metadata:
     app.kubernetes.io/instance: immich
     app.kubernetes.io/name: immich-postgres
   name: immich-postgres
+  namespace: immich
 spec:
   ipFamilies:
     - IPv4
@@ -53,6 +55,7 @@ metadata:
     app.kubernetes.io/name: server
     app.kubernetes.io/service: immich-server
   name: immich-server
+  namespace: immich
 spec:
   ipFamilies:
     - IPv4
@@ -76,6 +79,7 @@ metadata:
     app.kubernetes.io/name: valkey
     app.kubernetes.io/service: immich-valkey
   name: immich-valkey
+  namespace: immich
 spec:
   ipFamilies:
     - IPv4
