@@ -365,7 +365,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    secret.reloader.stakater.com/reload: radarr-confg
+    secret.reloader.stakater.com/reload: radarr-config
   labels:
     app.kubernetes.io/component: radarr
     app.kubernetes.io/instance: media-server
