@@ -3,21 +3,21 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   labels:
-    app.kubernetes.io/instance: gitea
-    app.kubernetes.io/name: gitea-data
-  name: gitea-data
+    app.kubernetes.io/instance: pds
+    app.kubernetes.io/name: pds-data
+  name: pds-data
 spec:
   accessModes:
     - ReadWriteOnce
   capacity:
-    storage: 100Gi
+    storage: 1Gi
   claimRef:
-    name: gitea-data
-    namespace: gitea
+    name: pds-data
+    namespace: pds
   iscsi:
     fsType: btrfs
     iqn: ***REMOVED***
-    lun: 18
+    lun: 6
     targetPortal: ***REMOVED***
   persistentVolumeReclaimPolicy: Retain
   storageClassName: ""

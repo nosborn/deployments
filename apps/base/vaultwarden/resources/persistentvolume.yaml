@@ -4,23 +4,21 @@ kind: PersistentVolume
 metadata:
   labels:
     app.kubernetes.io/instance: vaultwarden
-    app.kubernetes.io/name: vaultwarden
-  name: vaultwarden
+    app.kubernetes.io/name: vaultwarden-data
+  name: vaultwarden-data
 spec:
   accessModes:
     - ReadWriteOnce
   capacity:
     storage: 1Gi
   claimRef:
-    name: vaultwarden
+    name: vaultwarden-data
     namespace: vaultwarden
-  csi:
-    driver: csi.san.synology.com
+  iscsi:
     fsType: btrfs
-    volumeAttributes:
-      dsm: ***REMOVED***
-      location: /volume1
-    volumeHandle: pvc-603f3218-536c-412c-acc0-ab33562cd2bc
+    iqn: ***REMOVED***
+    lun: 15
+    targetPortal: ***REMOVED***
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: synology-iscsi-storage
+  storageClassName: ""
   volumeMode: Filesystem

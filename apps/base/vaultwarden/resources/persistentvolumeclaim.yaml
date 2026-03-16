@@ -4,8 +4,8 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     app.kubernetes.io/instance: vaultwarden
-    app.kubernetes.io/name: vaultwarden
-  name: vaultwarden
+    app.kubernetes.io/name: vaultwarden-data
+  name: vaultwarden-data
   namespace: vaultwarden
 spec:
   accessModes:
@@ -13,6 +13,6 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: synology-iscsi-storage
+  storageClassName: ""
   volumeMode: Filesystem
-  volumeName: vaultwarden
+  volumeName: vaultwarden-data

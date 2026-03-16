@@ -9,9 +9,10 @@ metadata:
   namespace: pds
 spec:
   accessModes:
-    - ReadWriteOncePod
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: synology-iscsi-storage
+  storageClassName: ""
   volumeMode: Filesystem
+  volumeName: pds-data
