@@ -285,7 +285,9 @@ spec:
               drop:
                 - ALL
             readOnlyRootFilesystem: true
+            runAsGroup: 999
             runAsNonRoot: true
+            runAsUser: 999
           volumeMounts:
             - mountPath: /tmp
               name: tmp
@@ -296,6 +298,7 @@ spec:
       imagePullSecrets:
         - name: docker-hub
       securityContext:
+        fsGroup: 999
         seccompProfile:
           type: RuntimeDefault
       volumes:
