@@ -402,7 +402,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/radarr:6.0.4.10291
+          image: ghcr.io/nosborn/radarr:6.1.1.10360
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
