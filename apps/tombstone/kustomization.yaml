@@ -219,6 +219,14 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
+        value: Host(`mitmproxy.***REMOVED***`)
+    target:
+      kind: IngressRoute
+      name: mitmproxy-web
+      namespace: mitmproxy
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
         value: Host(`pds.osborn.io`) || Host(`nick.pds.osborn.io`)
       - op: add
         path: /spec/tls/domains
