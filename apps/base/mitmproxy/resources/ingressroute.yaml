@@ -28,7 +28,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`mitmproxy.***REMOVED***`)
+      match: Host(`mitmproxy.example.com`)
       middlewares:
         - name: ip-allowlist
       services:

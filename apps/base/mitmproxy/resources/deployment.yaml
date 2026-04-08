@@ -26,16 +26,19 @@ spec:
         app: mitmproxy
     spec:
       containers:
-        - image: docker.io/mitmproxy/mitmproxy:12.2.1
-          livenessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: /healthz
-              port: http
-              scheme: HTTP
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 1
+        - command:
+            - mitmweb
+            - --web-host=0.0.0.0
+          image: docker.io/mitmproxy/mitmproxy:12.2.1
+          # livenessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /
+          #     port: http-web
+          #     scheme: HTTP
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
           name: mitmproxy
           ports:
             - containerPort: 8080
@@ -44,15 +47,15 @@ spec:
             - containerPort: 8081
               name: http-web
               protocol: TCP
-          readinessProbe:
-            failureThreshold: 3
-            httpGet:
-              path: /healthz
-              port: http
-              scheme: HTTP
-            periodSeconds: 10
-            successThreshold: 1
-            timeoutSeconds: 1
+          # readinessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /
+          #     port: http-web
+          #     scheme: HTTP
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
           resources: {}
           # requests:
           #   cpu: 1m
@@ -73,6 +76,8 @@ spec:
             # - mountPath: /etc/nginx/redirect.js
             #   name: config
             #   subPath: redirect.js
+            - mountPath: /home/mitmproxy/.mitmproxy
+              name: data
             - mountPath: /tmp
               name: tmp
       imagePullSecrets:
@@ -82,11 +87,13 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       volumes:
-        - emptyDir: {}
-          name: cache
+        # - emptyDir: {}
+        #   name: cache
         # - configMap:
         #     name: mitmproxy-nginx
         #   name: config
+        - emptyDir: {}
+          name: data
         - emptyDir:
             medium: Memory
             sizeLimit: 1Mi
