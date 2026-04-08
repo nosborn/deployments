@@ -1,0 +1,38 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mitmproxy-proxy-meetup
+  namespace: mitmproxy
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`api.meetup.com`)
+      middlewares:
+        - name: ip-allowlist
+      services:
+        - name: mitmproxy-proxy
+          port: 80
+  tls:
+    secretName: proxy-meetup-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: mitmproxy-web
+  namespace: mitmproxy
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`mitmproxy.***REMOVED***`)
+      middlewares:
+        - name: ip-allowlist
+      services:
+        - name: mitmproxy-web
+          port: 80
+  tls:
+    secretName: web-tls
