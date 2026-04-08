@@ -53,17 +53,19 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
-          resources:
-            requests:
-              cpu: 1m
-              memory: 11Mi
+          resources: {}
+          # requests:
+          #   cpu: 1m
+          #   memory: 11Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
             readOnlyRootFilesystem: true
+            runAsGroup: 1000
             runAsNonRoot: true
+            runAsUser: 1000
           volumeMounts:
             # - mountPath: /etc/nginx/nginx.conf
             #   name: config
@@ -76,8 +78,7 @@ spec:
       imagePullSecrets:
         - name: docker-hub
       securityContext:
-        runAsGroup: 1000
-        runAsUser: 1000
+        fsGroup: 1000
         seccompProfile:
           type: RuntimeDefault
       volumes:
