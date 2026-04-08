@@ -6,6 +6,7 @@ resources:
   - ../base/gitea
   - ../base/immich
   - ../base/media-server
+  - ../base/mitmproxy
   - ../base/pds
   - ../base/redirector
   - ../base/searxng
