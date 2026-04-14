@@ -3,7 +3,6 @@ extends: default
 
 ignore: |
   clusters/*/flux-system/gotk-components.yaml
-  infrastructure/controllers/synology-csi.yaml
 
 rules:
   anchors:
