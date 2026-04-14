@@ -1,0 +1,40 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/pds
+  - sopssecret.yaml
+
+configMapGenerator:
+  - behavior: merge
+    literals:
+      - PDS_HOSTNAME=pds.osborn.io
+    name: pds-env
+    namespace: pds
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - nick.pds.osborn.io
+          - pds.osborn.io
+    target:
+      kind: Certificate
+      name: pds
+      namespace: pds
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`pds.osborn.io`) || Host(`nick.pds.osborn.io`)
+      - op: add
+        path: /spec/tls/domains
+        value:
+          - main: pds.osborn.io
+            sans:
+              - nick.pds.osborn.io
+    target:
+      kind: IngressRoute
+      name: pds
+      namespace: pds

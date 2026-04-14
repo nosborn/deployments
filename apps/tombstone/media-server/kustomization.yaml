@@ -1,0 +1,114 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/media-server
+  - ingressroute.yaml
+  - sopssecret.yaml
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - lidarr.***REMOVED***
+    target:
+      kind: Certificate
+      name: lidarr
+      namespace: media
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - nzbget.***REMOVED***
+    target:
+      kind: Certificate
+      name: nzbget
+      namespace: media
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - ombi.***REMOVED***
+    target:
+      kind: Certificate
+      name: ombi
+      namespace: media
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - prowlarr.***REMOVED***
+    target:
+      kind: Certificate
+      name: prowlarr
+      namespace: media
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - radarr.***REMOVED***
+    target:
+      kind: Certificate
+      name: radarr
+      namespace: media
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - sonarr.***REMOVED***
+    target:
+      kind: Certificate
+      name: sonarr
+      namespace: media
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value:
+          mountPath: /dev/dri
+          name: dri
+      - op: add
+        path: /spec/template/spec/securityContext/supplementalGroups
+        value:
+          - 44  # video
+          - 105 # render
+      - op: add
+        path: /spec/template/spec/volumes/-
+        value:
+          hostPath:
+            path: /dev/dri
+            type: Directory
+          name: dri
+    target:
+      kind: Deployment
+      name: immich-server
+      namespace: immich
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: TZ
+          value: Europe/London
+      - op: add
+        path: /spec/template/spec/securityContext/fsGroup
+        value: 996
+      - op: add
+        path: /spec/template/spec/securityContext/runAsGroup
+        value: 996
+      - op: add
+        path: /spec/template/spec/securityContext/runAsUser
+        value: 999
+    target:
+      kind: Deployment
+      namespace: media
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/initContainers/0/env/-
+        value:
+          name: TZ
+          value: Europe/London
+    target:
+      kind: Deployment
+      name: ombi
+      namespace: media

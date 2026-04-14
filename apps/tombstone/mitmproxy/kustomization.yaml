@@ -1,0 +1,16 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/mitmproxy
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`mitmproxy.***REMOVED***`)
+    target:
+      kind: IngressRoute
+      name: mitmproxy-web
+      namespace: mitmproxy
