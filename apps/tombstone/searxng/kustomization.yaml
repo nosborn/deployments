@@ -1,0 +1,41 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/searxng
+  - sopssecret.yaml
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - search.home.arpa
+    target:
+      kind: Certificate
+      name: searxng
+      namespace: searxng
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: SEARXNG_BASE_URL
+          value: https://search.home.arpa
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: TZ
+          value: Europe/London
+    target:
+      kind: Deployment
+      name: searxng
+      namespace: searxng
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`search.home.arpa`)
+    target:
+      kind: IngressRoute
+      name: searxng
+      namespace: searxng
