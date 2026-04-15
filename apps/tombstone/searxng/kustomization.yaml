@@ -4,7 +4,7 @@ kind: Kustomization
 
 resources:
   - ../../base/searxng
-  - sopssecret.yaml
+  - resources/sopssecret.yaml
 
 patches:
   - patch: |-

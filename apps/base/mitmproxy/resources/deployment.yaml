@@ -70,12 +70,9 @@ spec:
             runAsNonRoot: true
             runAsUser: 1000
           volumeMounts:
-            # - mountPath: /etc/nginx/nginx.conf
-            #   name: config
-            #   subPath: nginx.conf
-            # - mountPath: /etc/nginx/redirect.js
-            #   name: config
-            #   subPath: redirect.js
+            - mountPath: /home/mitmproxy/.mitmproxy/config.yaml
+              name: config
+              subPath: config.yaml
             - mountPath: /home/mitmproxy/.mitmproxy
               name: data
             - mountPath: /tmp
@@ -87,11 +84,9 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       volumes:
-        # - emptyDir: {}
-        #   name: cache
-        # - configMap:
-        #     name: mitmproxy-nginx
-        #   name: config
+        - configMap:
+            name: mitmproxy
+          name: config
         - emptyDir: {}
           name: data
         - emptyDir:

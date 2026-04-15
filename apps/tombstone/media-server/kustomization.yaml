@@ -4,8 +4,8 @@ kind: Kustomization
 
 resources:
   - ../../base/media-server
-  - ingressroute.yaml
-  - sopssecret.yaml
+  - resources/ingressroute.yaml
+  - resources/sopssecret.yaml
 
 patches:
   - patch: |-

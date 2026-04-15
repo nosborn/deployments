@@ -4,12 +4,12 @@ kind: Kustomization
 
 resources:
   - ../../base/gitea
-  - sopssecret.yaml
+  - resources/sopssecret.yaml
 
 configMapGenerator:
   - behavior: merge
     envs:
-      - gitea-app-ini.env
+      - configs/gitea-app-ini.env
     name: gitea-app-ini-env
     namespace: gitea
 
