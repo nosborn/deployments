@@ -4,7 +4,7 @@ kind: Kustomization
 
 resources:
   - ../../base/immich
-  - sopssecret.yaml
+  - resources/sopssecret.yaml
 
 patches:
   - patch: |-
