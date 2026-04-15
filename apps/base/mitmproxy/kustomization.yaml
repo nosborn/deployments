@@ -12,9 +12,8 @@ resources:
   - resources/service.yaml
   - resources/sopssecret.yaml
 
-# configMapGenerator:
-#   - files:
-#       - configs/nginx.conf
-#       - configs/redirect.js
-#     name: redirector-nginx
-#     namespace: redirector
+configMapGenerator:
+  - files:
+      - configs/config.yaml
+    name: mitmproxy
+    namespace: mitmproxy
