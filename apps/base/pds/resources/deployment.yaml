@@ -35,7 +35,7 @@ spec:
                 name: pds-env
             - secretRef:
                 name: pds-env
-          image: ghcr.io/bluesky-social/pds:0.4.208
+          image: ghcr.io/bluesky-social/pds:0.4.219
           imagePullPolicy: IfNotPresent
           # livenessProbe:
           #   failureThreshold: 3
