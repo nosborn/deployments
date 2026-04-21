@@ -116,6 +116,8 @@ spec:
               name: init
         - command:
             - /usr/local/bin/environment-to-ini
+            - --config
+            - /data/gitea/conf/app.ini
             - --out
             - /data/gitea/conf/app.ini
           env:
