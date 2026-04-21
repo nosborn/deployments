@@ -1,0 +1,29 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/miasma
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - tombstone.osborn.io
+    target:
+      kind: Certificate
+      name: tombstone
+      namespace: miasma
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`tombstone.osborn.io`)
+      - op: add
+        path: /spec/tls/domains
+        value:
+          - main: tombstone.osborn.io
+    target:
+      kind: IngressRoute
+      name: tombstone
+      namespace: miasma
