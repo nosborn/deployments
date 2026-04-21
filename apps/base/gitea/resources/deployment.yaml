@@ -279,4 +279,4 @@ spec:
       volumes:
         - name: data
           persistentVolumeClaim:
-            claimName: gitea-valkey-data
+            claimName: gitea-valkey
