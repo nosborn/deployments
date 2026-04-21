@@ -15,7 +15,7 @@ spec:
     name: immich-library
     namespace: immich
   iscsi:
-    fsType: btrfs
+    fsType: ext4
     iqn: ***REMOVED***
     lun: 3
     targetPortal: ***REMOVED***
@@ -39,7 +39,7 @@ spec:
     name: immich-postgres
     namespace: immich
   iscsi:
-    fsType: btrfs
+    fsType: ext4
     iqn: ***REMOVED***
     lun: 4
     targetPortal: ***REMOVED***
