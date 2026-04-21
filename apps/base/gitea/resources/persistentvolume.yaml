@@ -15,7 +15,7 @@ spec:
     name: gitea-data
     namespace: gitea
   iscsi:
-    fsType: ext4
+    fsType: btrfs
     iqn: iqn.2000-01.com.synology:diskstation.default-target.8f20388e135
     lun: 2
     targetPortal: 192.168.1.3:3260
