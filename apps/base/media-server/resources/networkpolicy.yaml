@@ -8,6 +8,12 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: ombi
+        - namespaceSelector:
+            matchLabels:
               kubernetes.io/metadata.name: traefik
           podSelector:
             matchLabels:
@@ -25,6 +31,24 @@ metadata:
 spec:
   ingress:
     - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: lidarr
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: radarr
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: sonarr
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: traefik
@@ -65,6 +89,24 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: lidarr
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: radarr
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: sonarr
+        - namespaceSelector:
+            matchLabels:
               kubernetes.io/metadata.name: traefik
           podSelector:
             matchLabels:
@@ -84,6 +126,12 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: ombi
+        - namespaceSelector:
+            matchLabels:
               kubernetes.io/metadata.name: traefik
           podSelector:
             matchLabels:
@@ -101,6 +149,12 @@ metadata:
 spec:
   ingress:
     - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: ombi
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: traefik
