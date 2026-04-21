@@ -15,7 +15,7 @@ spec:
     name: vaultwarden-data
     namespace: vaultwarden
   iscsi:
-    fsType: ext4
+    fsType: btrfs
     iqn: ***REMOVED***
     lun: 1
     targetPortal: ***REMOVED***

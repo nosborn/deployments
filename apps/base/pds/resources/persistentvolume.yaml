@@ -15,7 +15,7 @@
 #     name: pds-data
 #     namespace: pds
 #   iscsi:
-#     fsType: ext4
+#     fsType: btrfs
 #     iqn: ***REMOVED***
 #     lun: 6 -- TODO
 #     targetPortal: ***REMOVED***
