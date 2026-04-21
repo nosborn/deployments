@@ -1,24 +1,24 @@
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  labels:
-    app.kubernetes.io/instance: pds
-    app.kubernetes.io/name: pds-data
-  name: pds-data
-spec:
-  accessModes:
-    - ReadWriteOnce
-  capacity:
-    storage: 1Gi
-  claimRef:
-    name: pds-data
-    namespace: pds
-  iscsi:
-    fsType: btrfs
-    iqn: ***REMOVED***
-    lun: 6
-    targetPortal: ***REMOVED***
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: ""
-  volumeMode: Filesystem
+# ---
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   labels:
+#     app.kubernetes.io/instance: pds
+#     app.kubernetes.io/name: pds-data
+#   name: pds-data
+# spec:
+#   accessModes:
+#     - ReadWriteOnce
+#   capacity:
+#     storage: 1Gi
+#   claimRef:
+#     name: pds-data
+#     namespace: pds
+#   iscsi:
+#     fsType: btrfs
+#     iqn: ***REMOVED***
+#     lun: 6 -- TODO
+#     targetPortal: ***REMOVED***
+#   persistentVolumeReclaimPolicy: Retain
+#   storageClassName: ""
+#   volumeMode: Filesystem
