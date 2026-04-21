@@ -140,6 +140,9 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
           volumeMounts:
+            - mountPath: /data
+              name: data
+              readOnly: true
             - mountPath: /etc/nginx/nginx.conf
               name: config
               subPath: nginx.conf
@@ -147,7 +150,27 @@ spec:
               name: temp
       imagePullSecrets:
         - name: docker-hub
+      initContainers:
+        - command:
+            - /bin/sh
+            - -c
+            - /scripts/fetch-content.sh
+          image: docker.io/nginxinc/nginx-unprivileged:1.29.5-alpine
+          imagePullPolicy: IfNotPresent
+          name: init
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /scripts
+              name: scripts
       securityContext:
+        fsGroup: 101
         seccompProfile:
           type: RuntimeDefault
       volumes:
@@ -156,6 +179,11 @@ spec:
         - configMap:
             name: miasma-nginx
           name: config
+        - emptyDir: {}
+          name: data
+        - configMap:
+            name: miasma-nginx-scripts
+          name: scripts
         - emptyDir:
             medium: Memory
             sizeLimit: 1Mi
