@@ -6,8 +6,8 @@ resources:
   - gitea
   - immich
   - media-server
-  - mitmproxy
-  - pds
+  # - mitmproxy
+  # - pds
   - redirector
-  - searxng
+  # - searxng
   - vaultwarden
