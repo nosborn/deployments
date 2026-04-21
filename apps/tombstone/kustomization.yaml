@@ -6,6 +6,7 @@ resources:
   - gitea
   - immich
   - media-server
+  - miasma
   # - mitmproxy
   # - pds
   - redirector
