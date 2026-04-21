@@ -44,7 +44,7 @@ spec:
               value: !!str 22
             - name: TMPDIR
               value: /tmp/gitea
-          image: docker.gitea.com/gitea:1.25.5-rootless
+          image: docker.gitea.com/gitea:1.26.0-rootless
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 10
@@ -96,7 +96,7 @@ spec:
               value: /tmp/gitea
             - name: GITEA_WORK_DIR
               value: /data
-          image: docker.gitea.com/gitea:1.25.5-rootless
+          image: docker.gitea.com/gitea:1.26.0-rootless
           imagePullPolicy: IfNotPresent
           name: init-directories
           resources: {}
@@ -132,7 +132,7 @@ spec:
                 name: gitea-app-ini-env
             - secretRef:
                 name: gitea-app-ini-env
-          image: docker.gitea.com/gitea:1.25.5-rootless
+          image: docker.gitea.com/gitea:1.26.0-rootless
           imagePullPolicy: IfNotPresent
           name: init-app-ini
           resources: {}
@@ -166,7 +166,7 @@ spec:
                 name: gitea-config-env
             - secretRef:
                 name: gitea-config-env
-          image: docker.gitea.com/gitea:1.25.5-rootless
+          image: docker.gitea.com/gitea:1.26.0-rootless
           imagePullPolicy: IfNotPresent
           name: configure-gitea
           resources: {}
