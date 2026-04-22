@@ -16,16 +16,6 @@ configMapGenerator:
 patches:
   - patch: |-
       - op: replace
-        path: /spec/dnsNames
-        value:
-          - nick.pds.osborn.io
-          - pds.osborn.io
-    target:
-      kind: Certificate
-      name: pds
-      namespace: pds
-  - patch: |-
-      - op: replace
         path: /spec/routes/0/match
         value: Host(`pds.osborn.io`) || Host(`nick.pds.osborn.io`)
       - op: add
