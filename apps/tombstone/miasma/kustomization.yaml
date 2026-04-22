@@ -8,15 +8,6 @@ resources:
 patches:
   - patch: |-
       - op: replace
-        path: /spec/dnsNames
-        value:
-          - tombstone.osborn.io
-    target:
-      kind: Certificate
-      name: tombstone
-      namespace: miasma
-  - patch: |-
-      - op: replace
         path: /spec/routes/0/match
         value: Host(`tombstone.osborn.io`)
       - op: add
@@ -25,5 +16,5 @@ patches:
           - main: tombstone.osborn.io
     target:
       kind: IngressRoute
-      name: tombstone
+      name: miasma
       namespace: miasma
