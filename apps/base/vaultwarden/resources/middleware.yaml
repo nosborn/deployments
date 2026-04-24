@@ -1,3 +1,4 @@
+# yamllint disable rule:line-length
 ---
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
@@ -26,9 +27,10 @@ metadata:
 spec:
   headers:
     customResponseHeaders:
-      Permissions-Policy: geolocation=(), microphone=(), camera=()
+      Permissions-Policy: geolocation=(), interest-cohort=(), microphone=(), camera=()
       Referrer-Policy: strict-origin-when-cross-origin
-      Strict-Transport-Security: max-age=31536000
+      Server: ""
+      Strict-Transport-Security: max-age=31536000; includeSubDomains
       X-Content-Type-Options: nosniff
       X-Frame-Options: DENY
       X-Robots-Tag: noindex, nofollow

@@ -3,17 +3,17 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   labels:
-    app.kubernetes.io/instance: gitea
-    app.kubernetes.io/name: gitea-data
-  name: gitea-data
+    app.kubernetes.io/instance: forgejo
+    app.kubernetes.io/name: forgejo-data
+  name: forgejo-data
 spec:
   accessModes:
     - ReadWriteOnce
   capacity:
     storage: 100Gi
   claimRef:
-    name: gitea-data
-    namespace: gitea
+    name: forgejo-data
+    namespace: forgejo
   iscsi:
     fsType: btrfs
     iqn: iqn.2000-01.com.synology:diskstation.default-target.8f20388e135

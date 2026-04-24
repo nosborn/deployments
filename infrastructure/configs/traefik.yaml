@@ -1,3 +1,4 @@
+# yamllint disable rule:line-length
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
@@ -56,7 +57,7 @@ metadata:
 spec:
   headers:
     customResponseHeaders:
-      Permissions-Policy: geolocation=(), microphone=(), camera=()
+      Permissions-Policy: geolocation=(), interest-cohort=(), microphone=(), camera=()
       Referrer-Policy: strict-origin-when-cross-origin
       X-Content-Type-Options: nosniff
       X-Frame-Options: DENY

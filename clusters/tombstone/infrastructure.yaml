@@ -14,7 +14,7 @@ spec:
           path: /spec/addresses
           value:
             - 192.168.1.2/32
-            - 2a0b:9401:8b:1:3e07:54ff:fe5c:dd07/128
+            - 2a0b:9401:8b:1:8647:9ff:fe5c:f1d9/128
       target:
         kind: IPAddressPool
         name: default
