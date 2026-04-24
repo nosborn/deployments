@@ -254,7 +254,7 @@ spec:
                   name: immich-postgres
             - name: POSTGRES_USER
               value: immich
-          image: docker.io/pgvector/pgvector:0.8.1-pg18
+          image: docker.io/pgvector/pgvector:0.8.2-pg18
           livenessProbe:
             exec:
               command:

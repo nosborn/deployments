@@ -5,4 +5,4 @@ metadata:
   annotations: {}
   labels:
     pod-security.kubernetes.io/enforce: restricted
-  name: gitea
+  name: forgejo

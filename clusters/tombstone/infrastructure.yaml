@@ -14,7 +14,7 @@ spec:
           path: /spec/addresses
           value:
             - ***REMOVED***/32
-            - 2a0b:9401:8b:1:3e07:54ff:fe5c:dd07/128
+            - ***REMOVED***/128
       target:
         kind: IPAddressPool
         name: default

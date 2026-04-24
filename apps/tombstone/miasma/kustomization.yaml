@@ -16,5 +16,5 @@ patches:
           - main: tombstone.osborn.io
     target:
       kind: IngressRoute
-      name: miasma
+      name: miasma-nginx
       namespace: miasma

@@ -12,20 +12,19 @@ resources:
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/service.yaml
-  - resources/sopssecret.yaml
 
 configMapGenerator:
   - envs:
       - configs/app-ini.env
-    name: gitea-app-ini-env
-    namespace: gitea
+    name: forgejo-app-ini-env
+    namespace: forgejo
   - envs:
       - configs/config.env
-    name: gitea-config-env
-    namespace: gitea
+    name: forgejo-config-env
+    namespace: forgejo
   - files:
-      - scripts/configure_gitea.sh
+      - scripts/configure_forgejo.sh
       - scripts/configure_gpg_environment.sh
       - scripts/init_directory_structure.sh
-    name: gitea-init
-    namespace: gitea
+    name: forgejo-init
+    namespace: forgejo

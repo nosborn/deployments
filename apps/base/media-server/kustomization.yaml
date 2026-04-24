@@ -12,3 +12,9 @@ resources:
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/service.yaml
+
+configMapGenerator:
+  - files:
+      - configs/recyclarr.yml
+    name: recyclarr-config
+    namespace: media

@@ -27,7 +27,6 @@ spec:
     spec:
       containers:
         - args:
-            - --force-gzip
             - --link-prefix=/miasma
             - --max-depth=8
           image: ghcr.io/nosborn/miasma:0.2.1
@@ -104,7 +103,7 @@ spec:
         app.kubernetes.io/name: miasma-nginx
     spec:
       containers:
-        - image: docker.io/nginxinc/nginx-unprivileged:1.29.5-alpine
+        - image: docker.io/nginxinc/nginx-unprivileged:1.29.8-alpine
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -155,7 +154,7 @@ spec:
             - /bin/sh
             - -c
             - /scripts/fetch-content.sh
-          image: docker.io/nginxinc/nginx-unprivileged:1.29.5-alpine
+          image: docker.io/nginxinc/nginx-unprivileged:1.29.8-alpine
           imagePullPolicy: IfNotPresent
           name: init
           resources: {}
@@ -167,6 +166,8 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
           volumeMounts:
+            - mountPath: /data
+              name: data
             - mountPath: /scripts
               name: scripts
       securityContext:
@@ -174,14 +175,18 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       volumes:
-        - emptyDir: {}
+        - emptyDir:
+            medium: Memory
+            sizeLimit: 1Mi
           name: cache
         - configMap:
             name: miasma-nginx
           name: config
-        - emptyDir: {}
+        - emptyDir:
+            medium: Memory
           name: data
         - configMap:
+            defaultMode: 493 # 0755
             name: miasma-nginx-scripts
           name: scripts
         - emptyDir:

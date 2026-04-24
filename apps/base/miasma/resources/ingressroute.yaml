@@ -5,7 +5,7 @@ metadata:
   labels:
     app.kubernetes.io/instance: miasma
     app.kubernetes.io/name: miasma
-  name: miasma
+  name: miasma-nginx
   namespace: miasma
 spec:
   entryPoints:
