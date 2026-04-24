@@ -2,14 +2,14 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: gitea
-  namespace: gitea
+  name: forgejo
+  namespace: forgejo
 spec:
   dnsNames:
-    - gitea.example.com
+    - git.example.com
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
     name: ownca
   renewBefore: 8h
-  secretName: gitea-tls
+  secretName: forgejo-tls

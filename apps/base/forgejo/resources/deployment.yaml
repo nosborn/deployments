@@ -1,0 +1,284 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    secret.reloader.stakater.com/reload: forgejo-admin
+  labels:
+    app.kubernetes.io/instance: forgejo
+    app.kubernetes.io/name: forgejo
+  name: forgejo
+  namespace: forgejo
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: forgejo
+      app.kubernetes.io/name: forgejo
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: forgejo
+      labels:
+        app.kubernetes.io/instance: forgejo
+        app.kubernetes.io/name: forgejo
+    spec:
+      containers:
+        - env:
+            - name: forgejo_APP_INI
+              value: /data/forgejo/conf/app.ini
+            - name: forgejo_CUSTOM
+              value: /data/forgejo
+            - name: forgejo_TEMP
+              value: /tmp/forgejo
+            - name: forgejo_WORK_DIR
+              value: /data
+            - name: HOME
+              value: /data/forgejo/git
+            - name: SSH_LISTEN_PORT
+              value: !!str 2222
+            - name: SSH_PORT
+              value: !!str 22
+            - name: TMPDIR
+              value: /tmp/forgejo
+          image: codeberg.org/forgejo/forgejo:15.0.0-rootless
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 10
+            httpGet:
+              path: /api/healthz
+              port: http
+            initialDelaySeconds: 200
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: forgejo
+          ports:
+            - containerPort: 3000
+              name: http
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/healthz
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 4m
+              memory: 93Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+            - mountPath: /tmp
+              name: temp
+      initContainers:
+        - command:
+            - /usr/sbinx/init_directory_structure.sh
+          env:
+            - name: forgejo_APP_INI
+              value: /data/forgejo/conf/app.ini
+            - name: forgejo_CUSTOM
+              value: /data/forgejo
+            - name: forgejo_TEMP
+              value: /tmp/forgejo
+            - name: forgejo_WORK_DIR
+              value: /data
+          image: codeberg.org/forgejo/forgejo:1.15.0-rootless
+          imagePullPolicy: IfNotPresent
+          name: init-directories
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+            - mountPath: /tmp
+              name: temp
+            - mountPath: /usr/sbinx
+              name: init
+        - command:
+            - /usr/local/bin/environment-to-ini
+            - --config
+            - /data/forgejo/conf/app.ini
+            - --out
+            - /data/forgejo/conf/app.ini
+          env:
+            - name: forgejo_APP_INI
+              value: /data/forgejo/conf/app.ini
+            - name: forgejo_CUSTOM
+              value: /data/forgejo
+            - name: forgejo_TEMP
+              value: /tmp/forgejo
+            - name: forgejo_WORK_DIR
+              value: /data
+          envFrom:
+            - configMapRef:
+                name: forgejo-app-ini-env
+            - secretRef:
+                name: forgejo-app-ini-env
+          image: codeberg.org/forgejo/forgejo:1.15.0-rootless
+          imagePullPolicy: IfNotPresent
+          name: init-app-ini
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+            - mountPath: /tmp
+              name: temp
+        - command:
+            - /usr/sbinx/configure_forgejo.sh
+          env:
+            - name: forgejo_APP_INI
+              value: /data/forgejo/conf/app.ini
+            - name: forgejo_CUSTOM
+              value: /data/forgejo
+            - name: forgejo_TEMP
+              value: /tmp/forgejo
+            - name: forgejo_WORK_DIR
+              value: /data
+            - name: HOME
+              value: /data/forgejo/git
+          envFrom:
+            - configMapRef:
+                name: forgejo-config-env
+            - secretRef:
+                name: forgejo-config-env
+          image: codeberg.org/forgejo/forgejo:1.15.0-rootless
+          imagePullPolicy: IfNotPresent
+          name: configure-forgejo
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+            - mountPath: /tmp
+              name: temp
+            - mountPath: /usr/sbinx
+              name: init
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: forgejo-data
+        - configMap:
+            defaultMode: 365
+            name: forgejo-init
+          name: init
+        - emptyDir: {}
+          name: temp
+# ---
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   labels:
+#     app.kubernetes.io/instance: forgejo
+#     app.kubernetes.io/name: forgejo-valkey
+#   name: forgejo-valkey
+#   namespace: forgejo
+# spec:
+#   replicas: 1
+#   revisionHistoryLimit: 0
+#   selector:
+#     matchLabels:
+#       app.kubernetes.io/instance: forgejo
+#       app.kubernetes.io/name: forgejo-valkey
+#   strategy:
+#     type: Recreate
+#   template:
+#     metadata:
+#       annotations:
+#         kubectl.kubernetes.io/default-container: forgejo-valkey
+#       labels:
+#         app.kubernetes.io/instance: forgejo
+#         app.kubernetes.io/name: forgejo-valkey
+#     spec:
+#       containers:
+#         - args:
+#             - --appendonly
+#             - !!str yes
+#           image: ghcr.io/valkey-io/valkey:9.0.3
+#           livenessProbe:
+#             exec:
+#               command:
+#                 - sh
+#                 - -c
+#                 - valkey-cli ping | grep PONG
+#             failureThreshold: 3
+#             initialDelaySeconds: 30
+#             periodSeconds: 10
+#             timeoutSeconds: 5
+#           name: forgejo-valkey
+#           ports:
+#             - containerPort: 6379
+#               name: redis
+#           readinessProbe:
+#             exec:
+#               command:
+#                 - sh
+#                 - -c
+#                 - valkey-cli ping | grep PONG
+#             failureThreshold: 3
+#             initialDelaySeconds: 5
+#             periodSeconds: 10
+#             timeoutSeconds: 5
+#           resources:
+#             requests:
+#               cpu: 18m
+#               memory: 8Mi
+#           securityContext:
+#             allowPrivilegeEscalation: false
+#             capabilities:
+#               drop:
+#                 - ALL
+#             readOnlyRootFilesystem: true
+#             runAsGroup: 999
+#             runAsNonRoot: true
+#             runAsUser: 999
+#           volumeMounts:
+#             - mountPath: /data
+#               name: data
+#       securityContext:
+#         fsGroup: 999
+#         seccompProfile:
+#           type: RuntimeDefault
+#       volumes:
+#         - name: data
+#           persistentVolumeClaim:
+#             claimName: forgejo-valkey

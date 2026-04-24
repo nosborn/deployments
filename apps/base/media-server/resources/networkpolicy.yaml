@@ -14,6 +14,12 @@ spec:
               app.kubernetes.io/name: ombi
         - namespaceSelector:
             matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: prowlarr
+        - namespaceSelector:
+            matchLabels:
               kubernetes.io/metadata.name: traefik
           podSelector:
             matchLabels:
@@ -132,6 +138,18 @@ spec:
               app.kubernetes.io/name: ombi
         - namespaceSelector:
             matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: prowlarr
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: recyclarr
+        - namespaceSelector:
+            matchLabels:
               kubernetes.io/metadata.name: traefik
           podSelector:
             matchLabels:
@@ -139,6 +157,17 @@ spec:
   podSelector:
     matchLabels:
       app.kubernetes.io/name: radarr
+  policyTypes:
+    - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: recyclarr
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: recyclarr
   policyTypes:
     - Ingress
 ---
@@ -155,6 +184,18 @@ spec:
           podSelector:
             matchLabels:
               app.kubernetes.io/name: ombi
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: prowlarr
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: recyclarr
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: traefik
