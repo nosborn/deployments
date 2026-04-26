@@ -1,0 +1,25 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/zeroclaw
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - claw.home.arpa
+    target:
+      kind: Certificate
+      name: zeroclaw
+      namespace: zeroclaw
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`claw.home.arpa`)
+    target:
+      kind: IngressRoute
+      name: zeroclaw
+      namespace: zeroclaw
