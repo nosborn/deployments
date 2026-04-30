@@ -44,7 +44,7 @@ spec:
               value: !!str 22
             - name: TMPDIR
               value: /tmp/forgejo
-          image: codeberg.org/forgejo/forgejo:15.0.0-rootless
+          image: codeberg.org/forgejo/forgejo:15.0.1-rootless
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 10
