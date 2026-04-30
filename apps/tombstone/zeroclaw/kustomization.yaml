@@ -4,6 +4,8 @@ kind: Kustomization
 
 resources:
   - ../../base/zeroclaw
+  - resources/persistentvolume.yaml
+  - resources/persistentvolumeclaim.yaml
 
 patches:
   - patch: |-
