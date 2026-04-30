@@ -24,7 +24,7 @@ spec:
           activeDeadlineSeconds: 600
           containers:
             - args:
-                - /data/db.sqlite3
+                - db.sqlite3
                 - PRAGMA wal_checkpoint(TRUNCATE);
               image: docker.io/alpine/sqlite:3.51.2
               imagePullPolicy: IfNotPresent
@@ -42,6 +42,7 @@ spec:
               volumeMounts:
                 - mountPath: /data
                   name: data
+              workingDir: /data
           imagePullSecrets:
             - name: docker-hub
           restartPolicy: Never
@@ -55,6 +56,6 @@ spec:
               persistentVolumeClaim:
                 claimName: vaultwarden-data
       ttlSecondsAfterFinished: 21600
-  schedule: 0 */6 * * *
+  schedule: 12 */8 * * * # at 12 minutes past the hour, every 8 hours
   successfulJobsHistoryLimit: 3
   timeZone: Etc/UTC
