@@ -4,6 +4,8 @@ kind: Kustomization
 
 resources:
   - ../../base/fogejo
+  - resources/persistentvolume.yaml
+  - resources/persistentvolumeclaim.yaml
   - resources/sopssecret.yaml
 
 configMapGenerator:
