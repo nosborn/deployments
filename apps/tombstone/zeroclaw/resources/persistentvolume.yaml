@@ -17,7 +17,7 @@ spec:
   iscsi:
     fsType: btrfs
     iqn: ***REMOVED***
-    lun: 5
+    lun: 3
     targetPortal: ***REMOVED***
   persistentVolumeReclaimPolicy: Retain
   storageClassName: ""
