@@ -90,4 +90,3 @@ spec:
         - name: data-tmp
           emptyDir:
             medium: Memory
-            # sizeLimit: ...
