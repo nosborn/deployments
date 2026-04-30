@@ -11,4 +11,4 @@ resources:
   - redirector
   # - searxng
   - vaultwarden
-  # - zeroclaw
+  - zeroclaw
