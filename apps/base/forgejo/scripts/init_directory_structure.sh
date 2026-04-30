@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
+
+set -x
+mkdir -p /data/git/.ssh
+chmod -R 700 /data/git/.ssh
+[[ ! -d /data/gitea/conf ]] && mkdir -p /data/gitea/conf
 
 # prepare temp directory structure
-mkdir -pv "${GITEA_TEMP:?}"
-chmod -v ug+rwx "${GITEA_TEMP:?}"
-
-# prepare app.ini location so environment-to-ini --config has a valid target
-mkdir -pv "${GITEA_APP_INI%/*}"
-touch "${GITEA_APP_INI:?}"
+mkdir -p "${GITEA_TEMP:?}"
+chmod ug+rwx "${GITEA_TEMP:?}"

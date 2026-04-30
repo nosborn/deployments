@@ -52,6 +52,6 @@ spec:
               persistentVolumeClaim:
                 claimName: forgejo-data
       ttlSecondsAfterFinished: 21600
-  schedule: 0 */6 * * *
+  schedule: 45 */8 * * * # at 45 minutes past the hour, every 8 hours
   successfulJobsHistoryLimit: 3
   timeZone: Etc/UTC
