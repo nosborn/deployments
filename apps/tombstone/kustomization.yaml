@@ -4,7 +4,6 @@ kind: Kustomization
 
 resources:
   # - forgejo
-  # - immich
   - media-server
   - miasma
   # - mitmproxy
