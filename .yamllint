@@ -3,6 +3,7 @@ extends: default
 
 ignore: |
   clusters/*/flux-system/gotk-components.yaml
+  **/resources/sopssecret.yaml
 
 rules:
   anchors:
