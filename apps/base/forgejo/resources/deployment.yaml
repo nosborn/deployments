@@ -84,108 +84,108 @@ spec:
               name: data
             - mountPath: /tmp
               name: temp
-      initContainers:
-        - command:
-            - /usr/sbinx/init_directory_structure.sh
-          env:
-            - name: forgejo_APP_INI
-              value: /data/forgejo/conf/app.ini
-            - name: forgejo_CUSTOM
-              value: /data/forgejo
-            - name: forgejo_TEMP
-              value: /tmp/forgejo
-            - name: forgejo_WORK_DIR
-              value: /data
-          image: codeberg.org/forgejo/forgejo:1.15.0-rootless
-          imagePullPolicy: IfNotPresent
-          name: init-directories
-          resources: {}
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-            readOnlyRootFilesystem: true
-            runAsNonRoot: true
-          volumeMounts:
-            - mountPath: /data
-              name: data
-            - mountPath: /tmp
-              name: temp
-            - mountPath: /usr/sbinx
-              name: init
-        - command:
-            - /usr/local/bin/environment-to-ini
-            - --config
-            - /data/forgejo/conf/app.ini
-            - --out
-            - /data/forgejo/conf/app.ini
-          env:
-            - name: forgejo_APP_INI
-              value: /data/forgejo/conf/app.ini
-            - name: forgejo_CUSTOM
-              value: /data/forgejo
-            - name: forgejo_TEMP
-              value: /tmp/forgejo
-            - name: forgejo_WORK_DIR
-              value: /data
-          envFrom:
-            - configMapRef:
-                name: forgejo-app-ini-env
-            - secretRef:
-                name: forgejo-app-ini-env
-          image: codeberg.org/forgejo/forgejo:1.15.0-rootless
-          imagePullPolicy: IfNotPresent
-          name: init-app-ini
-          resources: {}
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-            readOnlyRootFilesystem: true
-            runAsNonRoot: true
-          volumeMounts:
-            - mountPath: /data
-              name: data
-            - mountPath: /tmp
-              name: temp
-        - command:
-            - /usr/sbinx/configure_forgejo.sh
-          env:
-            - name: forgejo_APP_INI
-              value: /data/forgejo/conf/app.ini
-            - name: forgejo_CUSTOM
-              value: /data/forgejo
-            - name: forgejo_TEMP
-              value: /tmp/forgejo
-            - name: forgejo_WORK_DIR
-              value: /data
-            - name: HOME
-              value: /data/forgejo/git
-          envFrom:
-            - configMapRef:
-                name: forgejo-config-env
-            - secretRef:
-                name: forgejo-config-env
-          image: codeberg.org/forgejo/forgejo:1.15.0-rootless
-          imagePullPolicy: IfNotPresent
-          name: configure-forgejo
-          resources: {}
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-            readOnlyRootFilesystem: true
-            runAsNonRoot: true
-          volumeMounts:
-            - mountPath: /data
-              name: data
-            - mountPath: /tmp
-              name: temp
-            - mountPath: /usr/sbinx
-              name: init
+      # initContainers:
+      #   - command:
+      #       - /usr/sbinx/init_directory_structure.sh
+      #     env:
+      #       - name: forgejo_APP_INI
+      #         value: /data/forgejo/conf/app.ini
+      #       - name: forgejo_CUSTOM
+      #         value: /data/forgejo
+      #       - name: forgejo_TEMP
+      #         value: /tmp/forgejo
+      #       - name: forgejo_WORK_DIR
+      #         value: /data
+      #     image: codeberg.org/forgejo/forgejo:1.15.0-rootless
+      #     imagePullPolicy: IfNotPresent
+      #     name: init-directories
+      #     resources: {}
+      #     securityContext:
+      #       allowPrivilegeEscalation: false
+      #       capabilities:
+      #         drop:
+      #           - ALL
+      #       readOnlyRootFilesystem: true
+      #       runAsNonRoot: true
+      #     volumeMounts:
+      #       - mountPath: /data
+      #         name: data
+      #       - mountPath: /tmp
+      #         name: temp
+      #       - mountPath: /usr/sbinx
+      #         name: init
+      #   - command:
+      #       - /usr/local/bin/environment-to-ini
+      #       - --config
+      #       - /data/forgejo/conf/app.ini
+      #       - --out
+      #       - /data/forgejo/conf/app.ini
+      #     env:
+      #       - name: forgejo_APP_INI
+      #         value: /data/forgejo/conf/app.ini
+      #       - name: forgejo_CUSTOM
+      #         value: /data/forgejo
+      #       - name: forgejo_TEMP
+      #         value: /tmp/forgejo
+      #       - name: forgejo_WORK_DIR
+      #         value: /data
+      #     envFrom:
+      #       - configMapRef:
+      #           name: forgejo-app-ini-env
+      #       - secretRef:
+      #           name: forgejo-app-ini-env
+      #     image: codeberg.org/forgejo/forgejo:1.15.0-rootless
+      #     imagePullPolicy: IfNotPresent
+      #     name: init-app-ini
+      #     resources: {}
+      #     securityContext:
+      #       allowPrivilegeEscalation: false
+      #       capabilities:
+      #         drop:
+      #           - ALL
+      #       readOnlyRootFilesystem: true
+      #       runAsNonRoot: true
+      #     volumeMounts:
+      #       - mountPath: /data
+      #         name: data
+      #       - mountPath: /tmp
+      #         name: temp
+      #   - command:
+      #       - /usr/sbinx/configure_forgejo.sh
+      #     env:
+      #       - name: forgejo_APP_INI
+      #         value: /data/forgejo/conf/app.ini
+      #       - name: forgejo_CUSTOM
+      #         value: /data/forgejo
+      #       - name: forgejo_TEMP
+      #         value: /tmp/forgejo
+      #       - name: forgejo_WORK_DIR
+      #         value: /data
+      #       - name: HOME
+      #         value: /data/forgejo/git
+      #     envFrom:
+      #       - configMapRef:
+      #           name: forgejo-config-env
+      #       - secretRef:
+      #           name: forgejo-config-env
+      #     image: codeberg.org/forgejo/forgejo:1.15.0-rootless
+      #     imagePullPolicy: IfNotPresent
+      #     name: configure-forgejo
+      #     resources: {}
+      #     securityContext:
+      #       allowPrivilegeEscalation: false
+      #       capabilities:
+      #         drop:
+      #           - ALL
+      #       readOnlyRootFilesystem: true
+      #       runAsNonRoot: true
+      #     volumeMounts:
+      #       - mountPath: /data
+      #         name: data
+      #       - mountPath: /tmp
+      #         name: temp
+      #       - mountPath: /usr/sbinx
+      #         name: init
       securityContext:
         fsGroup: 1000
         runAsGroup: 1000
