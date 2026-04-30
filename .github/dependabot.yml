@@ -15,9 +15,6 @@ updates:
     directories:
       - /**/resources
     groups:
-      immich:
-        patterns:
-          - immich-app/*
       valkey:
         patterns:
           - valkey-io/valkey
