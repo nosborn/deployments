@@ -3,26 +3,24 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../base/forgejo
+  - ../../base/gitea
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
   - resources/sopssecret.yaml
 
+# configMapGenerator:
+#   - behavior: merge
+#     envs:
+#       - configs/gitea-app-ini.env
+#     name: gitea-app-ini-env
+#     namespace: gitea
+
 patches:
   - patch: |-
       - op: replace
-        path: /spec/dnsNames
-        value:
-          - git.home.arpa
-    target:
-      kind: Certificate
-      name: forgejo
-      namespace: forgejo
-  - patch: |-
-      - op: replace
         path: /spec/routes/0/match
-        value: Host(`git.home.arpa`)
+        value: Host(`git.osborn.io`)
     target:
       kind: IngressRoute
-      name: forgejo
-      namespace: forgejo
+      name: gitea
+      namespace: gitea
