@@ -4,7 +4,7 @@ kind: Kustomization
 
 resources:
   - cert-manager.yaml
-  - metallb.yaml
+  # - metallb.yaml
   - reloader.yaml
   - sops-secrets-operator.yaml
   - traefik.yaml
