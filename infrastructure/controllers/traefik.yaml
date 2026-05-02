@@ -96,7 +96,7 @@ spec:
           endpoint: api.uptrace.dev:4317
     persistence:
       enabled: true
-      storageClass: openebs-hostpath
+      storageClass: local-path
     ports:
       traefik:
         expose:
