@@ -28,5 +28,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: openebs-hostpath
+  storageClassName: local-path
   volumeMode: Filesystem
