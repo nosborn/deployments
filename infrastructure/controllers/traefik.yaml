@@ -29,7 +29,7 @@ spec:
         kind: HelmRepository
         name: traefik
         namespace: flux-system
-      version: 39.0.2
+      version: 39.0.8
   install:
     remediation:
       retries: 3
