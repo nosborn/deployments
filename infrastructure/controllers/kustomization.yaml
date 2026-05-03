@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - cert-manager.yaml
   # - metallb.yaml
+  - nvidia-device-plugin.yaml
   - reloader.yaml
   - sops-secrets-operator.yaml
   - traefik.yaml
