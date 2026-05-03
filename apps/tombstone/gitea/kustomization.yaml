@@ -8,13 +8,6 @@ resources:
   - resources/persistentvolumeclaim.yaml
   - resources/sopssecret.yaml
 
-# configMapGenerator:
-#   - behavior: merge
-#     envs:
-#       - configs/gitea-app-ini.env
-#     name: gitea-app-ini-env
-#     namespace: gitea
-
 patches:
   - patch: |-
       - op: replace
