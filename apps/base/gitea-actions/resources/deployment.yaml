@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    secret.reloader.stakater.com/reload: runner
+  labels:
+    app: runner
+  name: runner
+  namespace: gitea-actions
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: runner
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: runner
+    spec:
+      containers:
+        - env:
+            - name: DOCKER_CERT_PATH
+              value: /certs/client
+            - name: DOCKER_HOST
+              value: tcp://localhost:2376
+            - name: DOCKER_TLS_VERIFY
+              value: !!str 1
+            - name: GITEA_INSTANCE_URL
+              value: http://gitea-http.gitea.svc:3000
+            - name: GITEA_RUNNER_REGISTRATION_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  key: token
+                  name: runner
+          image: gitea/runner:nightly-dind-rootless
+          imagePullPolicy: Always
+          name: runner
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: runner-data
+              mountPath: /data
+      imagePullSecrets:
+        - name: docker-hub
+      restartPolicy: Always
+      securityContext:
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - name: runner-data
+          persistentVolumeClaim:
+            claimName: runner-data
