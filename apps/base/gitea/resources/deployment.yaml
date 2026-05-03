@@ -3,7 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   annotations:
-    secret.reloader.stakater.com/reload: gitea-config
+    secret.reloader.stakater.com/reload: gitea-config,gitea-env
   labels:
     app.kubernetes.io/instance: gitea
     app.kubernetes.io/name: gitea
@@ -27,7 +27,10 @@ spec:
         app.kubernetes.io/name: gitea
     spec:
       containers:
-        - image: docker.gitea.com/gitea:1.26.1-rootless
+        - envFrom:
+            - secretRef:
+                name: gitea-env
+          image: docker.gitea.com/gitea:1.26.1-rootless
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 10
@@ -53,8 +56,8 @@ spec:
             timeoutSeconds: 1
           resources:
             requests:
-              cpu: 4m
-              memory: 93Mi
+              cpu: 26m
+              memory: 126Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -88,82 +91,3 @@ spec:
             medium: Memory
             # sizeLimit: TODO
           name: temp
----
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  labels:
-    app.kubernetes.io/instance: gitea
-    app.kubernetes.io/name: gitea-valkey
-  name: gitea-valkey
-  namespace: gitea
-spec:
-  replicas: 1
-  revisionHistoryLimit: 0
-  selector:
-    matchLabels:
-      app.kubernetes.io/instance: gitea
-      app.kubernetes.io/name: gitea-valkey
-  strategy:
-    type: Recreate
-  template:
-    metadata:
-      annotations:
-        kubectl.kubernetes.io/default-container: gitea-valkey
-      labels:
-        app.kubernetes.io/instance: gitea
-        app.kubernetes.io/name: gitea-valkey
-    spec:
-      containers:
-        - args:
-            - --appendonly
-            - !!str yes
-          image: ghcr.io/valkey-io/valkey:9.0.3
-          livenessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - valkey-cli ping | grep PONG
-            failureThreshold: 3
-            initialDelaySeconds: 30
-            periodSeconds: 10
-            timeoutSeconds: 5
-          name: gitea-valkey
-          ports:
-            - containerPort: 6379
-              name: redis
-          readinessProbe:
-            exec:
-              command:
-                - sh
-                - -c
-                - valkey-cli ping | grep PONG
-            failureThreshold: 3
-            initialDelaySeconds: 5
-            periodSeconds: 10
-            timeoutSeconds: 5
-          resources:
-            requests:
-              cpu: 18m
-              memory: 8Mi
-          securityContext:
-            allowPrivilegeEscalation: false
-            capabilities:
-              drop:
-                - ALL
-            readOnlyRootFilesystem: true
-            runAsGroup: 999
-            runAsNonRoot: true
-            runAsUser: 999
-          volumeMounts:
-            - mountPath: /data
-              name: data
-      securityContext:
-        fsGroup: 999
-        seccompProfile:
-          type: RuntimeDefault
-      volumes:
-        - name: data
-          persistentVolumeClaim:
-            claimName: gitea-valkey
