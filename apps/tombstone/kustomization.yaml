@@ -4,6 +4,7 @@ kind: Kustomization
 
 resources:
   - gitea
+  - gitea-actions
   - media-server
   - miasma
   # - mitmproxy
