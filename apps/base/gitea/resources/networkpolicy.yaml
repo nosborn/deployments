@@ -12,6 +12,13 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
+              kubernetes.io/metadata.name: gitea-actions
+          podSelector:
+            matchLabels:
+              app: runner
+    - from:
+        - namespaceSelector:
+            matchLabels:
               kubernetes.io/metadata.name: traefik
           podSelector:
             matchLabels:
