@@ -1,0 +1,114 @@
+# yamllint disable rule:line-length
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: istio
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://istio-release.storage.googleapis.com/charts
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    pod-security.kubernetes.io/enforce: privileged
+  name: istio-system
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: istio-base
+  namespace: istio-system
+spec:
+  chart:
+    spec:
+      chart: base
+      sourceRef:
+        kind: HelmRepository
+        name: istio
+        namespace: flux-system
+      version: 1.29.2
+  install:
+    remediation:
+      retries: 3
+  interval: 1h
+  upgrade:
+    crds: CreateReplace
+---
+# kubectl apply --server-side -f https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.4.0/experimental-install.yaml
+# serverSideApply: true
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: istiod
+  namespace: istio-system
+spec:
+  chart:
+    spec:
+      chart: istiod
+      sourceRef:
+        kind: HelmRepository
+        name: istio
+        namespace: flux-system
+      version: 1.29.2
+  install:
+    remediation:
+      retries: 3
+  interval: 1h
+  values:
+    autoscaleEnabled: false
+    cni:
+      enabled: true
+    global:
+      nativeNftables: true
+    profile: ambient
+    resources: ~
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: istio-cni
+  namespace: istio-system
+spec:
+  chart:
+    spec:
+      chart: cni
+      sourceRef:
+        kind: HelmRepository
+        name: istio
+        namespace: flux-system
+      version: 1.29.2
+  install:
+    remediation:
+      retries: 3
+  interval: 1h
+  values:
+    cni:
+      cniBinDir: /var/lib/rancher/k3s/data/cni
+      cniConfDir: /var/lib/rancher/k3s/agent/etc/cni/net.d
+    profile: ambient
+    resources: ~
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: ztunnel
+  namespace: istio-system
+spec:
+  chart:
+    spec:
+      chart: ztunnel
+      sourceRef:
+        kind: HelmRepository
+        name: istio
+        namespace: flux-system
+      version: 1.29.2
+  install:
+    remediation:
+      retries: 3
+  interval: 1h
+  values:
+    resources: ~
