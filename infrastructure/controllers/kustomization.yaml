@@ -4,7 +4,6 @@ kind: Kustomization
 
 resources:
   - cert-manager.yaml
-  # - metallb.yaml
   - nvidia-device-plugin.yaml
   - opentelemetry
   - reloader.yaml
