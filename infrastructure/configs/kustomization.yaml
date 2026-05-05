@@ -6,5 +6,5 @@ resources:
   - cert-manager.yaml
   - flux-uptrace.yaml
   - flux-webhook.yaml
-  # - istio-system.yaml -- TODO
+  # - metallb.yaml
   - traefik.yaml
