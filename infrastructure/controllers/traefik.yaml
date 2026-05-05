@@ -13,7 +13,6 @@ apiVersion: v1
 kind: Namespace
 metadata:
   labels:
-    istio.io/dataplane-mode: ambient
     pod-security.kubernetes.io/enforce: restricted
   name: traefik
 ---
@@ -30,7 +29,7 @@ spec:
         kind: HelmRepository
         name: traefik
         namespace: flux-system
-      version: 39.0.9
+      version: 39.0.8
   install:
     remediation:
       retries: 3
@@ -57,8 +56,6 @@ spec:
           storage: /data/acme.json
           tlsChallenge: !!str true
     deployment:
-      annotations:
-        ambient.istio.io/bypass-inbound-capture: !!str true
       revisionHistoryLimit: 0
     experimental:
       otlpLogs: true
