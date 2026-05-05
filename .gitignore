@@ -3,6 +3,8 @@
 .age.key.txt
 .claude/settings.local.json
 .envrc
+.kube/
 .kubeconform/
+.mcp.json
 CLAUDE.local.md
 charts/
