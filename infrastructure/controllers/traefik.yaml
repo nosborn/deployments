@@ -90,13 +90,15 @@ spec:
           enabled: true
           grpc:
             enabled: true
-            endpoint: api.uptrace.dev:4317
+            endpoint: collector.opentelemetry.svc:4317
+            insecure: true
     metrics:
       otlp:
         enabled: true
         grpc:
           enabled: true
-          endpoint: api.uptrace.dev:4317
+          endpoint: collector.opentelemetry.svc:4317
+          insecure: true
     persistence:
       enabled: true
       storageClass: local-path
@@ -121,19 +123,7 @@ spec:
         enabled: true
         grpc:
           enabled: true
-          endpoint: api.uptrace.dev:4317
+          endpoint: collector.opentelemetry.svc:4317
+          insecure: true
     updateStrategy:
       type: Recreate
-  valuesFrom:
-    - kind: Secret
-      name: helm-values
-      targetPath: logs.general.otlp.grpc.headers.uptrace-dsn
-      valuesKey: uptrace_dsn
-    - kind: Secret
-      name: helm-values
-      targetPath: metrics.otlp.grpc.headers.uptrace-dsn
-      valuesKey: uptrace_dsn
-    - kind: Secret
-      name: helm-values
-      targetPath: tracing.otlp.grpc.headers.uptrace-dsn
-      valuesKey: uptrace_dsn
