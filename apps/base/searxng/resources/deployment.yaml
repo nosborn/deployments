@@ -32,7 +32,7 @@ spec:
           envFrom:
             - secretRef:
                 name: searxng-env
-          image: ghcr.io/searxng/searxng:2026.4.17-e8299a4c3
+          image: ghcr.io/searxng/searxng:2026.5.5-d3566fe8a
           livenessProbe:
             failureThreshold: 3
             httpGet:
