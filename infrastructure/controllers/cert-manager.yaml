@@ -12,6 +12,7 @@ spec:
 apiVersion: v1
 kind: Namespace
 metadata:
+  annotations: {}
   labels:
     pod-security.kubernetes.io/enforce: baseline # TODO: restricted
     pod-security.kubernetes.io/warn: privileged
