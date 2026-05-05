@@ -1,0 +1,29 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: standalone-collector
+    app.kubernetes.io/instance: collector
+    app.kubernetes.io/name: opentelemetry-collector
+    app.kubernetes.io/part-of: opentelemetry-collector
+    component: standalone-collector
+  name: collector
+  namespace: opentelemetry
+spec:
+  internalTrafficPolicy: Cluster
+  ports:
+    - appProtocol: grpc
+      name: otlp
+      port: 4317
+      protocol: TCP
+      targetPort: 4317
+    - name: otlp-http
+      port: 4318
+      protocol: TCP
+      targetPort: 4318
+  selector:
+    app.kubernetes.io/instance: collector
+    app.kubernetes.io/name: opentelemetry-collector
+    component: standalone-collector
+  type: ClusterIP

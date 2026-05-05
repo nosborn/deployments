@@ -103,7 +103,7 @@ spec:
         app.kubernetes.io/name: miasma-nginx
     spec:
       containers:
-        - image: docker.io/nginxinc/nginx-unprivileged:1.29.8-alpine
+        - image: nginx:1.29.8-alpine-otel
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -139,14 +139,16 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
           volumeMounts:
-            - mountPath: /data
-              name: data
-              readOnly: true
             - mountPath: /etc/nginx/nginx.conf
               name: config
               subPath: nginx.conf
             - mountPath: /tmp
               name: temp
+            - mountPath: /usr/share/nginx/html
+              name: html
+              readOnly: true
+            - mountPath: /var/cache/nginx
+              name: cache
       imagePullSecrets:
         - name: docker-hub
       initContainers:
@@ -154,7 +156,7 @@ spec:
             - /bin/sh
             - -c
             - /scripts/fetch-content.sh
-          image: docker.io/nginxinc/nginx-unprivileged:1.29.8-alpine
+          image: nginx:1.29.8-alpine-otel
           imagePullPolicy: IfNotPresent
           name: init
           resources: {}
@@ -166,25 +168,28 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
           volumeMounts:
-            - mountPath: /data
-              name: data
             - mountPath: /scripts
               name: scripts
+              readOnly: true
+            - mountPath: /tmp
+              name: temp
+            - mountPath: /usr/share/nginx/html
+              name: html
       securityContext:
         fsGroup: 101
+        runAsGroup: 101
+        runAsUser: 101
         seccompProfile:
           type: RuntimeDefault
       volumes:
-        - emptyDir:
-            medium: Memory
-            sizeLimit: 1Mi
+        - emptyDir: {}
           name: cache
         - configMap:
             name: miasma-nginx
           name: config
         - emptyDir:
             medium: Memory
-          name: data
+          name: html
         - configMap:
             defaultMode: 493 # 0755
             name: miasma-nginx-scripts

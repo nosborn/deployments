@@ -6,6 +6,7 @@ resources:
   - cert-manager.yaml
   - istio-system.yaml
   - nvidia-device-plugin.yaml
+  - opentelemetry
   - reloader.yaml
   - sops-secrets-operator.yaml
   - traefik.yaml
