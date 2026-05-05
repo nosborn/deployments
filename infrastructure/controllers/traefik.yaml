@@ -12,6 +12,7 @@ spec:
 apiVersion: v1
 kind: Namespace
 metadata:
+  annotations: {}
   labels:
     pod-security.kubernetes.io/enforce: restricted
   name: traefik
@@ -29,7 +30,7 @@ spec:
         kind: HelmRepository
         name: traefik
         namespace: flux-system
-      version: 39.0.8
+      version: 39.0.9
   install:
     remediation:
       retries: 3
