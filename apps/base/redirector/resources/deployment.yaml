@@ -26,7 +26,7 @@ spec:
         app: redirector
     spec:
       containers:
-        - image: docker.io/nginxinc/nginx-unprivileged:1.29.8-alpine
+        - image: nginx:1.29.8-alpine-otel
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -70,9 +70,14 @@ spec:
               subPath: redirect.js
             - mountPath: /tmp
               name: tmp
+            - mountPath: /var/cache/nginx
+              name: cache
       imagePullSecrets:
         - name: docker-hub
       securityContext:
+        fsGroup: 101
+        runAsGroup: 101
+        runAsUser: 101
         seccompProfile:
           type: RuntimeDefault
       volumes:
