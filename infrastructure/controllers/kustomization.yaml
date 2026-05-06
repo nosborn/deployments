@@ -4,6 +4,7 @@ kind: Kustomization
 
 resources:
   - cert-manager.yaml
+  - dcgm-exporter.yaml
   - nvidia-device-plugin.yaml
   - opentelemetry
   - reloader.yaml
