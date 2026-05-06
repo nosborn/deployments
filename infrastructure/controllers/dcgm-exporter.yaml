@@ -1,0 +1,100 @@
+# yamllint disable rule:line-length
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: gpu-helm-charts
+  namespace: flux-system
+spec:
+  interval: 1h
+  url: https://nvidia.github.io/dcgm-exporter/helm-charts
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  labels:
+    pod-security.kubernetes.io/audit: baseline
+    pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/warn: baseline
+  name: dcgm-exporter
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: dcgm-exporter
+  namespace: dcgm-exporter
+spec:
+  chart:
+    spec:
+      chart: dcgm-exporter
+      sourceRef:
+        kind: HelmRepository
+        name: gpu-helm-charts
+        namespace: flux-system
+      version: 4.8.2
+  install:
+    remediation:
+      retries: 3
+  interval: 1h
+  values:
+    customMetrics: |
+      # Clocks
+      DCGM_FI_DEV_SM_CLOCK,  gauge, SM clock frequency (in MHz).
+      DCGM_FI_DEV_MEM_CLOCK, gauge, Memory clock frequency (in MHz).
+
+      # Temperature
+      DCGM_FI_DEV_GPU_TEMP,    gauge, GPU temperature (in C).
+      DCGM_FI_DEV_MEMORY_TEMP, gauge, Memory temperature (in C).
+
+      # Fans
+      DCGM_FI_DEV_FAN_SPEED, gauge, Fan speed (in %).
+
+      # Power
+      DCGM_FI_DEV_POWER_USAGE,              gauge,   Power draw (in W).
+      DCGM_FI_DEV_TOTAL_ENERGY_CONSUMPTION, counter, Total energy consumption since boot (in mJ).
+
+      # PCIE
+      DCGM_FI_DEV_PCIE_REPLAY_COUNTER, counter, Total number of PCIe retries.
+
+      # Utilization
+      DCGM_FI_DEV_GPU_UTIL,      gauge, GPU utilization (in %).
+      DCGM_FI_DEV_MEM_COPY_UTIL, gauge, Memory utilization (in %).
+      DCGM_FI_DEV_ENC_UTIL,      gauge, Encoder utilization (in %).
+      DCGM_FI_DEV_DEC_UTIL,      gauge, Decoder utilization (in %).
+
+      # Errors and violations
+      DCGM_FI_DEV_POWER_VIOLATION,       counter, Throttling duration due to power constraints (in ns).
+      DCGM_FI_DEV_THERMAL_VIOLATION,     counter, Throttling duration due to thermal constraints (in ns).
+      DCGM_FI_DEV_SYNC_BOOST_VIOLATION,  counter, Throttling duration due to sync-boost constraints (in ns).
+      DCGM_FI_DEV_BOARD_LIMIT_VIOLATION, counter, Throttling duration due to board limit constraints (in ns).
+      DCGM_FI_DEV_LOW_UTIL_VIOLATION,    counter, Throttling duration due to low utilization (in ns).
+      DCGM_FI_DEV_RELIABILITY_VIOLATION, counter, Throttling duration due to reliability constraints (in ns).
+
+      # Memory usage
+      DCGM_FI_DEV_FB_FREE, gauge, Framebuffer memory free (in MiB).
+      DCGM_FI_DEV_FB_USED, gauge, Framebuffer memory used (in MiB).
+    kubernetes:
+      enablePodLabels: true
+    nodeSelector:
+      nvidia.com/gpu.present: !!str true
+    podSecurityContext:
+      # fsGroup: 2000
+      seccompProfile:
+        type: RuntimeDefault
+    resources:
+      requests:
+        cpu: 1m
+    runtimeClassName: nvidia
+    securityContext:
+      allowPrivilegeEscalation: false
+      capabilities:
+        add: ~
+        drop:
+          - ALL
+      readOnlyRootFilesystem: true
+    serviceMonitor:
+      enabled: false
+    tolerations:
+      - effect: NoSchedule
+        key: nvidia.com/gpu
+        operator: Exists
