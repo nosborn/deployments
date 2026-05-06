@@ -12,9 +12,10 @@ spec:
 apiVersion: v1
 kind: Namespace
 metadata:
-  annotations: {}
   labels:
+    pod-security.kubernetes.io/audit: baseline
     pod-security.kubernetes.io/enforce: privileged
+    pod-security.kubernetes.io/warn: baseline
   name: nvidia-device-plugin
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
