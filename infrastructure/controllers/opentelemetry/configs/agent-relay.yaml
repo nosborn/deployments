@@ -59,10 +59,11 @@ processors:
     check_interval: 5s
     limit_percentage: 80
     spike_limit_percentage: 25
-  resourcedetection:
-    detectors:
-      - env
-      - system
+  resource/node_hostname:
+    attributes:
+      - key: host.name
+        value: ${env:OTEL_K8S_NODE_NAME}
+        action: upsert
 receivers:
   hostmetrics:
     collection_interval: 10s
@@ -162,7 +163,7 @@ service:
       processors:
         - memory_limiter
         - cumulativetodelta
-        - resourcedetection
+        - resource/node_hostname
         - batch
       receivers:
         - hostmetrics
