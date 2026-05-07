@@ -7,5 +7,4 @@ resources:
   - dcgm-exporter.yaml
   - nvidia-device-plugin.yaml
   - opentelemetry
-  - reloader.yaml
   - traefik.yaml

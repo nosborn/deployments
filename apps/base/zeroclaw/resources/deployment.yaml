@@ -2,8 +2,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  # annotations:
-  #   secret.reloader.stakater.com/reload: zeroclaw-config
   labels:
     app.kubernetes.io/component: zeroclaw
     app.kubernetes.io/instance: zeroclaw
