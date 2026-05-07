@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - gitea
   - gitea-actions
+  - llama-cpp
   - media-server
   - miasma
   # - mitmproxy
