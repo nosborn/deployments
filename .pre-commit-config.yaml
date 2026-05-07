@@ -8,22 +8,27 @@ repos:
       - id: check-added-large-files
       - id: check-case-conflict
       - id: check-json
+        exclude: ^apps/.+/configs/.+\.dockerconfigjson$
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-toml
       - id: check-vcs-permalinks
       - id: check-xml
+        exclude: ^apps/.+/configs/.+\.xml$
       - id: destroyed-symlinks
       - id: detect-aws-credentials
         args:
           - --allow-missing-credentials
       - id: detect-private-key
       - id: end-of-file-fixer
+        exclude: ^apps/.+/configs/.+\.(dockerconfigjson|xml|conf)$
       - id: fix-byte-order-marker
       - id: forbid-new-submodules
       - id: mixed-line-ending
       - id: pretty-format-json
+        exclude: ^apps/.+/configs/.+\.dockerconfigjson$
       - id: trailing-whitespace
+        exclude: ^apps/.+/configs/.+\.(dockerconfigjson|xml|conf)$
 
   - repo: https://github.com/adrienverge/yamllint.git
     rev: v1.38.0
@@ -42,7 +47,12 @@ repos:
       - id: check-sops-encrypted
         name: check-sops-encrypted
         entry: .pre-commit-hooks.d/check-sops-encrypted.sh
-        files: sopssecret\.yaml$
+        files: |
+          (?x)^(
+            apps/base/[^/]+/configs/docker-hub\.dockerconfigjson
+            |apps/tombstone/[^/]+/configs/.+
+              \.(env|ini|xml|conf|dockerconfigjson)
+          )$
         language: script
       - id: kubeconform
         name: kubeconform

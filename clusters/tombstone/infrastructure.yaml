@@ -5,6 +5,10 @@ metadata:
   name: infra-configs
   namespace: flux-system
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   dependsOn:
     - name: infra-controllers
   interval: 1h
@@ -42,6 +46,10 @@ metadata:
   name: infra-controllers
   namespace: flux-system
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   interval: 1h
   path: ./infrastructure/controllers
   prune: true
