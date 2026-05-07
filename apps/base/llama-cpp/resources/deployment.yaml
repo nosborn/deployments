@@ -1,0 +1,111 @@
+# yamllint disable rule:line-length
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: llama-cpp
+  namespace: llama-cpp
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: llama-cpp
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: llama-server
+      labels:
+        app: llama-cpp
+    spec:
+      containers:
+        - env:
+            # - name: LLAMA_ARG_CTX_SIZE
+            #   value !!str 16384
+            - name: LLAMA_ARG_FLASH_ATTN
+              value: !!str on
+            - name: LLAMA_ARG_HOST
+              value: 0.0.0.0
+            - name: LLAMA_ARG_MODEL
+              value: /models/Qwen_Qwen3-8B-Q4_K_M.gguf
+            - name: LLAMA_ARG_N_GPU_LAYERS
+              value: !!str 999
+          image: ghcr.io/ggml-org/llama.cpp:server-cuda
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 30
+            timeoutSeconds: 5
+          name: llama-server
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: http
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            timeoutSeconds: 5
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+            requests:
+              cpu: 100m
+              memory: 1Gi
+              nvidia.com/gpu: 1
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 1000
+            runAsNonRoot: true
+            runAsUser: 1000
+          volumeMounts:
+            - mountPath: /models
+              name: models
+              readOnly: true
+      initContainers:
+        - args:
+            - -fLOsS
+            - --continue-at
+            - "-"
+            - --retry
+            - !!str 5
+            - --retry-all-errors
+            - https://huggingface.co/bartowski/Qwen_Qwen3-8B-GGUF/resolve/main/Qwen_Qwen3-8B-Q4_K_M.gguf
+          image: quay.io/curl/curl:8.20.0
+          name: fetch-model
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsGroup: 0
+            runAsUser: 0
+          volumeMounts:
+            - mountPath: /models
+              name: models
+          workingDir: /models
+      nodeSelector:
+        kubernetes.io/hostname: vegas
+      runtimeClassName: nvidia
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      tolerations:
+        - effect: NoSchedule
+          key: nvidia.com/gpu
+          operator: Exists
+      volumes:
+        - name: models
+          persistentVolumeClaim:
+            claimName: llama-cpp-models
