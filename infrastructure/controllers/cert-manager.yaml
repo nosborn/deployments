@@ -34,6 +34,7 @@ spec:
     remediation:
       retries: 3
   interval: 1h
+  maxHistory: 1
   postRenderers:
     - kustomize:
         patches:
