@@ -14,7 +14,7 @@ configMapGenerator:
 
 secretGenerator:
   - envs:
-      - configs/pds-env.env
+      - configs/pds-env.sops.env
     name: pds-env
     namespace: pds
 

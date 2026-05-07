@@ -9,11 +9,11 @@ resources:
 
 secretGenerator:
   - envs:
-      - configs/gitea-env.env
+      - configs/gitea-env.sops.env
     name: gitea-env
     namespace: gitea
   - files:
-      - app.ini=configs/app.ini
+      - app.ini=configs/app.sops.ini
     name: gitea-config
     namespace: gitea
 
