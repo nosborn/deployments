@@ -16,7 +16,7 @@ configMapGenerator:
 
 secretGenerator:
   - envs:
-      - configs/vaultwarden-env.env
+      - configs/vaultwarden-env.sops.env
     name: vaultwarden-env
     namespace: vaultwarden
 
