@@ -14,7 +14,6 @@ resources:
   - resources/rolebinding.yaml
   - resources/service.yaml
   - resources/serviceaccount.yaml
-  - resources/sopssecret.yaml
 
 configMapGenerator:
   - envs:
@@ -26,3 +25,10 @@ configMapGenerator:
         app.kubernetes.io/component: vaultwarden
         app.kubernetes.io/instance: vaultwarden
         app.kubernetes.io/name: vaultwarden
+
+secretGenerator:
+  - files:
+      - .dockerconfigjson=configs/docker-hub.dockerconfigjson
+    name: docker-hub
+    namespace: vaultwarden
+    type: kubernetes.io/dockerconfigjson

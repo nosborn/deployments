@@ -72,8 +72,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    reloader.stakater.com/auto: !!str true
   labels:
     app.kubernetes.io/component: nginx
     app.kubernetes.io/instance: miasma
