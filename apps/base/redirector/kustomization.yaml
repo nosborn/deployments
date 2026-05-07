@@ -20,7 +20,7 @@ configMapGenerator:
 
 secretGenerator:
   - files:
-      - .dockerconfigjson=configs/docker-hub.dockerconfigjson
+      - .dockerconfigjson=configs/docker-hub.sops.dockerconfigjson
     name: docker-hub
     namespace: redirector
     type: kubernetes.io/dockerconfigjson

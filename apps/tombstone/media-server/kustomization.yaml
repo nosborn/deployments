@@ -8,27 +8,27 @@ resources:
 
 secretGenerator:
   - files:
-      - config.xml=configs/lidarr-config.xml
+      - config.xml=configs/lidarr-config.sops.xml
     name: lidarr-config
     namespace: media
   - files:
-      - nzbget.conf=configs/nzbget.conf
+      - nzbget.conf=configs/nzbget.sops.conf
     name: nzbget-config
     namespace: media
   - files:
-      - config.xml=configs/prowlarr-config.xml
+      - config.xml=configs/prowlarr-config.sops.xml
     name: prowlarr-config
     namespace: media
   - files:
-      - config.xml=configs/radarr-config.xml
+      - config.xml=configs/radarr-config.sops.xml
     name: radarr-config
     namespace: media
   - envs:
-      - configs/recyclarr-env.env
+      - configs/recyclarr-env.sops.env
     name: recyclarr-env
     namespace: media
   - files:
-      - config.xml=configs/sonarr-config.xml
+      - config.xml=configs/sonarr-config.sops.xml
     name: sonarr-config
     namespace: media
 

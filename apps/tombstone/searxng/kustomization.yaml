@@ -7,7 +7,7 @@ resources:
 
 secretGenerator:
   - envs:
-      - configs/searxng-env.env
+      - configs/searxng-env.sops.env
     name: searxng-env
     namespace: searxng
 
