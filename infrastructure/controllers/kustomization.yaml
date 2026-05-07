@@ -8,5 +8,4 @@ resources:
   - nvidia-device-plugin.yaml
   - opentelemetry
   - reloader.yaml
-  - sops-secrets-operator.yaml
   - traefik.yaml

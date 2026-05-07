@@ -6,12 +6,17 @@ resources:
   - ../../base/vaultwarden
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
-  - resources/sopssecret.yaml
 
 configMapGenerator:
   - behavior: merge
     literals:
       - DOMAIN=https://passwords.***REMOVED***
+    name: vaultwarden-env
+    namespace: vaultwarden
+
+secretGenerator:
+  - envs:
+      - configs/vaultwarden-env.env
     name: vaultwarden-env
     namespace: vaultwarden
 

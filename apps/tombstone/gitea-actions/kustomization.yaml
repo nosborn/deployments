@@ -4,4 +4,9 @@ kind: Kustomization
 
 resources:
   - ../../base/gitea-actions
-  - resources/sopssecret.yaml
+
+secretGenerator:
+  - envs:
+      - configs/runner.env
+    name: runner
+    namespace: gitea-actions
