@@ -2,8 +2,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    secret.reloader.stakater.com/reload: gitea-config,gitea-env
   labels:
     app.kubernetes.io/instance: gitea
     app.kubernetes.io/name: gitea

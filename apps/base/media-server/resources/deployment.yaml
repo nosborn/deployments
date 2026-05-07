@@ -91,8 +91,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    secret.reloader.stakater.com/reload: nzbget-config
   labels:
     app.kubernetes.io/component: nzbget
     app.kubernetes.io/instance: media-server
@@ -279,8 +277,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    secret.reloader.stakater.com/reload: prowlarr-config
   labels:
     app.kubernetes.io/component: prowlarr
     app.kubernetes.io/instance: media-server
@@ -370,8 +366,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    secret.reloader.stakater.com/reload: radarr-config
   labels:
     app.kubernetes.io/component: radarr
     app.kubernetes.io/instance: media-server
@@ -461,8 +455,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    secret.reloader.stakater.com/reload: recyclarr-env
   labels:
     app.kubernetes.io/component: recyclarr
     app.kubernetes.io/instance: media-server
@@ -540,8 +532,6 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    secret.reloader.stakater.com/reload: sonarr-config
   labels:
     app.kubernetes.io/component: sonarr
     app.kubernetes.io/instance: media-server
