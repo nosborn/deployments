@@ -6,7 +6,16 @@ resources:
   - ../../base/gitea
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
-  - resources/sopssecret.yaml
+
+secretGenerator:
+  - envs:
+      - configs/gitea-env.env
+    name: gitea-env
+    namespace: gitea
+  - files:
+      - app.ini=configs/app.ini
+    name: gitea-config
+    namespace: gitea
 
 patches:
   - patch: |-

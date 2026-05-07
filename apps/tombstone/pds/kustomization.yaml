@@ -4,12 +4,17 @@ kind: Kustomization
 
 resources:
   - ../../base/pds
-  - resources/sopssecret.yaml
 
 configMapGenerator:
   - behavior: merge
     literals:
       - PDS_HOSTNAME=pds.osborn.io
+    name: pds-env
+    namespace: pds
+
+secretGenerator:
+  - envs:
+      - configs/pds-env.env
     name: pds-env
     namespace: pds
 
