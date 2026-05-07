@@ -9,7 +9,7 @@ resources:
 
 secretGenerator:
   - files:
-      - .dockerconfigjson=configs/docker-hub.dockerconfigjson
+      - .dockerconfigjson=configs/docker-hub.sops.dockerconfigjson
     name: docker-hub
     namespace: gitea-actions
     type: kubernetes.io/dockerconfigjson

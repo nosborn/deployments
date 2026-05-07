@@ -7,6 +7,6 @@ resources:
 
 secretGenerator:
   - envs:
-      - configs/runner.env
+      - configs/runner.sops.env
     name: runner
     namespace: gitea-actions
