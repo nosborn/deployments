@@ -29,21 +29,12 @@ spec:
         kind: HelmRepository
         name: jetstack
         namespace: flux-system
-      version: 1.20.2
+      version: v1.20.2
   install:
     remediation:
       retries: 3
   interval: 1h
   maxHistory: 1
-  postRenderers:
-    - kustomize:
-        patches:
-          - patch: |
-              - op: add
-                path: /metadata/annotations/secret.reloader.stakater.com~1reload
-                value: ownca-intermediate-ca
-            target:
-              kind: Deployment
   upgrade:
     crds: CreateReplace
   values:
