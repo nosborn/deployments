@@ -1,0 +1,37 @@
+# yamllint disable rule:line-length
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: ip-allowlist
+  namespace: llama-cpp
+spec:
+  ipAllowList:
+    sourceRange:
+      - 192.168.1.2/31
+      - 192.168.1.4/30
+      - 192.168.1.8/29
+      - 192.168.1.16/28
+      - 192.168.1.32/27
+      - 192.168.1.64/26
+      - 192.168.1.128/25
+      - 192.168.4.0/24
+      - 2a0b:9401:8b:1::/64
+      - 2a0b:9401:8b:4::/64
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: security-headers
+  namespace: llama-cpp
+spec:
+  headers:
+    customResponseHeaders:
+      Permissions-Policy: geolocation=(), interest-cohort=(), microphone=(), camera=()
+      Referrer-Policy: strict-origin-when-cross-origin
+      Server: ""
+      Strict-Transport-Security: max-age=31536000; includeSubDomains
+      X-Content-Type-Options: nosniff
+      X-Frame-Options: DENY
+      X-Robots-Tag: noindex, nofollow
+      X-XSS-Protection: 1; mode=block
