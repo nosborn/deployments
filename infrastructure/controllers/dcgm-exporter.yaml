@@ -68,7 +68,6 @@ spec:
       DCGM_FI_DEV_THERMAL_VIOLATION,     counter, Throttling duration due to thermal constraints (in ns).
       DCGM_FI_DEV_SYNC_BOOST_VIOLATION,  counter, Throttling duration due to sync-boost constraints (in ns).
       DCGM_FI_DEV_BOARD_LIMIT_VIOLATION, counter, Throttling duration due to board limit constraints (in ns).
-      DCGM_FI_DEV_LOW_UTIL_VIOLATION,    counter, Throttling duration due to low utilization (in ns).
       DCGM_FI_DEV_RELIABILITY_VIOLATION, counter, Throttling duration due to reliability constraints (in ns).
 
       # Memory usage
@@ -79,7 +78,6 @@ spec:
     nodeSelector:
       nvidia.com/gpu.present: !!str true
     podSecurityContext:
-      # fsGroup: 2000
       seccompProfile:
         type: RuntimeDefault
     resources:
