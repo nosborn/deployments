@@ -8,6 +8,7 @@ resources:
   - resources/middleware.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
+  - resources/secret.yaml
   - resources/service.yaml
 
 configMapGenerator:
@@ -19,10 +20,3 @@ configMapGenerator:
       - scripts/fetch-content.sh
     name: miasma-nginx-scripts
     namespace: miasma
-
-secretGenerator:
-  - files:
-      - .dockerconfigjson=configs/docker-hub.sops.dockerconfigjson
-    name: docker-hub
-    namespace: miasma
-    type: kubernetes.io/dockerconfigjson

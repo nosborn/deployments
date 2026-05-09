@@ -71,7 +71,7 @@ spec:
             - mountPath: /var/cache/nginx
               name: cache
       imagePullSecrets:
-        - name: docker-hub
+        - name: dockerconfig
       securityContext:
         fsGroup: 101
         runAsGroup: 101

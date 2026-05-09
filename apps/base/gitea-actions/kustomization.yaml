@@ -6,10 +6,4 @@ resources:
   - resources/deployment.yaml
   - resources/namespace.yaml
   - resources/persistentvolumeclaim.yaml
-
-secretGenerator:
-  - files:
-      - .dockerconfigjson=configs/docker-hub.sops.dockerconfigjson
-    name: docker-hub
-    namespace: gitea-actions
-    type: kubernetes.io/dockerconfigjson
+  - resources/secret.yaml

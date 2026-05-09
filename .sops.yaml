@@ -1,6 +1,10 @@
 ---
 creation_rules:
   - age: age1cfvwwcvy3qj55kswlwymnvpwuwjymrp7xnjeycxma6qtdzv979qqd3kwue
+    path_regex: /configs/.+\.sops
+  - age: age1cfvwwcvy3qj55kswlwymnvpwuwjymrp7xnjeycxma6qtdzv979qqd3kwue
+    encrypted_regex: ^(data|stringData)$
+    path_regex: /secret\.yaml$
 stores:
   yaml:
     indent: 2

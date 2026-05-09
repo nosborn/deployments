@@ -8,10 +8,6 @@ resources:
   - resources/persistentvolumeclaim.yaml
 
 secretGenerator:
-  - envs:
-      - configs/gitea-env.sops.env
-    name: gitea-env
-    namespace: gitea
   - files:
       - app.ini=configs/app.sops.ini
     name: gitea-config
