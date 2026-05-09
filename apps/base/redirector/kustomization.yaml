@@ -9,6 +9,7 @@ resources:
   - resources/middleware.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
+  - resources/secret.yaml
   - resources/service.yaml
 
 configMapGenerator:
@@ -17,10 +18,3 @@ configMapGenerator:
       - configs/redirect.js
     name: redirector-nginx
     namespace: redirector
-
-secretGenerator:
-  - files:
-      - .dockerconfigjson=configs/docker-hub.sops.dockerconfigjson
-    name: docker-hub
-    namespace: redirector
-    type: kubernetes.io/dockerconfigjson

@@ -44,7 +44,7 @@ spec:
                   name: data
               workingDir: /data
           imagePullSecrets:
-            - name: docker-hub
+            - name: dockerconfig
           restartPolicy: Never
           securityContext:
             fsGroup: 1000

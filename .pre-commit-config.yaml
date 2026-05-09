@@ -8,27 +8,22 @@ repos:
       - id: check-added-large-files
       - id: check-case-conflict
       - id: check-json
-        exclude: ^apps/.+/configs/.+\.sops\.[^/]+$
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-toml
       - id: check-vcs-permalinks
       - id: check-xml
-        exclude: ^apps/.+/configs/.+\.sops\.[^/]+$
       - id: destroyed-symlinks
       - id: detect-aws-credentials
         args:
           - --allow-missing-credentials
       - id: detect-private-key
       - id: end-of-file-fixer
-        exclude: ^apps/.+/configs/.+\.sops\.[^/]+$
       - id: fix-byte-order-marker
       - id: forbid-new-submodules
       - id: mixed-line-ending
       - id: pretty-format-json
-        exclude: ^apps/.+/configs/.+\.sops\.[^/]+$
       - id: trailing-whitespace
-        exclude: ^apps/.+/configs/.+\.sops\.[^/]+$
 
   - repo: https://github.com/adrienverge/yamllint.git
     rev: v1.38.0
@@ -47,13 +42,13 @@ repos:
       - id: check-sops-encrypted
         name: check-sops-encrypted
         entry: .pre-commit-hooks.d/check-sops-encrypted.sh
-        files: ^apps/.+/configs/.+\.sops\.[^/]+$
+        files: ^.+/(.+\.sops|secret\.yaml)$
         language: script
       - id: kubeconform
         name: kubeconform
         entry: .pre-commit-hooks.d/kubeconform.sh
-        exclude: ^.+/(configs/.+|values\.yaml)$
-        files: ^(apps|bootstrap|projects)/
+        exclude: ^.+/(configs/.+|secret\.yaml)$
+        files: ^(apps|clusters|infrastructure)/
         language: script
         types:
           - yaml

@@ -76,7 +76,7 @@ spec:
             - mountPath: /tmp
               name: tmp
       imagePullSecrets:
-        - name: docker-hub
+        - name: dockerconfig
       securityContext:
         fsGroup: 1000
         seccompProfile:

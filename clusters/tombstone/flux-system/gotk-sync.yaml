@@ -5,6 +5,19 @@ metadata:
   name: flux-system
   namespace: flux-system
 spec:
+  ignore: |
+    .claude/
+    .envrc.example
+    .gitattributes
+    .github/
+    .gitignore
+    .pre-commit-config.yaml
+    .pre-commit-hooks.d/
+    .sops.yaml
+    .yamllint
+    LICENSE
+    README.md
+    bootstrap/
   interval: 1m0s
   ref:
     branch: main

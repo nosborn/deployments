@@ -6,17 +6,12 @@ resources:
   - ../../base/vaultwarden
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
+  - resources/secret.yaml
 
 configMapGenerator:
   - behavior: merge
     literals:
       - DOMAIN=https://passwords.home.arpa
-    name: vaultwarden-env
-    namespace: vaultwarden
-
-secretGenerator:
-  - envs:
-      - configs/vaultwarden-env.sops.env
     name: vaultwarden-env
     namespace: vaultwarden
 
