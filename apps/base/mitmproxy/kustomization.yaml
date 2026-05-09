@@ -9,6 +9,7 @@ resources:
   - resources/middleware.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
+  - resources/secret.yaml
   - resources/service.yaml
 
 configMapGenerator:
@@ -16,10 +17,3 @@ configMapGenerator:
       - configs/config.yaml
     name: mitmproxy
     namespace: mitmproxy
-
-secretGenerator:
-  - files:
-      - .dockerconfigjson=configs/docker-hub.sops.dockerconfigjson
-    name: docker-hub
-    namespace: mitmproxy
-    type: kubernetes.io/dockerconfigjson

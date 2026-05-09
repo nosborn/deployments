@@ -42,7 +42,7 @@ spec:
             - name: runner-data
               mountPath: /data
       imagePullSecrets:
-        - name: docker-hub
+        - name: dockerconfig
       restartPolicy: Always
       securityContext:
         fsGroup: 1000
