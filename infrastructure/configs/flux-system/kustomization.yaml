@@ -3,5 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../base/gitea-actions
-  - resources/secret.yaml
+  - alert.yaml
+  - ingressroute.yaml
+  - middleware.yaml
+  - provider.yaml

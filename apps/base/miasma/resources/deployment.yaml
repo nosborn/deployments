@@ -148,7 +148,7 @@ spec:
             - mountPath: /var/cache/nginx
               name: cache
       imagePullSecrets:
-        - name: docker-hub
+        - name: dockerconfig
       initContainers:
         - command:
             - /bin/sh
