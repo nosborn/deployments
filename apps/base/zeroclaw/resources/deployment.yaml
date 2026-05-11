@@ -31,7 +31,7 @@ spec:
         - env:
             - name: ZEROCLAW_ALLOW_PUBLIC_BIND
               value: !!str 1
-          image: ghcr.io/zeroclaw-labs/zeroclaw:v0.7.3
+          image: ghcr.io/zeroclaw-labs/zeroclaw:v0.7.5
           imagePullPolicy: IfNotPresent
           # livenessProbe:
           #   failureThreshold: 3
