@@ -23,6 +23,7 @@ repos:
       - id: forbid-new-submodules
       - id: mixed-line-ending
       - id: pretty-format-json
+        exclude: ^.+/secrets/.+$
       - id: trailing-whitespace
 
   - repo: https://github.com/adrienverge/yamllint.git
@@ -42,12 +43,12 @@ repos:
       - id: check-sops-encrypted
         name: check-sops-encrypted
         entry: .pre-commit-hooks.d/check-sops-encrypted.sh
-        files: ^.+/secret\.yaml$
+        files: ^.+/secrets/.+$
         language: script
       - id: kubeconform
         name: kubeconform
         entry: .pre-commit-hooks.d/kubeconform.sh
-        exclude: ^.+/secret\.yaml$
+        exclude: ^.+/secrets/.+$
         files: ^(apps|clusters|infrastructure)/
         language: script
         types:
