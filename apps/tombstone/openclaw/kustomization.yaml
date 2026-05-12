@@ -3,9 +3,10 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../base/zeroclaw
+  - ../../base/openclaw
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
+  - resources/secret.yaml
 
 patches:
   - patch: |-
@@ -15,13 +16,13 @@ patches:
           - claw.home.arpa
     target:
       kind: Certificate
-      name: zeroclaw
-      namespace: zeroclaw
+      name: openclaw
+      namespace: openclaw
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
         value: Host(`claw.home.arpa`)
     target:
       kind: IngressRoute
-      name: zeroclaw
-      namespace: zeroclaw
+      name: openclaw
+      namespace: openclaw

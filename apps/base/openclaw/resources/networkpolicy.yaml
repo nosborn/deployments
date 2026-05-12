@@ -3,10 +3,9 @@ apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   labels:
-    app.kubernetes.io/instance: zeroclaw
-    app.kubernetes.io/name: zeroclaw
-  name: zeroclaw
-  namespace: zeroclaw
+    app: openclaw
+  name: openclaw
+  namespace: openclaw
 spec:
   ingress:
     - from:
@@ -18,6 +17,6 @@ spec:
               app.kubernetes.io/name: traefik
   podSelector:
     matchLabels:
-      app.kubernetes.io/name: zeroclaw
+      app: openclaw
   policyTypes:
     - Ingress
