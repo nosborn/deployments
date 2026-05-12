@@ -9,6 +9,13 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
+              kubernetes.io/metadata.name: openclaw
+          podSelector:
+            matchLabels:
+              app: openclaw
+    - from:
+        - namespaceSelector:
+            matchLabels:
               kubernetes.io/metadata.name: traefik
           podSelector:
             matchLabels:

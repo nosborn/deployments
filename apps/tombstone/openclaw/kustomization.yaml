@@ -6,7 +6,13 @@ resources:
   - ../../base/openclaw
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
-  - resources/secret.yaml
+
+secretGenerator:
+  - files:
+      - AGENTS.md=secrets/AGENTS.md
+      - openclaw.json=secrets/openclaw.json
+    name: openclaw-config
+    namespace: openclaw
 
 patches:
   - patch: |-
