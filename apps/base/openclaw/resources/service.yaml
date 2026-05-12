@@ -1,0 +1,20 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: openclaw
+  name: openclaw
+  namespace: openclaw
+spec:
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 18789
+  selector:
+    app: openclaw
+  type: ClusterIP

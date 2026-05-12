@@ -3,17 +3,16 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   labels:
-    app.kubernetes.io/instance: zeroclaw
-    app.kubernetes.io/name: zeroclaw-data
-  name: zeroclaw-data
+    app: openclaw
+  name: openclaw-data
 spec:
   accessModes:
     - ReadWriteOnce
   capacity:
     storage: 1Gi
   claimRef:
-    name: zeroclaw-data
-    namespace: zeroclaw
+    name: openclaw-data
+    namespace: openclaw
   iscsi:
     fsType: btrfs
     iqn: ***REMOVED***

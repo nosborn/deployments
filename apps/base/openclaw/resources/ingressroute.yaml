@@ -3,10 +3,9 @@ apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   labels:
-    app.kubernetes.io/instance: zeroclaw
-    app.kubernetes.io/name: zeroclaw
-  name: zeroclaw
-  namespace: zeroclaw
+    app: openclaw
+  name: openclaw
+  namespace: openclaw
 spec:
   entryPoints:
     - websecure
@@ -17,7 +16,7 @@ spec:
         - name: ip-allowlist
         - name: security-headers
       services:
-        - name: zeroclaw
+        - name: openclaw
           port: 80
   tls:
-    secretName: zeroclaw-tls
+    secretName: openclaw-tls

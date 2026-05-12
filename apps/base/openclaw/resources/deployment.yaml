@@ -1,0 +1,113 @@
+# yamllint disable rule:line-length
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: openclaw
+  name: openclaw
+  namespace: openclaw
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: openclaw
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: openclaw
+        kubectl.kubernetes.io/default-container: gateway
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - env:
+            - name: HOME
+              value: /home/node
+            - name: NODE_ENV
+              value: production
+            - name: OPENCLAW_CONFIG_DIR
+              value: /home/node/.openclaw
+          image: ghcr.io/openclaw/openclaw:2026.5.7
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+                - node
+                - -e
+                - "require('http').get('http://127.0.0.1:18789/healthz', r => process.exit(r.statusCode < 400 ? 0 : 1)).on('error', () => proces.exit(1))"
+            failureThreshold: 3
+            periodSeconds: 30
+            successThreshold: 1
+            timeoutSeconds: 10
+          name: gateway
+          ports:
+            - containerPort: 42617
+              name: http
+              protocol: TCP
+          # readinessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /alive
+          #     port: http
+          #     scheme: HTTP
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+          # resources:
+          #   requests:
+          #     cpu: 1m
+          #     memory: 8Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /home/node/.openclaw
+              name: data
+            - mountPath: /tmp
+              name: temp
+      initContainers:
+        - command:
+            - sh
+            - -c
+            - |
+              cp /config/openclaw.json /home/node/.openclaw/openclaw.json
+              mkdir -p /home/node/.openclaw/workspace
+              cp /config/AGENTS.md /home/node/.openclaw/workspace/AGENTS.md
+          image: busybox:1.37.0-uclibc
+          imagePullPolicy: IfNotPresent
+          name: init-config
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            runAsNonRoot: true
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: data
+              mountPath: /home/node/.openclaw
+      imagePullSecrets:
+        - name: dockerconfig
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - name: config
+          secret:
+            secretName: openclaw-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: openclaw-data
+        - emptyDir: {}
+          name: temp

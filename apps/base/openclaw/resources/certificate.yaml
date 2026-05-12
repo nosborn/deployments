@@ -2,8 +2,8 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: zeroclaw
-  namespace: zeroclaw
+  name: openclaw
+  namespace: openclaw
 spec:
   dnsNames: []
   duration: 168h
@@ -11,4 +11,4 @@ spec:
     kind: ClusterIssuer
     name: ownca
   renewBefore: 8h
-  secretName: zeroclaw-tls
+  secretName: openclaw-tls
