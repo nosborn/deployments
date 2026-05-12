@@ -1,7 +1,5 @@
 ---
 exporters:
-  debug:
-    verbosity: basic
   otlp/uptrace:
     endpoint: https://api.uptrace.dev:4317
     headers:
@@ -14,7 +12,7 @@ extensions:
 processors:
   batch:
     send_batch_size: 10000
-    timeout: 10s
+    timeout: 30s
   cumulativetodelta: {}
   k8sattributes:
     extract:
@@ -40,7 +38,7 @@ processors:
     spike_limit_percentage: 25
 receivers:
   k8s_cluster:
-    collection_interval: 10s
+    collection_interval: 60s
   k8sobjects:
     objects:
       - exclude_watch_type:
@@ -58,7 +56,7 @@ receivers:
     config:
       scrape_configs:
         - job_name: opentelemetry-collector
-          scrape_interval: 10s
+          scrape_interval: 60s
           static_configs:
             - targets:
                 - ${env:MY_POD_IP}:8888
@@ -69,7 +67,6 @@ service:
     logs:
       exporters:
         - otlp/uptrace
-        - debug
       processors:
         - memory_limiter
         - k8sattributes
@@ -80,7 +77,6 @@ service:
     metrics:
       exporters:
         - otlp/uptrace
-        - debug
       processors:
         - memory_limiter
         - cumulativetodelta
@@ -92,7 +88,6 @@ service:
     traces:
       exporters:
         - otlp/uptrace
-        - debug
       processors:
         - memory_limiter
         - k8sattributes
