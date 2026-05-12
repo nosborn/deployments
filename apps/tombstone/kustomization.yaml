@@ -9,8 +9,8 @@ resources:
   - media-server
   - miasma
   # - mitmproxy
+  - openclaw
   # - pds
   - redirector
   # - searxng
   - vaultwarden
-  - zeroclaw
