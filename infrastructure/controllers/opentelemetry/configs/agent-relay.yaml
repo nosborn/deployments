@@ -1,7 +1,5 @@
 ---
 exporters:
-  debug:
-    verbosity: basic
   otlp/uptrace:
     endpoint: https://api.uptrace.dev:4317
     headers:
@@ -14,7 +12,7 @@ extensions:
 processors:
   batch:
     send_batch_size: 10000
-    timeout: 10s
+    timeout: 30s
   cumulativetodelta: {}
   k8sattributes:
     extract:
@@ -66,7 +64,7 @@ processors:
         action: upsert
 receivers:
   hostmetrics:
-    collection_interval: 10s
+    collection_interval: 60s
     root_path: /hostfs
     scrapers:
       cpu: null
@@ -113,7 +111,7 @@ receivers:
       network: null
   kubeletstats:
     auth_type: serviceAccount
-    collection_interval: 20s
+    collection_interval: 60s
     endpoint: ${env:K8S_NODE_IP}:10250
   otlp:
     protocols:
@@ -125,12 +123,12 @@ receivers:
     config:
       scrape_configs:
         - job_name: opentelemetry-collector
-          scrape_interval: 10s
+          scrape_interval: 60s
           static_configs:
             - targets:
                 - ${env:MY_POD_IP}:8888
         - job_name: dcgm-exporter
-          scrape_interval: 15s
+          scrape_interval: 60s
           kubernetes_sd_configs:
             - role: pod
               selectors:
@@ -156,7 +154,6 @@ service:
     logs:
       exporters:
         - otlp/uptrace
-        - debug
       processors:
         - memory_limiter
         - k8sattributes
@@ -166,7 +163,6 @@ service:
     metrics:
       exporters:
         - otlp/uptrace
-        - debug
       processors:
         - memory_limiter
         - k8sattributes
@@ -179,7 +175,6 @@ service:
     metrics/host:
       exporters:
         - otlp/uptrace
-        - debug
       processors:
         - memory_limiter
         - cumulativetodelta
@@ -190,7 +185,6 @@ service:
     traces:
       exporters:
         - otlp/uptrace
-        - debug
       processors:
         - memory_limiter
         - k8sattributes
