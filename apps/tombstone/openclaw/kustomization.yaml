@@ -9,8 +9,8 @@ resources:
 
 secretGenerator:
   - files:
-      - AGENTS.md=secrets/AGENTS.md
-      - openclaw.json=secrets/openclaw.json
+      - AGENTS.md=configs/AGENTS.md
+      - openclaw.json=configs/openclaw.json
     name: openclaw-config
     namespace: openclaw
 

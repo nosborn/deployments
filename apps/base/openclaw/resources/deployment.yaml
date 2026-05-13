@@ -105,8 +105,8 @@ spec:
           type: RuntimeDefault
       volumes:
         - name: config
-          secret:
-            secretName: openclaw-config
+          configMap:
+            name: openclaw-config
         - name: data
           persistentVolumeClaim:
             claimName: openclaw-data

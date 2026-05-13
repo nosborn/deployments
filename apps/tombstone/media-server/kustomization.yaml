@@ -5,7 +5,36 @@ kind: Kustomization
 resources:
   - ../../base/media-server
   - resources/ingressroute.yaml
-  - resources/secret.yaml
+
+secretGenerator:
+  - files:
+      - config.xml=configs/lidarr.xml
+    name: lidarr-config
+    namespace: media
+  - files:
+      - nzbget.conf=configs/nzbget.conf
+    name: nzbget-config
+    namespace: media
+  - files:
+      - config.xml=configs/prowlarr.xml
+    name: prowlarr-config
+    namespace: media
+  - files:
+      - config.xml=configs/radarr.xml
+    name: radarr-config
+    namespace: media
+  - files:
+      - configs/recyclarr.yml
+    name: recyclarr-config
+    namespace: media
+  - envs:
+      - configs/recyclarr.env
+    name: recyclarr-env
+    namespace: media
+  - files:
+      - config.xml=configs/sonarr.xml
+    name: sonarr-config
+    namespace: media
 
 patches:
   - patch: |-

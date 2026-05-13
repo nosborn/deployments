@@ -24,6 +24,8 @@ rules:
     present: false
   document-start:
     ignore: |
+      apps/base/*/configs/
+      apps/tombstone/*/configs/
       secret.yaml
   empty-lines:
     max: 1

@@ -12,11 +12,10 @@ resources:
   - resources/networkpolicy.yaml
   - resources/role.yaml
   - resources/rolebinding.yaml
-  - resources/secret.yaml
   - resources/service.yaml
   - resources/serviceaccount.yaml
 
-configMapGenerator:
+secretGenerator:
   - envs:
       - configs/vaultwarden.env
     name: vaultwarden-env
