@@ -6,7 +6,7 @@ resources:
   - ../../base/pds
   - resources/secret.yaml
 
-configMapGenerator:
+secretGenerator:
   - behavior: merge
     literals:
       - PDS_HOSTNAME=pds.osborn.io

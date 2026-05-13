@@ -479,7 +479,7 @@ spec:
     spec:
       containers:
         - envFrom:
-            - secretRef:
+            - configMapRef:
                 name: recyclarr-env
           image: ghcr.io/recyclarr/recyclarr:8.6.0
           imagePullPolicy: IfNotPresent
@@ -607,8 +607,8 @@ spec:
       terminationGracePeriodSeconds: 60
       volumes:
         - name: config
-          secret:
-            secretName: sonarr-config
+          configMap:
+            name: sonarr-config
         - name: data
           persistentVolumeClaim:
             claimName: sonarr-data

@@ -9,7 +9,7 @@ resources:
 
 secretGenerator:
   - files:
-      - app.ini=configs/app.sops.ini
+      - app.ini=configs/app.ini
     name: gitea-config
     namespace: gitea
 
