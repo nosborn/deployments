@@ -1,2 +1,16 @@
----
 web_password: $argon2i$v=19$m=16,t=2,p=1$bWl0bXByb3h5$O8uIC4nzLawa43Z8hjjv1Q
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBSVm5ZNjhFMCtaQ0x6QTd6
+        OUErMjdqVk9UN1dHajlWeHVSYnAxc0RZZEFRCjhPbUVlTzY2NjlHSzdCZnNxcjdG
+        MGtpYS9yN1E5SDFJOWgrY3JPWHhVMFUKLS0tIGtiSDRISTRmUHZoMkE5cy8wbk9V
+        WTVodEdKaTAxL1hRdXNKOE14S2t2UU0KYYTw4HT0ZHsNsTod3kvgY5OOp5yWW6sw
+        Mx72TtCsa/gnavSxB4KwiU6ctx8Fscg3AZiaLYQbDIQPVsSNhgv/UQ==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1cfvwwcvy3qj55kswlwymnvpwuwjymrp7xnjeycxma6qtdzv979qqd3kwue
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-05-13T18:09:03Z"
+  mac: ENC[AES256_GCM,data:p6kSBr7sylE1wWZWzGNo8Igte4zAuxKJ1bKUZCL7XckdKOwViukhnU0+59r5oqJZTAPrBpVmJzr5b5W3o2dnpJ/VYvksdTQSIMVUuFE9kHMrhoGeqfOH4RTJcRLNMGfRiTNeYoWdYAsWVxH9MMZcckqm81xb6u7iRO1uxqUBnek=,iv:cmjjrH862ooolAHR74EyxcXVQMQA+Vnkww8mEJO5+0M=,tag:IEBjYykJHtqn3sTmBPCNwg==,type:str]
+  version: 3.13.0

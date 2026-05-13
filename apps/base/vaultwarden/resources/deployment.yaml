@@ -29,8 +29,6 @@ spec:
     spec:
       containers:
         - envFrom:
-            - configMapRef:
-                name: vaultwarden-env
             - secretRef:
                 name: vaultwarden-env
           image: ghcr.io/dani-garcia/vaultwarden:1.35.8

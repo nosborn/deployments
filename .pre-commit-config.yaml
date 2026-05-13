@@ -23,7 +23,7 @@ repos:
       - id: forbid-new-submodules
       - id: mixed-line-ending
       - id: pretty-format-json
-        exclude: ^.+/secrets/.+$
+        exclude: ^.+/(configs|secrets)/.+$
       - id: trailing-whitespace
 
   - repo: https://github.com/adrienverge/yamllint.git
@@ -32,6 +32,7 @@ repos:
       - id: yamllint
         args:
           - --strict
+        exclude: ^.+/configs/.+$
 
   - repo: https://github.com/rhysd/actionlint.git
     rev: v1.7.11
@@ -43,12 +44,12 @@ repos:
       - id: check-sops-encrypted
         name: check-sops-encrypted
         entry: .pre-commit-hooks.d/check-sops-encrypted.sh
-        files: ^.+/secrets/.+$
+        files: ^.+/(configs|secrets)/.+$
         language: script
       - id: kubeconform
         name: kubeconform
         entry: .pre-commit-hooks.d/kubeconform.sh
-        exclude: ^.+/secrets/.+$
+        exclude: ^.+/(configs|secrets)/.+$
         files: ^(apps|clusters|infrastructure)/
         language: script
         types:
