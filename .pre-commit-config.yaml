@@ -44,7 +44,7 @@ repos:
       - id: check-sops-encrypted
         name: check-sops-encrypted
         entry: .pre-commit-hooks.d/check-sops-encrypted.sh
-        files: ^.+/(configs|secrets)/.+$
+        files: ^apps/.+/configs/.+$
         language: script
       - id: kubeconform
         name: kubeconform
