@@ -10,6 +10,7 @@ resources:
 secretGenerator:
   - files:
       - AGENTS.md=configs/AGENTS.md
+      - OwnCA_Root.crt=configs/OwnCA_Root.crt
       - openclaw.json=configs/openclaw.json
     name: openclaw-config
     namespace: openclaw
@@ -23,7 +24,21 @@ patches:
     target:
       kind: Certificate
       name: openclaw
-      namespace: openclaw
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: NODE_EXTRA_CA_CERTS
+          value: /etc/ssl/certs/OwnCA_Root.pem
+      - op: add
+        path: /spec/template/spec/containers/0/volumeMounts/-
+        value:
+          mountPath: /etc/ssl/certs/OwnCA_Root.pem
+          name: config
+          subPath: OwnCA_Root.crt
+    target:
+      kind: Deployment
+      name: openclaw
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
@@ -31,4 +46,3 @@ patches:
     target:
       kind: IngressRoute
       name: openclaw
-      namespace: openclaw
