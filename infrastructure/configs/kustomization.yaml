@@ -4,5 +4,6 @@ kind: Kustomization
 
 resources:
   - cert-manager.yaml
+  - coredns.yaml
   - flux-system
   - traefik.yaml

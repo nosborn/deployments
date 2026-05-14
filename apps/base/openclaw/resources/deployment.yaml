@@ -36,7 +36,7 @@ spec:
               command:
                 - node
                 - -e
-                - "require('http').get('http://127.0.0.1:18789/healthz', r => process.exit(r.statusCode < 400 ? 0 : 1)).on('error', () => proces.exit(1))"
+                - "require('http').get('http://127.0.0.1:18789/healthz', r => process.exit(r.statusCode < 400 ? 0 : 1)).on('error', () => process.exit(1))"
             failureThreshold: 3
             periodSeconds: 30
             successThreshold: 1
@@ -46,15 +46,16 @@ spec:
             - containerPort: 42617
               name: http
               protocol: TCP
-          # readinessProbe:
-          #   failureThreshold: 3
-          #   httpGet:
-          #     path: /alive
-          #     port: http
-          #     scheme: HTTP
-          #   periodSeconds: 10
-          #   successThreshold: 1
-          #   timeoutSeconds: 1
+          readinessProbe:
+            exec:
+              command:
+                - node
+                - -e
+                - "require('http').get('http://127.0.0.1:18789/healthz', r => process.exit(r.statusCode < 400 ? 0 : 1)).on('error', () => process.exit(1))"
+            failureThreshold: 3
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
           # resources:
           #   requests:
           #     cpu: 1m
@@ -79,8 +80,13 @@ spec:
             - -c
             - |
               cp /config/openclaw.json /home/node/.openclaw/openclaw.json
-              mkdir -p ~/.openclaw/workspace
+              chmod 0600 /home/node/.openclaw/openclaw.json
+              mkdir -p /home/node/.openclaw/workspace
               cp /config/AGENTS.md /home/node/.openclaw/workspace/AGENTS.md
+              chmod 0600 /home/node/.openclaw/workspace/AGENTS.md
+          env:
+            - name: HOME
+              value: /home/node
           image: busybox:1.37.0-uclibc
           imagePullPolicy: IfNotPresent
           name: init-config
@@ -105,8 +111,8 @@ spec:
           type: RuntimeDefault
       volumes:
         - name: config
-          configMap:
-            name: openclaw-config
+          secret:
+            secretName: openclaw-config
         - name: data
           persistentVolumeClaim:
             claimName: openclaw-data
