@@ -182,9 +182,9 @@ spec:
       volumes:
         - emptyDir: {}
           name: cache
-        - configMap:
-            name: miasma-nginx
-          name: config
+        - name: config
+          secret:
+            secretName: miasma-nginx
         - emptyDir:
             medium: Memory
           name: html

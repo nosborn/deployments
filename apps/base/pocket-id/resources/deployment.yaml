@@ -59,7 +59,7 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
           volumeMounts:
-            - mountPath: /data
+            - mountPath: /app/data
               name: data
       securityContext:
         fsGroup: 1000

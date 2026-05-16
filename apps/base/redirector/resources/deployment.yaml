@@ -81,9 +81,9 @@ spec:
       volumes:
         - emptyDir: {}
           name: cache
-        - configMap:
-            name: redirector-nginx
-          name: config
+        - name: config
+          secret:
+            secretName: redirector-nginx
         - emptyDir:
             medium: Memory
             sizeLimit: 1Mi

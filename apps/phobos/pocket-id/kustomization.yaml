@@ -5,12 +5,11 @@ kind: Kustomization
 resources:
   - ../../base/pocket-id
 
-# secretGenerator:
-#   - behavior: merge
-#     files:
-#       - configs/pocket-id.env
-#     name: pocket-id-env
-#     namespace: pocket-id
+secretGenerator:
+  - envs:
+      - configs/pocket-id.env
+    name: pocket-id-env
+    namespace: pocket-id
 
 patches:
   - patch: |-
