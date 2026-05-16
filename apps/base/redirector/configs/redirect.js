@@ -1,10 +1,14 @@
-function redirectToUrlParameter(r) {
-  var url = r.args.url;
-  if (url) {
-    r.return(307, decodeURIComponent(url));
-  } else {
-    r.return(400);
-  }
+{
+	"data": "ENC[AES256_GCM,data:vXm4VfpNiqq59Xzoqe5wAOjy68MclmKMu8dtm1l85l4eZ9fXlB3Vpk8l3TrEtq+25wdr9LK6t4J602r387mLJdU0fG62N1RTAZzMHoN/TFCkxvC95YBXLnfiul8Yg3Ai2wc9Xn8WTUfEdKl5c76Vqb3sHcHq+pVpBesN97YLhW19HK3X+QC7fegBiJbBGLU/3T2/Ly7a5U7/DVDlyj9Xk9Jn9AUeEEe8tjN6RXhKNby1opu16/dV+2syBEj1d5PSJIx+JFtk,iv:kOjPfaGb3EV1TctDcaZE2LuhBw29rM4kZ7L2RaP4io0=,tag:dVBFG/v4MEvQ1Q1gFgEjDg==,type:str]",
+	"sops": {
+		"age": [
+			{
+				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSArNkkybXN1ME1hOFNROHM4\nZ2xWUXlOYUVQN3VtZExIZ25rZEwwUnluTEg4CnFSUGRHb0hNMnpkakRyZ2tSamUy\nTjNTbXNHOCtJVitRbTRyT3lpdnBXS2sKLS0tIFpEc3JoL1ZCTGtNdzc5RUNJSzZa\nVC9Lc3lZQ2ZKZFkxZHZuVDlkeDFGOVUKrcCaPTVi85gI3V/3LoAHWyjtTTeVFjJN\n2YRJhfPorX2PDuF4KwwPFRTjLmyRh5VU++ER7MIp1lC1BJh+3hrDcg==\n-----END AGE ENCRYPTED FILE-----\n",
+				"recipient": "age1cfvwwcvy3qj55kswlwymnvpwuwjymrp7xnjeycxma6qtdzv979qqd3kwue"
+			}
+		],
+		"lastmodified": "2026-05-16T06:41:06Z",
+		"mac": "ENC[AES256_GCM,data:k8ncGMCNrP+989fmSrGGg0TGs/EWjZLk7AKSRrp5Asi5x6OXj2jBHRagHshhqEsoHoLIsN3Snur4T6eX4CcyVfMX1d16z6vPzY5AklKezOX3T3L1A739LZNdWSZGQnjpE5e9nSS1uC3za+h7VOw2p1AKO7LPXbX994EnUL8oQ7o=,iv:R4FkJkbKbU6opWenFzipeU2yI1YdFyKkE7vTguc0xKg=,tag:FET8AK9fXpIWLuzN04iA0w==,type:str]",
+		"version": "3.13.0"
+	}
 }
-
-export default { redirectToUrlParameter };
