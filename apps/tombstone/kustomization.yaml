@@ -12,6 +12,7 @@ resources:
   # - mitmproxy
   - openclaw
   # - pds
+  - pocket-id
   - redirector
   # - searxng
   - vaultwarden
