@@ -10,9 +10,3 @@ resources:
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
   - resources/service.yaml
-
-# secretGenerator:
-#   - envs:
-#       - configs/pocket-id.env
-#     name: pocket-id-env
-#     namespace: pocket-id

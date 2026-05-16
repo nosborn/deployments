@@ -13,10 +13,12 @@ resources:
 
 configMapGenerator:
   - files:
-      - configs/nginx.conf
-    name: miasma-nginx
-    namespace: miasma
-  - files:
       - scripts/fetch-content.sh
     name: miasma-nginx-scripts
+    namespace: miasma
+
+secretGenerator:
+  - files:
+      - configs/nginx.conf
+    name: miasma-nginx
     namespace: miasma
