@@ -12,7 +12,7 @@ resources:
   - resources/secret.yaml
   - resources/service.yaml
 
-configMapGenerator:
+secretGenerator:
   - files:
       - configs/nginx.conf
       - configs/redirect.js
