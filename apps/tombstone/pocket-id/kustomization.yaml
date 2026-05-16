@@ -1,0 +1,32 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/pocket-id
+
+# secretGenerator:
+#   - behavior: merge
+#     files:
+#       - configs/pocket-id.env
+#     name: pocket-id-env
+#     namespace: pocket-id
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - login.***REMOVED***
+    target:
+      kind: Certificate
+      name: pocket-id
+      namespace: pocket-id
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`login.***REMOVED***`)
+    target:
+      kind: IngressRoute
+      name: pocket-id
+      namespace: pocket-id
