@@ -30,7 +30,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 10m0s
-  path: ./clusters/tombstone
+  path: ./clusters/phobos
   prune: true
   sourceRef:
     kind: GitRepository

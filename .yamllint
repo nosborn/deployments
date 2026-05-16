@@ -25,7 +25,7 @@ rules:
   document-start:
     ignore: |
       apps/base/*/configs/
-      apps/tombstone/*/configs/
+      apps/phobos/*/configs/
       secret.yaml
   empty-lines:
     max: 1
