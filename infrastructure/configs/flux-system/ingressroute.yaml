@@ -9,7 +9,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`tombstone.osborn.io`) && PathPrefix(`/hook/`)
+      match: Host(`flux.osborn.io`) && PathPrefix(`/hook/`)
       middlewares:
         - name: hook-ip-allowlist
       services:
