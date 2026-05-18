@@ -5,7 +5,6 @@ kind: Kustomization
 resources:
   # - gitea
   # - gitea-actions
-  - imapfilter
   - llama-cpp
   - media-server
   - miasma

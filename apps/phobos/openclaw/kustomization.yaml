@@ -12,7 +12,7 @@ secretGenerator:
       - AGENTS.md=configs/AGENTS.md
       - OwnCA_Root.crt=configs/OwnCA_Root.crt
       - openclaw.json=configs/openclaw.json
-    name: openclaw-config
+    name: config
     namespace: openclaw
 
 patches:
