@@ -1,0 +1,24 @@
+{
+	"version": "ENC[AES256_GCM,data:lg==,iv:kSZMoKwtj4mL3hxDDqUwXgreCasYHti3/kw9HZUb5uU=,tag:Wf/jod4K1b5hoLW8oUvZbA==,type:float]",
+	"profiles": {
+		"anthropic:claude-cli": {
+			"type": "ENC[AES256_GCM,data:UfiEfKI=,iv:w2F10eUYgip4JEGydYTw+m2SXfKzwnnqCq9xUpd+aT0=,tag:Wq6yeGFnKIOK8aPJV5LoVw==,type:str]",
+			"provider": "ENC[AES256_GCM,data:VAC40SDZ3REkKA==,iv:CWEKp6ySO2ZWBEKnRTJY/NREieBOBnRdx+3u1egSKMQ=,tag:gRerz6RTJu1DoStwcG91sg==,type:str]",
+			"access": "ENC[AES256_GCM,data:rSYaSytfFPd2SZ/enK33BLfmyu55bqN7LPCOcggrqar8atuLQBjMgArxHOAm8WW8qGXGhd5AFm6diKE73ESektx4ru0c7cIbnfjkQ6xmjt0SMDoijBPKuT7/C66TW3hicbuJwINFNj6/vAgX,iv:9qQR7+QDALwlk4tAJDKr0H/AMipxQxD1yErfnyt0WWM=,tag:2TDxJujNLqNsp+0BgZ8dFA==,type:str]",
+			"refresh": "ENC[AES256_GCM,data:nuymkyze87lF/5BvLs7Rysc2i+TrS6TSb5KueH0BQ3SFCGbAac3pru5WT3nsAyvdbTnIvdYtQtumkBriTmVW+qyk6bYn9hNyB4rwxsqGy5R3MBnqq9yYRqscXB2Zbv8KJOKdT7T5xRtGsSF+,iv:BR373JM8BiZCJFyFQ8BvS/dkxBgLmSAlfbgRH2DGxqI=,tag:TIQFvU8vubWwvdhwtrE2Jw==,type:str]",
+			"expires": "ENC[AES256_GCM,data:+ioW4u0zV+iFExGhAQ==,iv:iU1UKzJLlDtO53/JxJ44Y0pMyiOFwsY65o0IC9uspv0=,tag:gM1Iri7QsQIMeytcJ8dIvA==,type:float]"
+		}
+	},
+	"sops": {
+		"age": [
+			{
+				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA5Tm9QbHFSWnFoTW9SblhI\nUjJYSzB2cXBvWUR2NW9xTnNjU29taTFHbXdvCklFSEtRVFc5SjdFUmhUemI3ZDlY\nWVl4N0lYSDRINkN2SmR1b3pJMGxmbHcKLS0tIE8xNmRIWFNHUHIzeWhldm5PRkx3\nY2I3VjR1TlNlSjFBQ015TTg3SWlGQTAKWREEjZKN/1obQVhfM6esdpWe1oGNNiCJ\nkLypXTjZY1USJKMms4peabbZSsq8Y+DJXgbvtZbThteNND6n6632XA==\n-----END AGE ENCRYPTED FILE-----\n",
+				"recipient": "age1cfvwwcvy3qj55kswlwymnvpwuwjymrp7xnjeycxma6qtdzv979qqd3kwue"
+			}
+		],
+		"lastmodified": "2026-05-18T20:17:15Z",
+		"mac": "ENC[AES256_GCM,data:ge86y/YhA0/9v8vPHtc2WlsGyA8os6wSBx+bodZrZY9AlqzXudHJkRfVc0f2YnTkB/kmUngdgzCQpFFlrjpguU2r4fvyg9QPDmurDE+YHrG0oJnUmbkCNCovrxEa3MyMDTV37ZicnsevTJXHWV7gqsfJhbNdfU4g4/HmIW4SuLg=,iv:3XqWZa0bHrQwJHUfeacwefVJfa45WFgKD9bmjMiTyKw=,tag:QNZcHrD/THguVDC1/TFFjA==,type:str]",
+		"unencrypted_suffix": "_unencrypted",
+		"version": "3.13.1"
+	}
+}
