@@ -29,7 +29,7 @@ spec:
               value: /home/node
             - name: NODE_ENV
               value: production
-          image: ghcr.io/openclaw/openclaw:2026.5.12
+          image: ghcr.io/openclaw/openclaw:2026.5.18
           imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:
@@ -56,10 +56,9 @@ spec:
             periodSeconds: 10
             successThreshold: 1
             timeoutSeconds: 1
-          # resources:
-          #   requests:
-          #     cpu: 1m
-          #     memory: 8Mi
+          resources:
+            requests:
+              memory: 512Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -112,10 +111,10 @@ spec:
       volumes:
         - name: config
           secret:
-            secretName: openclaw-config
+            secretName: config
         - name: data
           persistentVolumeClaim:
-            claimName: openclaw-data
+            claimName: data
         - emptyDir: {}
           name: npm
         - emptyDir: {}
