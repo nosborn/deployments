@@ -53,7 +53,7 @@ spec:
         acme:
           caServer: https://acme-v02.api.letsencrypt.org/directory
           keyType: EC256
-          profile: shortlived
+          # profile: shortlived
           storage: /data/acme.json
           tlsChallenge: !!str true
     deployment:
