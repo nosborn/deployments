@@ -30,7 +30,7 @@ spec:
         - envFrom:
             - secretRef:
                 name: vaultwarden-env
-          image: ghcr.io/dani-garcia/vaultwarden:1.35.8 # {"$imagepolicy": "vaultwarden:vaultwarden"}
+          image: ghcr.io/dani-garcia/vaultwarden:1.36.0 # {"$imagepolicy": "vaultwarden:vaultwarden"}
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
