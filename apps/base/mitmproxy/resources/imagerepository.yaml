@@ -1,0 +1,12 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: mitmproxy
+  namespace: mitmproxy
+spec:
+  image: docker.io/mitmproxy/mitmproxy
+  interval: 1h
+  provider: generic
+  secretRef:
+    name: dockerconfig

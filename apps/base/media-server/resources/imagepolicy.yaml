@@ -2,6 +2,21 @@
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
 metadata:
+  name: lidarr
+  namespace: media
+spec:
+  filterTags:
+    extract: $build
+    pattern: ^3\.\d+\.\d+\.(?P<build>\d+)$
+  imageRepositoryRef:
+    name: lidarr
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
   name: nzbget
   namespace: media
 spec:
@@ -26,6 +41,36 @@ spec:
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy
 metadata:
+  name: prowlarr
+  namespace: media
+spec:
+  filterTags:
+    extract: $build
+    pattern: ^2\.\d+\.\d+\.(?P<build>\d+)$
+  imageRepositoryRef:
+    name: prowlarr
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: radarr
+  namespace: media
+spec:
+  filterTags:
+    extract: $build
+    pattern: ^6\.\d+\.\d+\.(?P<build>\d+)$
+  imageRepositoryRef:
+    name: radarr
+  policy:
+    numerical:
+      order: asc
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
   name: recyclarr
   namespace: media
 spec:
@@ -34,3 +79,18 @@ spec:
   policy:
     semver:
       range: ">=8.6.0 <9.0.0"
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: sonarr
+  namespace: media
+spec:
+  filterTags:
+    extract: $build
+    pattern: ^4\.\d+\.\d+\.(?P<build>\d+)$
+  imageRepositoryRef:
+    name: sonarr
+  policy:
+    numerical:
+      order: asc

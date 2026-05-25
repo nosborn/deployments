@@ -1,0 +1,10 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: pocket-id
+  namespace: pocket-id
+spec:
+  image: ghcr.io/pocket-id/pocket-id
+  interval: 1h
+  provider: generic

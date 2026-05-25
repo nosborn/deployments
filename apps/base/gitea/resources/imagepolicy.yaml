@@ -1,0 +1,15 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: gitea
+  namespace: gitea
+spec:
+  filterTags:
+    extract: $version
+    pattern: ^(?P<version>\d+\.\d+\.\d+)-rootless$
+  imageRepositoryRef:
+    name: gitea
+  policy:
+    semver:
+      range: ">=1.26.0 <2.0.0"

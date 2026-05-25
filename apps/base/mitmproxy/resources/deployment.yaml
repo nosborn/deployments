@@ -27,7 +27,7 @@ spec:
         - command:
             - mitmweb
             - --web-host=0.0.0.0
-          image: docker.io/mitmproxy/mitmproxy:12.2.2
+          image: docker.io/mitmproxy/mitmproxy:12.2.2 # {"$imagepolicy": "mitmproxy:mitmproxy"}
           # livenessProbe:
           #   failureThreshold: 3
           #   httpGet:
