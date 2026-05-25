@@ -1,0 +1,36 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: nzbget
+  namespace: media
+spec:
+  imageRepositoryRef:
+    name: nzbget
+  policy:
+    semver:
+      range: ">=26.0.0 <27.0.0"
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: ombi
+  namespace: media
+spec:
+  imageRepositoryRef:
+    name: ombi
+  policy:
+    semver:
+      range: ">=4.53.0 <5.0.0"
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImagePolicy
+metadata:
+  name: recyclarr
+  namespace: media
+spec:
+  imageRepositoryRef:
+    name: recyclarr
+  policy:
+    semver:
+      range: ">=8.6.0 <9.0.0"

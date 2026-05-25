@@ -1,0 +1,29 @@
+# yamllint disable rule:line-length
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageUpdateAutomation
+metadata:
+  name: pds
+  namespace: pds
+spec:
+  interval: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        email: fluxcdbot@users.noreply.github.com
+        name: fluxcdbot
+      messageTemplate: |
+        chore(pds): update {{ range .Changed.Changes }}{{ .NewValue }}{{ end }}
+        {{ range .Changed.Changes }}
+        - {{ .OldValue }} -> {{ .NewValue }}
+        {{- end }}
+  update:
+    path: ./apps/base/pds/resources
+    strategy: Setters
