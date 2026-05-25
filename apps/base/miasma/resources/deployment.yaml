@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -29,7 +28,7 @@ spec:
         - args:
             - --link-prefix=/miasma
             - --max-depth=8
-          image: ghcr.io/nosborn/miasma:0.2.1 # {"$imagepolicy": "miasma:miasma"}
+          image: ghcr.io/nosborn/miasma:0.2.5 # {"$imagepolicy": "miasma:miasma"}
           imagePullPolicy: Always
           # livenessProbe:
           #   failureThreshold: 3
