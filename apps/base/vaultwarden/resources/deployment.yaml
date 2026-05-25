@@ -1,3 +1,4 @@
+# yamllint disable rule:line-length
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -31,7 +32,7 @@ spec:
         - envFrom:
             - secretRef:
                 name: vaultwarden-env
-          image: ghcr.io/dani-garcia/vaultwarden:1.35.8
+          image: ghcr.io/dani-garcia/vaultwarden:1.35.8 # {"$imagepolicy": "vaultwarden:vaultwarden:tag"}
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
