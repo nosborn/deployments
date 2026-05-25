@@ -18,6 +18,12 @@ rules:
     min-spaces-inside-empty: 0
     max-spaces-inside-empty: 0
   colons: enable
+  document-start:
+    ignore: |
+      **/resources/cronjob.yaml
+      **/resources/daemonset.yaml
+      **/resources/deployment.yaml
+      **/resources/statefulset.yaml
   commas: enable
   comments:
     level: error
@@ -38,6 +44,11 @@ rules:
     forbid-duplicated-merge-keys: true
   line-length:
     allow-non-breakable-inline-mappings: true
+    ignore: |
+      **/resources/cronjob.yaml
+      **/resources/daemonset.yaml
+      **/resources/deployment.yaml
+      **/resources/statefulset.yaml
   octal-values: enable
   quoted-strings:
     allow-quoted-quotes: true
