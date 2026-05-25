@@ -24,7 +24,7 @@ spec:
     name: nzbget
   policy:
     semver:
-      range: ">=26.0.0 <27.0.0"
+      range: 26.x
 ---
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImagePolicy

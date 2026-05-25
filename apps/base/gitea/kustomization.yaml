@@ -6,7 +6,6 @@ resources:
   - resources/deployment.yaml
   - resources/imagepolicy.yaml
   - resources/imagerepository.yaml
-  - resources/imageupdateautomation.yaml
   - resources/ingressroute.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml

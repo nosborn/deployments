@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -100,7 +101,7 @@ spec:
         app.kubernetes.io/name: miasma-nginx
     spec:
       containers:
-        - image: nginx:1.31.0-alpine-otel
+        - image: nginx:1.31.1-alpine-otel # {"$imagepolicy": "miasma:nginx"}
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -153,7 +154,7 @@ spec:
             - /bin/sh
             - -c
             - /scripts/fetch-content.sh
-          image: docker.io/library/nginx:1.31.1-alpine-otel # {"$imagepolicy": "miasma:nginx"}
+          image: nginx:1.31.1-alpine-otel # {"$imagepolicy": "miasma:nginx"}
           imagePullPolicy: IfNotPresent
           name: init
           resources: {}

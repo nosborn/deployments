@@ -2,8 +2,8 @@
 apiVersion: image.toolkit.fluxcd.io/v1
 kind: ImageUpdateAutomation
 metadata:
-  name: media-server
-  namespace: media
+  name: flux-system
+  namespace: flux-system
 spec:
   git:
     checkout:
@@ -14,7 +14,7 @@ spec:
         email: fluxcdbot@users.noreply.github.com
         name: fluxcdbot
       messageTemplate: |
-        chore(media-server): update images
+        chore(images): update {{ len .Changed.Changes }} image(s)
         {{ range .Changed.Changes }}
         - {{ .OldValue }} -> {{ .NewValue }}
         {{- end }}
@@ -22,7 +22,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-    namespace: flux-system
   update:
-    path: ./apps/base/media-server/resources
+    path: ./apps
     strategy: Setters
