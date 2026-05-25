@@ -86,7 +86,7 @@ spec:
           env:
             - name: HOME
               value: /home/node
-          image: busybox:1.37.0-uclibc
+          image: busybox:1.38.0-uclibc
           imagePullPolicy: IfNotPresent
           name: init-config
           securityContext:
