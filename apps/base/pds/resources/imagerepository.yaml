@@ -1,0 +1,10 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: pds
+  namespace: pds
+spec:
+  image: ghcr.io/bluesky-social/pds
+  interval: 1h
+  provider: generic
