@@ -6,11 +6,6 @@ metadata:
   name: vaultwarden
   namespace: vaultwarden
 spec:
-  interval: 10m
-  sourceRef:
-    kind: GitRepository
-    name: flux-system
-    namespace: flux-system
   git:
     checkout:
       ref:
@@ -24,6 +19,11 @@ spec:
         {{ range .Changed.Changes }}
         - {{ .OldValue }} -> {{ .NewValue }}
         {{- end }}
+  interval: 10m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
   update:
     path: ./apps/base/vaultwarden/resources
     strategy: Setters
