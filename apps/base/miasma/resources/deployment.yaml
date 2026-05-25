@@ -29,7 +29,7 @@ spec:
         - args:
             - --link-prefix=/miasma
             - --max-depth=8
-          image: ghcr.io/nosborn/miasma:0.2.1
+          image: ghcr.io/nosborn/miasma:0.2.1 # {"$imagepolicy": "miasma:miasma"}
           imagePullPolicy: Always
           # livenessProbe:
           #   failureThreshold: 3

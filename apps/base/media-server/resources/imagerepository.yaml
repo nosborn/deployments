@@ -1,0 +1,30 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: nzbget
+  namespace: media
+spec:
+  image: ghcr.io/nosborn/nzbget
+  interval: 1h
+  provider: generic
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: ombi
+  namespace: media
+spec:
+  image: ghcr.io/nosborn/ombi
+  interval: 1h
+  provider: generic
+---
+apiVersion: image.toolkit.fluxcd.io/v1
+kind: ImageRepository
+metadata:
+  name: recyclarr
+  namespace: media
+spec:
+  image: ghcr.io/recyclarr/recyclarr
+  interval: 1h
+  provider: generic
