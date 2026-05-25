@@ -30,7 +30,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/lidarr:3.1.0.4875
+          image: ghcr.io/nosborn/lidarr:3.1.0.4875 # {"$imagepolicy": "media:lidarr"}
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -305,7 +305,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/prowlarr:2.3.5.5327
+          image: ghcr.io/nosborn/prowlarr:2.3.5.5327 # {"$imagepolicy": "media:prowlarr"}
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -394,7 +394,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/radarr:6.1.1.10360
+          image: ghcr.io/nosborn/radarr:6.1.1.10360 # {"$imagepolicy": "media:radarr"}
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -560,7 +560,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/sonarr:4.0.17.2952
+          image: ghcr.io/nosborn/sonarr:4.0.17.2952 # {"$imagepolicy": "media:sonarr"}
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
