@@ -26,7 +26,7 @@ spec:
           envFrom:
             - secretRef:
                 name: pocket-id-env
-          image: ghcr.io/pocket-id/pocket-id:v2.7.0-distroless # {"$imagepolicy": "pocket-id:pocket-id"}
+          image: ghcr.io/pocket-id/pocket-id:v2.7.0-distroless
           imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:

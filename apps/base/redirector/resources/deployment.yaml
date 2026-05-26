@@ -23,7 +23,7 @@ spec:
         app: redirector
     spec:
       containers:
-        - image: nginx:1.31.1-alpine-otel # {"$imagepolicy": "redirector:nginx"}
+        - image: nginx:1.31.1-alpine-otel
           livenessProbe:
             failureThreshold: 3
             httpGet:

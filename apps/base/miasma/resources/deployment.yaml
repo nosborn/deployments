@@ -29,7 +29,7 @@ spec:
         - args:
             - --link-prefix=/miasma
             - --max-depth=8
-          image: ghcr.io/nosborn/miasma:0.2.5 # {"$imagepolicy": "miasma:miasma"}
+          image: ghcr.io/nosborn/miasma:0.2.5
           imagePullPolicy: Always
           # livenessProbe:
           #   failureThreshold: 3
@@ -101,7 +101,7 @@ spec:
         app.kubernetes.io/name: miasma-nginx
     spec:
       containers:
-        - image: nginx:1.31.1-alpine-otel # {"$imagepolicy": "miasma:nginx"}
+        - image: nginx:1.31.1-alpine-otel
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -154,7 +154,7 @@ spec:
             - /bin/sh
             - -c
             - /scripts/fetch-content.sh
-          image: nginx:1.31.1-alpine-otel # {"$imagepolicy": "miasma:nginx"}
+          image: nginx:1.31.1-alpine-otel
           imagePullPolicy: IfNotPresent
           name: init
           resources: {}

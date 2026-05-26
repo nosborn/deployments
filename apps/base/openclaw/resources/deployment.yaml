@@ -1,3 +1,5 @@
+# yamllint disable rule:line-length
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -27,7 +29,7 @@ spec:
               value: /home/node
             - name: NODE_ENV
               value: production
-          image: ghcr.io/openclaw/openclaw:2026.5.22 # {"$imagepolicy": "openclaw:openclaw"}
+          image: ghcr.io/openclaw/openclaw:2026.5.22
           imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:
