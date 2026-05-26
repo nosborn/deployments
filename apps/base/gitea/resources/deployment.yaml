@@ -28,7 +28,7 @@ spec:
         - envFrom:
             - secretRef:
                 name: gitea-env
-          image: docker.gitea.com/gitea:1.26.2-rootless # {"$imagepolicy": "gitea:gitea"}
+          image: docker.gitea.com/gitea:1.26.2-rootless
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 10

@@ -6,8 +6,6 @@ resources:
   - resources/certificate.yaml
   - resources/cronjob.yaml
   - resources/deployment.yaml
-  - resources/imagepolicy.yaml
-  - resources/imagerepository.yaml
   - resources/ingressroute.yaml
   - resources/middleware.yaml
   - resources/namespace.yaml
