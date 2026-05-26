@@ -14,10 +14,6 @@ updates:
       - ghcr-io
     directories:
       - /**/resources
-    groups:
-      valkey:
-        patterns:
-          - valkey-io/valkey
     schedule:
       interval: daily
 
