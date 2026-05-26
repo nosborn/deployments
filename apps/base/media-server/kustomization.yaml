@@ -7,8 +7,6 @@ namespace: media
 resources:
   - resources/certificate.yaml
   - resources/deployment.yaml
-  - resources/imagepolicy.yaml
-  - resources/imagerepository.yaml
   - resources/namespace.yaml
   - resources/networkpolicy.yaml
   - resources/persistentvolume.yaml

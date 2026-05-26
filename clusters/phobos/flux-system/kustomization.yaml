@@ -8,7 +8,6 @@ resources:
   - gotk-provider.yaml
   - gotk-receiver.yaml
   - gotk-sync.yaml
-  - image-update-automation.yaml
 
 patches:
   - patch: |
