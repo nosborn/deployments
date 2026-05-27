@@ -1,7 +1,7 @@
 ---
 exporters:
   otlp/uptrace:
-    endpoint: https://api.uptrace.dev:4317
+    endpoint: https://api.uptrace.dev.:4317
     headers:
       uptrace-dsn: ${env:UPTRACE_DSN}
     tls:
