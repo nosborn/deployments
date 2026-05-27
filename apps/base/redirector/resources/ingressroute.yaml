@@ -3,7 +3,7 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: redirector-google
+  name: google
   namespace: redirector
 spec:
   entryPoints:
@@ -22,7 +22,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: redirector-instagram
+  name: instagram
   namespace: redirector
 spec:
   entryPoints:
@@ -41,7 +41,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: redirector-medium
+  name: medium
   namespace: redirector
 spec:
   entryPoints:
@@ -60,7 +60,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: redirector-reddit
+  name: reddit
   namespace: redirector
 spec:
   entryPoints:
@@ -79,7 +79,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: redirector-skimresources
+  name: skimresources
   namespace: redirector
 spec:
   entryPoints:
@@ -98,7 +98,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: redirector-tiktok
+  name: tiktok
   namespace: redirector
 spec:
   entryPoints:
@@ -117,7 +117,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: redirector-twitter
+  name: twitter
   namespace: redirector
 spec:
   entryPoints:
@@ -136,7 +136,7 @@ spec:
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: redirector-youtube
+  name: youtube
   namespace: redirector
 spec:
   entryPoints:
