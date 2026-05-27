@@ -54,7 +54,14 @@ spec:
           caServer: https://acme-v02.api.letsencrypt.org/directory
           keyType: EC256
           # profile: shortlived
-          storage: /data/acme.json
+          storage: /data/letsencrypt.json
+          tlsChallenge: !!str true
+      letsencrypt-staging:
+        acme:
+          caServer: https://acme-staging-v02.api.letsencrypt.org/directory
+          keyType: EC256
+          profile: shortlived
+          storage: /data/letsencrypt-staging.json
           tlsChallenge: !!str true
     deployment:
       revisionHistoryLimit: 0
