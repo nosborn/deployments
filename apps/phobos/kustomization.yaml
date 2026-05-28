@@ -8,7 +8,6 @@ resources:
   - llama-cpp
   - media-server
   - miasma
-  # - mitmproxy
   - openclaw
   # - pds
   - pocket-id
