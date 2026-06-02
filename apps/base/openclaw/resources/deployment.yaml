@@ -29,7 +29,7 @@ spec:
               value: /home/node
             - name: NODE_ENV
               value: production
-          image: ghcr.io/openclaw/openclaw:2026.5.27
+          image: ghcr.io/openclaw/openclaw:2026.5.28
           imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:
