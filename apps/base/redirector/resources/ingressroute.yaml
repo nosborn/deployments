@@ -3,12 +3,19 @@
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
-  name: google
+  name: redirector
   namespace: redirector
 spec:
   entryPoints:
     - websecure
   routes:
+    - kind: Rule
+      match: Host(`www.ft.com`)
+      middlewares:
+        - name: ip-allowlist
+      services:
+        - name: redirector
+          port: 80
     - kind: Rule
       match: Host(`www.google.com`)
       middlewares:
@@ -17,7 +24,26 @@ spec:
         - name: redirector
           port: 80
   tls:
-    secretName: google-tls
+    secretName: redirector-tls
+# ---
+# apiVersion: traefik.io/v1alpha1
+# kind: IngressRoute
+# metadata:
+#   name: google
+#   namespace: redirector
+# spec:
+#   entryPoints:
+#     - websecure
+#   routes:
+#     - kind: Rule
+#       match: Host(`www.google.com`)
+#       middlewares:
+#         - name: ip-allowlist
+#       services:
+#         - name: redirector
+#           port: 80
+#   tls:
+#     secretName: google-tls
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
