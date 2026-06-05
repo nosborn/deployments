@@ -2,17 +2,33 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: google
+  name: redirector
   namespace: redirector
 spec:
   dnsNames:
+    - www.ft.com
     - www.google.com
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
     name: ownca
   renewBefore: 8h
-  secretName: google-tls
+  secretName: redirector-tls
+# ---
+# apiVersion: cert-manager.io/v1
+# kind: Certificate
+# metadata:
+#   name: google
+#   namespace: redirector
+# spec:
+#   dnsNames:
+#     - www.google.com
+#   duration: 168h
+#   issuerRef:
+#     kind: ClusterIssuer
+#     name: ownca
+#   renewBefore: 8h
+#   secretName: google-tls
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate
