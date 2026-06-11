@@ -13,6 +13,7 @@ resources:
 
 configMapGenerator:
   - files:
+      - configs/favicons.toml
       - configs/settings.yml
     name: searxng-config
     namespace: searxng

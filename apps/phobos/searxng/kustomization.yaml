@@ -4,7 +4,12 @@ kind: Kustomization
 
 resources:
   - ../../base/searxng
-  - resources/secrets.yaml
+
+secretGenerator:
+  - envs:
+      - configs/searxng.env
+    name: searxng-env
+    namespace: searxng
 
 patches:
   - patch: |-
