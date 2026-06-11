@@ -8,9 +8,8 @@ resources:
   - llama-cpp
   - media-server
   - miasma
-  - openclaw
   # - pds
   - pocket-id
   - redirector
-  # - searxng
+  - searxng
   - vaultwarden
