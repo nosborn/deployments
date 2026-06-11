@@ -1,45 +1,68 @@
-use_default_settings: ENC[AES256_GCM,data:1U44Dw==,iv:xU9RRSECo/Lb96r+dU0fkXR1Ddqg2Gu3Icbx4G4nbNQ=,tag:Zh/K3cYPfqXYHTbbs4NExQ==,type:bool]
-#ENC[AES256_GCM,data:MTindI++EmK3,iv:nfiIA+7bS+e+h5ViTZGNBAODp/BNj0xjKnrgGGrKR+E=,tag:jGi4W7Y8pJGiEIoyQOiWtA==,type:comment]
-#ENC[AES256_GCM,data:sEgZzxzMZux0bLYoo/HwNuI=,iv:5UgOFH67xVr9Ub/O8UxN8g/0nVpHo9s5Td7yvkfSUjI=,tag:qOeM5OKh/zTk8G7zOordUg==,type:comment]
-#ENC[AES256_GCM,data:SXHLCaQfcyz5S3ZwRLBuo8UosLU=,iv:MIoki5pdL0AtJg+PXjzojuUJk8hG30+fCMEwHc9tYOk=,tag:QolDRn04fbJ1WtTefTszxQ==,type:comment]
-#
-#ENC[AES256_GCM,data:vFwoHeMPew5mcwqbBzw2Sa8+i4eH,iv:3wP7uaoIvPinyuFv4iycEPNVMaNlaBcWjqJpcuYdjQA=,tag:hdmMDNb56W2p4FpLOVvtNQ==,type:comment]
-#ENC[AES256_GCM,data:HDmVKYfYhBm/KKQwGCWouxyAwEE=,iv:0t7OBW0ALLjr0tVajejYOnSMHwZb/iKUq3JvYCrIyVc=,tag:Gmv6dxKRdp7ngKToKFA5vg==,type:comment]
-#
-#ENC[AES256_GCM,data:rQva4AX0kEM6LikygMpoBi/VQELi6ZGddh9k,iv:CHuqwQDWFFgMgTcoZ2jbcpXyl3bJxWskhAiVG3ZGeUg=,tag:jU1XjSGBJDOY2ejwViklkg==,type:comment]
-#ENC[AES256_GCM,data:B10Qgl4tszeluQs0oOF4W4u/yg==,iv:hFrncrVfzDuCW4FpxuXY4rFTqeJQzMpZfU6Q7X0kUOM=,tag:5jnhNYrKerR/zDYyEUElRg==,type:comment]
-#ENC[AES256_GCM,data:bV6Ft2CD+Qil8FDVWi2jBNrzQ4A=,iv:AoCC6fbEQx7Nc+3bd/Jt74L69T87n3JYYU1//GzRrfg=,tag:sFPKki867t8WqZYmeVjmiw==,type:comment]
+---
+use_default_settings: true
+
+engines:
+  - name: ahmia
+    inactive: true
+  - name: apple maps
+    disabled: false
+  - name: torch
+    inactive: true
+
+brand:
+  public_instances: ""
+
 general:
-  debug: ENC[AES256_GCM,data:sdJ4ofs=,iv:BPkCbszJys8d9DY3ese/JBbw4YIgWi8miyxvWkSpWYI=,tag:S+a2rjwIuLlYEJ+nfCB7ig==,type:bool]
-  instance_name: ENC[AES256_GCM,data:ftFmpO6tRg==,iv:3f+g0lEuGX0fwX2jzXIxeUHwQpDq0gsYhQ5PZHTWya0=,tag:YbjD0t+bIC0JcmntTAQsKg==,type:str]
-#ENC[AES256_GCM,data:qQdJlnDm7UyfFY46zw==,iv:h6nfG4BZik8bEX1525oQ6fZC8Rr8rMgSSScvxAjgk+Y=,tag:jzvFzpKbNpok26HUIbnGkg==,type:comment]
-#ENC[AES256_GCM,data:z76ZMUE1GQ8=,iv:OKUy03D5qbEGwd7Tkaq1vQGhkrvdiNKrNMN3UAnswsE=,tag:uzGq0yJDl+LtJptrPemWIg==,type:comment]
-#ENC[AES256_GCM,data:gUTIXI+PIVjH5Z83fOpQfwW/9Q==,iv:ClTVdnXLoz34wRHrPJwrh1upTQmSEDEw2ntMMVNdQh4=,tag:vsLYIssNN6dXSOf93pr89w==,type:comment]
-#ENC[AES256_GCM,data:3rNAEKft6YVBZe+TyA==,iv:8tQ0XGOSdpchnED2yT3neGPWGmoVfV3AzvEa4m/u/0I=,tag:fgzDnAQtFqvGKqjBgsM1qQ==,type:comment]
+  debug: false
+  instance_name: SearXNG
+
+preferences:
+  lock:
+    - autocomplete
+    - favicon_resolver
+    - method
+
 search:
-  autocomplete: ENC[AES256_GCM,data:zGesKw6buTXrYA==,iv:Ej7t75v7jICzOu20bDwLobmnCMKX3VDUMPi4To6r2kk=,tag:+AF6D6M2851Ki7/xojUVfQ==,type:str]
+  autocomplete: duckduckgo
+  favicon_resolver: duckduckgo
   formats:
-    - ENC[AES256_GCM,data:7enIEg==,iv:wEagUGoqnbEIeV/t/2CIqeA0ZK6YnprDoJiqlFpMn+o=,tag:rr2X+rz0pM/kt+Igq8BtHg==,type:str]
-  safe_search: ENC[AES256_GCM,data:qg==,iv:gxJm3S88VB8k6qR08oh9M/royt8HvDz9ej5jVxJyZWM=,tag:XAC4fp9fEXsY4a1Xd4Z4XA==,type:int]
+    - html
+  safe_search: 1
+
 server:
-  #ENC[AES256_GCM,data:JZ97rYdr70U4GxeBPn08CLh86jrSAsZIkVRUGpmi9XKfN9akuUAjLh+linIuZyjtwJgO3VW3/fEnWUYb,iv:M8RR7zKRKdNwo1FxVXEOyZ4+g1qDwCp5HEMYAxiZUj0=,tag:0P2xNFb8kcbzysDNNRtP5w==,type:comment]
-  bind_address: ENC[AES256_GCM,data:dqyRy6Dl0A==,iv:bQoETB/gHlVBnqXk7HlByy2Y6Op8jMH1ZP+xZ/r8c1k=,tag:mKhm4KtOwUCJz+cPQxbhCg==,type:str]
-  http_protocol_version: ENC[AES256_GCM,data:jwPT,iv:B1MTY6lbWbb2MZXOXne52Ehfh/ljvbCsY8VMfm0Q4w4=,tag:nm+fcGrRg6SYNYEnE4WxpA==,type:str]
-  image_proxy: ENC[AES256_GCM,data:f1VVGQ==,iv:jWgpS48raCwzZj80OrmUYBwXwoYCLlMNJUdb852MSu0=,tag:KRAaoPVXLtUkiatmhyR/Ww==,type:bool]
-  limiter: ENC[AES256_GCM,data:Hs2eqqs=,iv:zzgTG0Gqpi41FIgkhQFA+epZt5VX+hu2ErYByvnNCQs=,tag:IzDcKN8yBgVW1ed7BnjR6g==,type:bool]
-  #ENC[AES256_GCM,data:325TuLVAWSb/6BBxcZoO/HAKKKUjlkq1GTt5ixJz9BBn+UwcFwBFyGuaqkDYmZ0=,iv:EQZZUgD7Apna4cP6I5ki9T0zaat7GI1yD+vtFmZtZmQ=,tag:ZpiYY7lx1T+iEUq9eXgyaw==,type:comment]
-sops:
-  age:
-    - enc: |
-        -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBteUdNLy9CYUlSbjFTdGRS
-        UzE2TnpWSE8zYXNJY0g1R0JmTGFMakRlQ2djCnh1NnNqNFRCeUhlb3hQcERxaCtV
-        aytwcE9zck5YMkljWlR5eHZveEpLODQKLS0tIHAwMEJGdWxTR1M3UXZINWJnMDhQ
-        N2JydTVSd2RMUzA2S0JJVUJDUmxuZE0KPtWWG4D/a91Rq1dTXbQ3SDbQNqB5KJWn
-        21v2uoGfmxlssd30t8X7NbnY+vYq8AgKUAMQoFlqjlJ7Cx1pNfQAVQ==
-        -----END AGE ENCRYPTED FILE-----
-      recipient: age1cfvwwcvy3qj55kswlwymnvpwuwjymrp7xnjeycxma6qtdzv979qqd3kwue
-  lastmodified: "2026-05-16T06:40:56Z"
-  mac: ENC[AES256_GCM,data:ZnTF/qPZU0vF1GFfK63caQEae0BzEnW3+khQRBetwIUQAt9hm6upP7ZuIvR6+5PF3T9QYUBK3fhzAl/iArtFBBLaAWNq6G5CW0Pn9xNKbOjxCxdjl3h4lhizSa6xP8oU5csZBchZw68RmmyXXFnZK49Ku4B8Yi3wDAbzoyQCX/o=,iv:1oUTmTpI4qR4Fh5VER69L8YazSQpQsmp7YNittyk0TM=,tag:jQF77PfQelkrFMvLdlfKCQ==,type:str]
-  unencrypted_suffix: _unencrypted
-  version: 3.13.0
+  # base_url: http://example.com/location # ${SEARXNG_BASE_URL}
+  bind_address: 0.0.0.0
+  http_protocol_version: !!str 1.1
+  limiter: false
+  method: GET
+  # secret_key: ultrasecretkey # ${SEARXNG_SECRET}
+
+plugins:
+  searx.plugins.ahmia_filter.SXNGPlugin:
+    active: false
+  searx.plugins.calculator.SXNGPlugin:
+    active: true
+  searx.plugins.hash_plugin.SXNGPlugin:
+    active: true
+  searx.plugins.hostnames.SXNGPlugin:
+    active: true
+  searx.plugins.infinite_scroll.SXNGPlugin:
+    active: false # TODO: true
+  searx.plugins.oa_doi_rewrite.SXNGPlugin:
+    active: true
+  searx.plugins.self_info.SXNGPlugin:
+    active: true
+  searx.plugins.time_zone.SXNGPlugin:
+    active: true
+  searx.plugins.tor_check.SXNGPlugin:
+    active: false
+  searx.plugins.tracker_url_remover.SXNGPlugin:
+    active: true
+  searx.plugins.unit_converter.SXNGPlugin:
+    active: true
+
+hostnames:
+  replace:
+    (www\.)?instagram\.com$: imginn.com
+    (www\.)?twitter\.com$: xcancel.com
+    (www\.)?x\.com$: xcancel.com
