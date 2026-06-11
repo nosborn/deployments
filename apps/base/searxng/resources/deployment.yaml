@@ -57,7 +57,7 @@ spec:
           resources:
             requests:
               cpu: 1m
-              memory: 157Mi
+              memory: 215Mi
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -74,6 +74,7 @@ spec:
               name: temp
             - mountPath: /var/cache/searxng
               name: data
+      enableServiceLinks: false
       securityContext:
         fsGroup: 977
         seccompProfile:
