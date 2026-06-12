@@ -30,7 +30,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/lidarr:3.1.0.4875
+          image: ghcr.io/nosborn/lidarr:latest
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -119,7 +119,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/nzbget:26.1
+          image: ghcr.io/nosborn/nzbget:latest
           imagePullPolicy: Always
           lifecycle:
             preStop:
@@ -209,7 +209,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/ombi:4.53.10
+          image: ghcr.io/nosborn/ombi:latest
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 10
@@ -248,7 +248,7 @@ spec:
           env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/ombi:4.53.10
+          image: ghcr.io/nosborn/ombi:latest
           imagePullPolicy: Always
           name: ombi-migrate
           resources: {}
@@ -305,7 +305,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/prowlarr:2.3.5.5327
+          image: ghcr.io/nosborn/prowlarr:latest
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -394,7 +394,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/radarr:6.1.1.10360
+          image: ghcr.io/nosborn/radarr:latest
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -481,8 +481,8 @@ spec:
         - envFrom:
             - secretRef:
                 name: recyclarr-env
-          image: ghcr.io/recyclarr/recyclarr:8.6.0
-          imagePullPolicy: IfNotPresent
+          image: ghcr.io/recyclarr/recyclarr:latest
+          imagePullPolicy: Always
           # livenessProbe:
           #   failureThreshold: 3
           #   httpGet:
@@ -560,7 +560,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/sonarr:4.0.17.2952
+          image: ghcr.io/nosborn/sonarr:latest
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
