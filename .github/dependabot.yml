@@ -16,8 +16,12 @@ updates:
       - /**/resources
     schedule:
       interval: daily
+    assignees:
+      - nosborn
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: daily
+    assignees:
+      - nosborn
