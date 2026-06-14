@@ -2,6 +2,25 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
+  name: bazarr
+spec:
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: traefik
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: traefik
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: bazarr
+  policyTypes:
+    - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
   name: lidarr
 spec:
   ingress:
@@ -135,6 +154,12 @@ spec:
               kubernetes.io/metadata.name: media
           podSelector:
             matchLabels:
+              app.kubernetes.io/name: bazarr
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
               app.kubernetes.io/name: ombi
         - namespaceSelector:
             matchLabels:
@@ -178,6 +203,12 @@ metadata:
 spec:
   ingress:
     - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: bazarr
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: media
