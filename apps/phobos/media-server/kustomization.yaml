@@ -8,6 +8,10 @@ resources:
 
 secretGenerator:
   - files:
+      - config.yaml=configs/bazarr.yaml
+    name: bazarr-config
+    namespace: media
+  - files:
       - config.xml=configs/lidarr.xml
     name: lidarr-config
     namespace: media
@@ -37,6 +41,15 @@ secretGenerator:
     namespace: media
 
 patches:
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - bazarr.***REMOVED***
+    target:
+      kind: Certificate
+      name: bazarr
+      namespace: media
   - patch: |-
       - op: replace
         path: /spec/dnsNames

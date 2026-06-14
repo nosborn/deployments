@@ -1,6 +1,8 @@
 ---
 creation_rules:
   - age: age1cfvwwcvy3qj55kswlwymnvpwuwjymrp7xnjeycxma6qtdzv979qqd3kwue
+    path_regex: /configs/bazarr.yaml
+  - age: age1cfvwwcvy3qj55kswlwymnvpwuwjymrp7xnjeycxma6qtdzv979qqd3kwue
     encrypted_regex: ^(data|stringData)$
     path_regex: /configs/.+\.yaml$
   - age: age1cfvwwcvy3qj55kswlwymnvpwuwjymrp7xnjeycxma6qtdzv979qqd3kwue

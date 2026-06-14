@@ -3,6 +3,95 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    app.kubernetes.io/component: bazarr
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: bazarr
+  name: bazarr
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: bazarr
+      app.kubernetes.io/instance: media-server
+      app.kubernetes.io/name: bazarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kubectl.kubernetes.io/default-container: bazarr
+      labels:
+        app.kubernetes.io/component: bazarr
+        app.kubernetes.io/instance: media-server
+        app.kubernetes.io/name: bazarr
+    spec:
+      containers:
+        - env:
+            - name: LANG
+              value: en_GB.UTF-8
+            - name: TZ
+              value: Europe/London
+          image: ghcr.io/nosborn/bazarr:latest
+          imagePullPolicy: Always
+          # livenessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /ping
+          #     port: http
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+          name: bazarr
+          ports:
+            - containerPort: 6767
+              name: http
+          # readinessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /ping
+          #     port: http
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /app/data/config/config.yaml
+              name: config
+              subPath: config.yaml
+            - mountPath: /app/data
+              name: data
+            - mountPath: /library
+              name: library
+            - mountPath: /tmp
+              name: temp
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: config
+          secret:
+            secretName: bazarr-config
+        - emptyDir: {}
+          name: data
+        - name: library
+          persistentVolumeClaim:
+            claimName: media-library
+        - emptyDir: {}
+          name: temp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
     app.kubernetes.io/component: lidarr
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: lidarr
