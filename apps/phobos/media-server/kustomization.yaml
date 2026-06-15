@@ -11,10 +11,10 @@ secretGenerator:
       - config.yaml=configs/bazarr.yaml
     name: bazarr-config
     namespace: media
-  - files:
-      - config.xml=configs/lidarr.xml
-    name: lidarr-config
-    namespace: media
+  # - files:
+  #     - config.xml=configs/lidarr.xml
+  #   name: lidarr-config
+  #   namespace: media
   - files:
       - nzbget.conf=configs/nzbget.conf
     name: nzbget-config
@@ -50,15 +50,15 @@ patches:
       kind: Certificate
       name: bazarr
       namespace: media
-  - patch: |-
-      - op: replace
-        path: /spec/dnsNames
-        value:
-          - lidarr.home.arpa
-    target:
-      kind: Certificate
-      name: lidarr
-      namespace: media
+  # - patch: |-
+  #     - op: replace
+  #       path: /spec/dnsNames
+  #       value:
+  #         - lidarr.home.arpa
+  #   target:
+  #     kind: Certificate
+  #     name: lidarr
+  #     namespace: media
   - patch: |-
       - op: replace
         path: /spec/dnsNames
@@ -107,26 +107,13 @@ patches:
   - patch: |-
       - op: add
         path: /spec/template/spec/securityContext/fsGroup
-        value: 984 # library
+        value: 100
       - op: add
         path: /spec/template/spec/securityContext/runAsGroup
-        value: 984 # library
+        value: 100
       - op: add
         path: /spec/template/spec/securityContext/runAsUser
-        value: 993 # library
+        value: 1026
     target:
       kind: Deployment
-      namespace: media
-  - patch: |-
-      - op: add
-        path: /spec/template/spec/securityContext/fsGroup
-        value: 984 # library
-      - op: add
-        path: /spec/template/spec/securityContext/runAsGroup
-        value: 984 # library
-      - op: add
-        path: /spec/template/spec/securityContext/runAsUser
-        value: 993 # library
-    target:
-      kind: StatefulSet
       namespace: media
