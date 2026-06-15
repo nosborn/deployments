@@ -117,3 +117,16 @@ patches:
     target:
       kind: Deployment
       namespace: media
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/securityContext/fsGroup
+        value: 984 # library
+      - op: add
+        path: /spec/template/spec/securityContext/runAsGroup
+        value: 984 # library
+      - op: add
+        path: /spec/template/spec/securityContext/runAsUser
+        value: 993 # library
+    target:
+      kind: StatefulSet
+      namespace: media

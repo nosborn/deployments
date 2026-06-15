@@ -8,6 +8,7 @@ metadata:
     app.kubernetes.io/name: bazarr
   name: bazarr
 spec:
+  clusterIP: None
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
@@ -29,6 +30,7 @@ metadata:
     app.kubernetes.io/name: lidarr
   name: lidarr
 spec:
+  clusterIP: None
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
@@ -50,6 +52,7 @@ metadata:
     app.kubernetes.io/name: nzbget
   name: nzbget
 spec:
+  clusterIP: None
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
@@ -71,6 +74,7 @@ metadata:
     app.kubernetes.io/name: ombi
   name: ombi
 spec:
+  clusterIP: None
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
@@ -92,6 +96,7 @@ metadata:
     app.kubernetes.io/name: prowlarr
   name: prowlarr
 spec:
+  clusterIP: None
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
@@ -113,6 +118,7 @@ metadata:
     app.kubernetes.io/name: radarr
   name: radarr
 spec:
+  clusterIP: None
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
@@ -134,6 +140,7 @@ metadata:
     app.kubernetes.io/name: sonarr
   name: sonarr
 spec:
+  clusterIP: None
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
