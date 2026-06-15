@@ -7,8 +7,8 @@ metadata:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: bazarr
   name: bazarr
+  namespace: media
 spec:
-  clusterIP: None
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
@@ -20,28 +20,28 @@ spec:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: bazarr
   type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app.kubernetes.io/component: lidarr
-    app.kubernetes.io/instance: media-server
-    app.kubernetes.io/name: lidarr
-  name: lidarr
-spec:
-  clusterIP: None
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
-  ports:
-    - name: http
-      port: 8686
-  selector:
-    app.kubernetes.io/component: lidarr
-    app.kubernetes.io/instance: media-server
-    app.kubernetes.io/name: lidarr
-  type: ClusterIP
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   labels:
+#     app.kubernetes.io/component: lidarr
+#     app.kubernetes.io/instance: media-server
+#     app.kubernetes.io/name: lidarr
+#   name: lidarr
+#   namespace: media
+# spec:
+#   ipFamilies:
+#     - IPv4
+#   ipFamilyPolicy: SingleStack
+#   ports:
+#     - name: http
+#       port: 8686
+#   selector:
+#     app.kubernetes.io/component: lidarr
+#     app.kubernetes.io/instance: media-server
+#     app.kubernetes.io/name: lidarr
+#   type: ClusterIP
 ---
 apiVersion: v1
 kind: Service
@@ -51,8 +51,8 @@ metadata:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: nzbget
   name: nzbget
+  namespace: media
 spec:
-  clusterIP: None
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
@@ -73,8 +73,8 @@ metadata:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: ombi
   name: ombi
+  namespace: media
 spec:
-  clusterIP: None
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
@@ -95,8 +95,8 @@ metadata:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: prowlarr
   name: prowlarr
+  namespace: media
 spec:
-  clusterIP: None
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
@@ -117,8 +117,8 @@ metadata:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: radarr
   name: radarr
+  namespace: media
 spec:
-  clusterIP: None
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
@@ -139,8 +139,8 @@ metadata:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: sonarr
   name: sonarr
+  namespace: media
 spec:
-  clusterIP: None
   ipFamilies:
     - IPv4
   ipFamilyPolicy: SingleStack
