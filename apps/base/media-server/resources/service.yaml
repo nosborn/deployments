@@ -47,6 +47,28 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
+    app.kubernetes.io/component: muxarr
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: muxarr
+  name: muxarr
+  namespace: media
+spec:
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: http
+      port: 8183
+  selector:
+    app.kubernetes.io/component: muxarr
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: muxarr
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
     app.kubernetes.io/component: nzbget
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: nzbget

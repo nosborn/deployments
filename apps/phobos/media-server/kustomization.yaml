@@ -63,6 +63,15 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
+          - muxarr.home.arpa
+    target:
+      kind: Certificate
+      name: muxarr
+      namespace: media
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
           - nzbget.home.arpa
     target:
       kind: Certificate
@@ -116,4 +125,19 @@ patches:
         value: 1026
     target:
       kind: Deployment
+      namespace: media
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: PGID
+          value: !!str 100
+      - op: add
+        path: /spec/template/spec/containers/0/env/-
+        value:
+          name: PUID
+          value: !!str 1026
+    target:
+      kind: Deployment
+      name: muxarr
       namespace: media
