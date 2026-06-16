@@ -251,6 +251,8 @@ spec:
               name: config
               readOnly: true
               subPath: nzbget.conf
+            - mountPath: /app/scripts
+              name: scripts
             - mountPath: /downloads
               name: downloads
             - mountPath: /library
@@ -269,6 +271,8 @@ spec:
         - name: library
           persistentVolumeClaim:
             claimName: media-library
+        - emptyDir: {}
+          name: scripts
 ---
 apiVersion: apps/v1
 kind: Deployment
