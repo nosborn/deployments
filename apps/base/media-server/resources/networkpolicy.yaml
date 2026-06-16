@@ -9,6 +9,18 @@ spec:
     - from:
         - namespaceSelector:
             matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: radarr
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: sonarr
+        - namespaceSelector:
+            matchLabels:
               kubernetes.io/metadata.name: traefik
           podSelector:
             matchLabels:
@@ -50,6 +62,26 @@ spec:
 #       app.kubernetes.io/name: lidarr
 #   policyTypes:
 #     - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: muxarr
+  namespace: media
+spec:
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: traefik
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: traefik
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: muxarr
+  policyTypes:
+    - Ingress
 ---
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
@@ -166,6 +198,12 @@ spec:
               kubernetes.io/metadata.name: media
           podSelector:
             matchLabels:
+              app.kubernetes.io/name: muxarr
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
               app.kubernetes.io/name: ombi
         - namespaceSelector:
             matchLabels:
@@ -217,6 +255,12 @@ spec:
           podSelector:
             matchLabels:
               app.kubernetes.io/name: bazarr
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: media
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: muxarr
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: media
