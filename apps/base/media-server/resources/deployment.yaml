@@ -9,7 +9,7 @@ metadata:
   name: bazarr
   namespace: media
 spec:
-  replicas: 0 # FIXME
+  replicas: 1
   revisionHistoryLimit: 0
   selector:
     matchLabels:
@@ -33,26 +33,26 @@ spec:
               value: Europe/London
           image: ghcr.io/nosborn/bazarr:latest
           imagePullPolicy: Always
-          # livenessProbe:
-          #   failureThreshold: 3
-          #   httpGet:
-          #     path: /ping
-          #     port: http
-          #   periodSeconds: 10
-          #   successThreshold: 1
-          #   timeoutSeconds: 1
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/system/ping
+              port: http
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
           name: bazarr
           ports:
             - containerPort: 6767
               name: http
-          # readinessProbe:
-          #   failureThreshold: 3
-          #   httpGet:
-          #     path: /ping
-          #     port: http
-          #   periodSeconds: 10
-          #   successThreshold: 1
-          #   timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /api/system/ping
+              port: http
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
           resources: {}
           securityContext:
             allowPrivilegeEscalation: false
@@ -62,11 +62,13 @@ spec:
             readOnlyRootFilesystem: true
             runAsNonRoot: true
           volumeMounts:
-            - mountPath: /app/data/config/config.yaml
+            - mountPath: /data
+              name: data
+            - mountPath: /data/config/config.yaml
               name: config
               subPath: config.yaml
-            - mountPath: /app/data
-              name: data
+            - mountPath: /library
+              name: library
             - mountPath: /tmp
               name: temp
             - mountPath: /video
@@ -79,8 +81,12 @@ spec:
         - name: config
           secret:
             secretName: bazarr-config
-        - emptyDir: {}
-          name: data
+        - name: data
+          persistentVolumeClaim:
+            claimName: bazarr-data
+        - name: library
+          persistentVolumeClaim:
+            claimName: media-library
         - emptyDir: {}
           name: temp
         - name: video
@@ -245,8 +251,8 @@ spec:
           volumeMounts:
             - mountPath: /data
               name: data
-            - mountPath: /media
-              name: media
+            - mountPath: /media # FIXME
+              name: video
       securityContext:
         seccompProfile:
           type: RuntimeDefault
@@ -254,11 +260,11 @@ spec:
       volumes:
         - emptyDir: {}
           name: data
-        - name: media
+        - name: video
           nfs:
             server: ***REMOVED***
             path: /volume1/video
-            readOnly: true
+            readOnly: true # FIXME
 ---
 apiVersion: apps/v1
 kind: Deployment
