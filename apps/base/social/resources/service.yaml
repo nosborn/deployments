@@ -4,10 +4,10 @@ kind: Service
 metadata:
   labels:
     app.kubernetes.io/component: pds
-    app.kubernetes.io/instance: pds
-    app.kubernetes.io/name: pds
-  name: pds
-  namespace: pds
+    app.kubernetes.io/instance: social
+    app.kubernetes.io/name: social
+  name: social
+  namespace: social
 spec:
   ipFamilies:
     - IPv4
@@ -19,6 +19,6 @@ spec:
       targetPort: 3000
   selector:
     app.kubernetes.io/component: pds
-    app.kubernetes.io/instance: pds
+    app.kubernetes.io/instance: social
     app.kubernetes.io/name: pds
   type: ClusterIP

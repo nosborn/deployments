@@ -1,0 +1,21 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pds-data
+spec:
+  accessModes:
+    - ReadWriteOncePod
+  capacity:
+    storage: 10Gi
+  claimRef:
+    name: pds-data
+    namespace: social
+  iscsi:
+    fsType: btrfs
+    iqn: ${ISCSI_IQN}
+    lun: 3
+    targetPortal: ${ISCSI_TARGET_PORTAL}
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""
+  volumeMode: Filesystem

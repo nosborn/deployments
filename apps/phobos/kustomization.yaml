@@ -9,7 +9,7 @@ resources:
   - login
   - media-server
   - miasma
-  # - pds
   - redirector
   - search
+  - social
   - vaultwarden
