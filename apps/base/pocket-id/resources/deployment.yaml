@@ -26,7 +26,7 @@ spec:
           envFrom:
             - secretRef:
                 name: pocket-id-env
-          image: ghcr.io/pocket-id/pocket-id:v2.8.0-distroless
+          image: ghcr.io/pocket-id/pocket-id:v2.9.0-distroless
           imagePullPolicy: IfNotPresent
           livenessProbe:
             exec:
