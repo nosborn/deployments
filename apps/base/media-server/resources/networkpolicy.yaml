@@ -232,18 +232,6 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: recyclarr
-  namespace: media
-spec:
-  podSelector:
-    matchLabels:
-      app.kubernetes.io/name: recyclarr
-  policyTypes:
-    - Ingress
----
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
   name: sonarr
   namespace: media
 spec:
