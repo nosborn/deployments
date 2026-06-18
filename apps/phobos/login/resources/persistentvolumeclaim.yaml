@@ -6,7 +6,7 @@ metadata:
     app.kubernetes.io/instance: pocket-id
     app.kubernetes.io/name: pocket-id-data
   name: pocket-id-data
-  namespace: pocket-id
+  namespace: login
 spec:
   accessModes:
     - ReadWriteOncePod

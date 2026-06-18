@@ -3,7 +3,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../base/pocket-id
+  - ../../base/login
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
 
@@ -11,7 +11,7 @@ secretGenerator:
   - envs:
       - configs/pocket-id.env
     name: pocket-id-env
-    namespace: pocket-id
+    namespace: login
 
 patches:
   - patch: |-
@@ -21,13 +21,13 @@ patches:
           - login.${DOMAIN_NAME}
     target:
       kind: Certificate
-      name: pocket-id
-      namespace: pocket-id
+      name: login
+      namespace: login
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
         value: Host(`login.${DOMAIN_NAME}`)
     target:
       kind: IngressRoute
-      name: pocket-id
-      namespace: pocket-id
+      name: login
+      namespace: login

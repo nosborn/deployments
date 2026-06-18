@@ -6,10 +6,10 @@ resources:
   # - gitea
   # - gitea-actions
   - llama-cpp
+  - login
   - media-server
   - miasma
   # - pds
-  - pocket-id
   - redirector
   - searxng
   - vaultwarden

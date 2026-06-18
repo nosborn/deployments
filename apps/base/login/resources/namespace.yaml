@@ -4,4 +4,4 @@ kind: Namespace
 metadata:
   labels:
     pod-security.kubernetes.io/enforce: restricted
-  name: pocket-id
+  name: login
