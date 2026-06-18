@@ -3,13 +3,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../base/searxng
+  - ../../base/search
 
 secretGenerator:
   - envs:
       - configs/searxng.env
     name: searxng-env
-    namespace: searxng
+    namespace: search
 
 patches:
   - patch: |-
@@ -19,8 +19,8 @@ patches:
           - search.${DOMAIN_NAME}
     target:
       kind: Certificate
-      name: searxng
-      namespace: searxng
+      name: search
+      namespace: search
   - patch: |-
       - op: add
         path: /spec/template/spec/containers/0/env/-
@@ -35,12 +35,12 @@ patches:
     target:
       kind: Deployment
       name: searxng
-      namespace: searxng
+      namespace: search
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
         value: Host(`search.${DOMAIN_NAME}`)
     target:
       kind: IngressRoute
-      name: searxng
-      namespace: searxng
+      name: search
+      namespace: search
