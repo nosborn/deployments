@@ -4,6 +4,8 @@ kind: Kustomization
 
 resources:
   - ../../base/pocket-id
+  - resources/persistentvolume.yaml
+  - resources/persistentvolumeclaim.yaml
 
 secretGenerator:
   - envs:
