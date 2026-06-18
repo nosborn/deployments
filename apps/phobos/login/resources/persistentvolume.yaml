@@ -13,7 +13,7 @@ spec:
     storage: 1Gi
   claimRef:
     name: pocket-id-data
-    namespace: pocket-id
+    namespace: login
   iscsi:
     fsType: btrfs
     iqn: ${ISCSI_IQN}

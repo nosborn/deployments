@@ -2,8 +2,8 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: pocket-id
-  namespace: pocket-id
+  name: login
+  namespace: login
 spec:
   dnsNames: []
   duration: 168h
@@ -11,4 +11,4 @@ spec:
     kind: ClusterIssuer
     name: ownca
   renewBefore: 8h
-  secretName: pocket-id-tls
+  secretName: login-tls
