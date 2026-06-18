@@ -101,7 +101,7 @@ spec:
         app.kubernetes.io/name: miasma-nginx
     spec:
       containers:
-        - image: nginx:1.31.1-alpine-otel
+        - image: nginx:1.31.2-alpine-otel
           livenessProbe:
             failureThreshold: 3
             httpGet:
@@ -154,7 +154,7 @@ spec:
             - /bin/sh
             - -c
             - /scripts/fetch-content.sh
-          image: nginx:1.31.1-alpine-otel
+          image: nginx:1.31.2-alpine-otel
           imagePullPolicy: IfNotPresent
           name: init
           resources: {}
