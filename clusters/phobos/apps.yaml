@@ -12,11 +12,18 @@ spec:
   dependsOn:
     - name: infra-configs
   interval: 1h
+  path: ./apps/phobos
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: true
+      - kind: Secret
+        name: cluster-secret-vars
+  prune: true
   retryInterval: 2m
   timeout: 5m
   sourceRef:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./apps/phobos
-  prune: true

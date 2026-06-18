@@ -12,7 +12,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`bazarr.home.arpa`)
+      match: Host(`bazarr.${DOMAIN_NAME}`)
       middlewares:
         - name: ip-allowlist
           namespace: traefik
@@ -37,7 +37,7 @@ spec:
 #     - websecure
 #   routes:
 #     - kind: Rule
-#       match: Host(`lidarr.home.arpa`)
+#       match: Host(`lidarr.${DOMAIN_NAME}`)
 #       middlewares:
 #         - name: ip-allowlist
 #           namespace: traefik
@@ -62,7 +62,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`muxarr.home.arpa`)
+      match: Host(`muxarr.${DOMAIN_NAME}`)
       middlewares:
         - name: ip-allowlist
           namespace: traefik
@@ -87,7 +87,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`nzbget.home.arpa`)
+      match: Host(`nzbget.${DOMAIN_NAME}`)
       middlewares:
         - name: ip-allowlist
           namespace: traefik
@@ -112,7 +112,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`ombi.home.arpa`)
+      match: Host(`ombi.${DOMAIN_NAME}`)
       middlewares:
         - name: ip-allowlist
           namespace: traefik
@@ -137,7 +137,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`prowlarr.home.arpa`)
+      match: Host(`prowlarr.${DOMAIN_NAME}`)
       middlewares:
         - name: ip-allowlist
           namespace: traefik
@@ -162,7 +162,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`radarr.home.arpa`)
+      match: Host(`radarr.${DOMAIN_NAME}`)
       middlewares:
         - name: ip-allowlist
           namespace: traefik
@@ -187,7 +187,7 @@ spec:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`sonarr.home.arpa`)
+      match: Host(`sonarr.${DOMAIN_NAME}`)
       middlewares:
         - name: ip-allowlist
           namespace: traefik

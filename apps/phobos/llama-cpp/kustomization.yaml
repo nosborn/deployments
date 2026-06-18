@@ -10,7 +10,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - llama.home.arpa
+          - llama.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: llama-cpp
@@ -18,7 +18,7 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
-        value: Host(`llama.home.arpa`)
+        value: Host(`llama.${DOMAIN_NAME}`)
     target:
       kind: IngressRoute
       name: llama-cpp

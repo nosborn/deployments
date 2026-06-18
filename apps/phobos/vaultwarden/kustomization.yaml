@@ -19,7 +19,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - passwords.home.arpa
+          - passwords.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: vaultwarden
@@ -27,7 +27,7 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
-        value: Host(`passwords.home.arpa`)
+        value: Host(`passwords.${DOMAIN_NAME}`)
     target:
       kind: IngressRoute
       name: vaultwarden

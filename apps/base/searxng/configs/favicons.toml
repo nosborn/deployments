@@ -1,10 +1,14 @@
-[favicons]
-cfg_schema = 1
-
-[favicons.cache]
-# BLOB_MAX_BYTES = 40960 # 40 KB / default 20 KB
-# HOLD_TIME = 5184000 # 60 days / default: 30 days
-LIMIT_TOTAL_BYTES = 2147483648 # 2 GB / default: 50 MB
-# MAINTENANCE_MODE = "off" # default: "auto"
-# MAINTENANCE_PERIOD = 600 # 10min / default: 1h
-db_url = "/tmp/faviconcache.db"
+{
+	"data": "ENC[AES256_GCM,data:XkK3d4sPOD6HKXTtTuvSqdDN/lkpUyxfNxC1YefSH85L9cQO/iKIuWmHHc8UmbEJ+X8a1uCXYfqBUiKM0voPOLvhtbG3arYkaIqag+zZ2invqmp8MsZEm24nynmADRqY9a+fZitdTC9NZeYjSC+60G5aVpkG28uKgnf5BH1/xo+Ufn53F+ESGrVWUwylW0e0KMAbDj2dEtesh90Bfzy1QviHtSVbNEiZCbScjMy+/XL9+60TsIFnZVLQUTFFPGPhOqCDUdxoRPyrFPaLqy527tFEZfEhfpurEL3PKCngLvi1V7qhhzIimwOmIgQFKsEm4WaYKHT7xwgeZKMve7t/ZoD7sFNk3GTGEVgDE53NOx5I3Uqpn42uDypHrjXOfk7CzyMXno8Owspkw7RGsHBEUo3dQTryEtKhGJS3jS47Ti8PF7gyFw==,iv:9WISKduedlgKDR+aC4tnW9sIYR8/94CYvbnf8x6+AWc=,tag:46jRj/uDt/V8qJkf12MyMQ==,type:str]",
+	"sops": {
+		"age": [
+			{
+				"enc": "-----BEGIN AGE ENCRYPTED FILE-----\nYWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB0S2pmbDczNzdlZjlEZ2xV\nQ1JYejZaT0grVHRlMmgvZ083ZG9JcEFwaW5vCkxXbEQyemloamU4Rk1jdTcwcU0v\nb2JnRXVnZ0dOSDk3eGp0MWRuSUNaUHcKLS0tIGdYSko1RExZYjBOeFVmTWxJVVZV\nOWw0enVpOURjVWRici9YclNMR1gyK2sKc6ht3iHst6RIwooIc7AQVb1KjrY9JqDW\nVjHRn/DvXOfMbQb3eA8oc9vWNAltS6LiPJwL2U+Blny5gbOaVxuDeQ==\n-----END AGE ENCRYPTED FILE-----\n",
+				"recipient": "age1cfvwwcvy3qj55kswlwymnvpwuwjymrp7xnjeycxma6qtdzv979qqd3kwue"
+			}
+		],
+		"lastmodified": "2026-06-18T13:11:11Z",
+		"mac": "ENC[AES256_GCM,data:ocZBA0mUtfffg8YSM+7qABs318LS0j9hHePifcfFGikj1MBXn+UBqNkVktokxuclVghWjYKo98YGWr7iGAbC5MSgGCbeeEY3CP4JRMwVwnhGXkBBMut7OOJigv6ELsxwW3p8cBRrEWnMIrnvPQXYbWe6FqFZMdEkai711wVz3dE=,iv:+4zdqS1JDhWX81B882QFZGTVqQdB+TrnaWA4GWjz3f4=,tag:XBA0XSeC9hKG5nfvsWhoyw==,type:str]",
+		"version": "3.13.1"
+	}
+}

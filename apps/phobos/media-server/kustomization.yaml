@@ -45,7 +45,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - bazarr.home.arpa
+          - bazarr.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: bazarr
@@ -54,7 +54,7 @@ patches:
   #     - op: replace
   #       path: /spec/dnsNames
   #       value:
-  #         - lidarr.home.arpa
+  #         - lidarr.${DOMAIN_NAME}
   #   target:
   #     kind: Certificate
   #     name: lidarr
@@ -63,7 +63,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - muxarr.home.arpa
+          - muxarr.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: muxarr
@@ -72,7 +72,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - nzbget.home.arpa
+          - nzbget.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: nzbget
@@ -81,7 +81,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - ombi.home.arpa
+          - ombi.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: ombi
@@ -90,7 +90,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - prowlarr.home.arpa
+          - prowlarr.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: prowlarr
@@ -99,7 +99,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - radarr.home.arpa
+          - radarr.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: radarr
@@ -108,7 +108,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - sonarr.home.arpa
+          - sonarr.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: sonarr
