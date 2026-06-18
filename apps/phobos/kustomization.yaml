@@ -11,5 +11,5 @@ resources:
   - miasma
   # - pds
   - redirector
-  - searxng
+  - search
   - vaultwarden

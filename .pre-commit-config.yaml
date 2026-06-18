@@ -11,6 +11,7 @@ repos:
       - id: check-merge-conflict
       - id: check-symlinks
       - id: check-toml
+        exclude: ^.+/(configs|secrets)/.+$
       - id: check-vcs-permalinks
       - id: check-xml
       - id: destroyed-symlinks

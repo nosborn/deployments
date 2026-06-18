@@ -2,8 +2,8 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: searxng
-  namespace: searxng
+  name: search
+  namespace: search
 spec:
   ingress:
     - from:
