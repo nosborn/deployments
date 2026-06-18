@@ -16,7 +16,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - login.***REMOVED***
+          - login.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: pocket-id
@@ -24,7 +24,7 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
-        value: Host(`login.***REMOVED***`)
+        value: Host(`login.${DOMAIN_NAME}`)
     target:
       kind: IngressRoute
       name: pocket-id

@@ -45,7 +45,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - bazarr.***REMOVED***
+          - bazarr.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: bazarr
@@ -54,7 +54,7 @@ patches:
   #     - op: replace
   #       path: /spec/dnsNames
   #       value:
-  #         - lidarr.***REMOVED***
+  #         - lidarr.${DOMAIN_NAME}
   #   target:
   #     kind: Certificate
   #     name: lidarr
@@ -63,7 +63,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - muxarr.***REMOVED***
+          - muxarr.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: muxarr
@@ -72,7 +72,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - nzbget.***REMOVED***
+          - nzbget.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: nzbget
@@ -81,7 +81,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - ombi.***REMOVED***
+          - ombi.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: ombi
@@ -90,7 +90,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - prowlarr.***REMOVED***
+          - prowlarr.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: prowlarr
@@ -99,7 +99,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - radarr.***REMOVED***
+          - radarr.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: radarr
@@ -108,7 +108,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - sonarr.***REMOVED***
+          - sonarr.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: sonarr

@@ -41,7 +41,7 @@ spec:
           - patch: |-
               - op: replace
                 path: /spec/routes/0/match
-                value: Host(`traefik.***REMOVED***`)
+                value: Host(`traefik.${DOMAIN_NAME}`)
             target:
               kind: IngressRoute
               name: traefik-dashboard

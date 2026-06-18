@@ -16,7 +16,7 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
-          - search.***REMOVED***
+          - search.${DOMAIN_NAME}
     target:
       kind: Certificate
       name: searxng
@@ -26,7 +26,7 @@ patches:
         path: /spec/template/spec/containers/0/env/-
         value:
           name: SEARXNG_BASE_URL
-          value: https://search.***REMOVED***
+          value: https://search.${DOMAIN_NAME}
       - op: add
         path: /spec/template/spec/containers/0/env/-
         value:
@@ -39,7 +39,7 @@ patches:
   - patch: |-
       - op: replace
         path: /spec/routes/0/match
-        value: Host(`search.***REMOVED***`)
+        value: Host(`search.${DOMAIN_NAME}`)
     target:
       kind: IngressRoute
       name: searxng

@@ -16,9 +16,9 @@
 #     namespace: pds
 #   iscsi:
 #     fsType: btrfs
-#     iqn: ***REMOVED***
+#     iqn: ${ISCSI_IQN}
 #     lun: 6 -- TODO
-#     targetPortal: ***REMOVED***
+#     targetPortal: ${ISCSI_TARGET_PORTAL}
 #   persistentVolumeReclaimPolicy: Retain
 #   storageClassName: ""
 #   volumeMode: Filesystem
