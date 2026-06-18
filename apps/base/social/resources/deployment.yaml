@@ -4,17 +4,17 @@ kind: Deployment
 metadata:
   labels:
     app.kubernetes.io/component: pds
-    app.kubernetes.io/instance: pds
+    app.kubernetes.io/instance: social
     app.kubernetes.io/name: pds
   name: pds
-  namespace: pds
+  namespace: social
 spec:
   replicas: 1
   revisionHistoryLimit: 0
   selector:
     matchLabels:
       app.kubernetes.io/component: pds
-      app.kubernetes.io/instance: pds
+      app.kubernetes.io/instance: social
       app.kubernetes.io/name: pds
   strategy:
     type: Recreate
@@ -24,41 +24,27 @@ spec:
         kubectl.kubernetes.io/default-container: pds
       labels:
         app.kubernetes.io/component: pds
-        app.kubernetes.io/instance: pds
+        app.kubernetes.io/instance: social
         app.kubernetes.io/name: pds
     spec:
       containers:
         - envFrom:
-            - configMapRef:
-                name: pds-env
             - secretRef:
                 name: pds-env
           image: ghcr.io/bluesky-social/pds:0.4.5001
           imagePullPolicy: IfNotPresent
-          # livenessProbe:
-          #   failureThreshold: 3
-          #   httpGet:
-          #     path: /alive
-          #     port: http
-          #     scheme: HTTP
-          #   periodSeconds: 10
-          #   successThreshold: 1
-          #   timeoutSeconds: 1
+          livenessProbe:
+            httpGet:
+              path: /xrpc/_health
+              port: http
           name: pds
           ports:
             - containerPort: 3000
               name: http
-              protocol: TCP
-          # readinessProbe:
-          #   failureThreshold: 3
-          #   httpGet:
-          #     path: /alive
-          #     port: http
-          #     scheme: HTTP
-          #   periodSeconds: 10
-          #   successThreshold: 1
-          #   timeoutSeconds: 1
-          resources: {} # TODO
+          readinessProbe:
+            httpGet:
+              path: /xrpc/_health
+              port: http
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:

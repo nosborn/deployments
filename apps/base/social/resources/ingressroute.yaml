@@ -1,23 +1,23 @@
+# yamllint disable rule:line-length
 ---
 apiVersion: traefik.io/v1alpha1
 kind: IngressRoute
 metadata:
   labels:
-    app.kubernetes.io/instance: pds
-    app.kubernetes.io/name: pds
-  name: pds
-  namespace: pds
+    app.kubernetes.io/instance: social
+    app.kubernetes.io/name: social
+  name: social
+  namespace: social
 spec:
   entryPoints:
     - websecure
   routes:
     - kind: Rule
-      match: Host(`pds.example.com`) || HostRegexp(`.+\.pds\.example\.com`)
+      match: Host(`social.example.com`) || HostRegexp(`.+\.social\.example\.com`)
       middlewares:
-        # - name: ip-allowlist
         - name: security-headers
       services:
-        - name: pds
+        - name: social
           port: 80
   tls:
     certResolver: letsencrypt

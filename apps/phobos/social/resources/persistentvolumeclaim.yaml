@@ -2,17 +2,14 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  labels:
-    app.kubernetes.io/instance: pds
-    app.kubernetes.io/name: pds-data
   name: pds-data
-  namespace: pds
+  namespace: social
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOncePod
   resources:
     requests:
-      storage: 1Gi
+      storage: 10Gi
   storageClassName: ""
   volumeMode: Filesystem
   volumeName: pds-data
