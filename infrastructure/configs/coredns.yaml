@@ -5,9 +5,9 @@ metadata:
   name: coredns-custom
   namespace: kube-system
 data:
-  home-arpa.server: |
-    ***REMOVED***:53 {
+  ${DOMAIN_NAME/./-}.server: |
+    ${DOMAIN_NAME}:53 {
       errors
       cache 30
-      forward . ***REMOVED***
+      forward . ${LAN_IPV4_ADDRESS}
     }

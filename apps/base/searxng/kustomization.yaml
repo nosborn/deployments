@@ -11,7 +11,7 @@ resources:
   - resources/networkpolicy.yaml
   - resources/service.yaml
 
-configMapGenerator:
+secretGenerator:
   - files:
       - configs/favicons.toml
       - configs/settings.yml

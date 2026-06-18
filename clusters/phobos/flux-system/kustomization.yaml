@@ -27,6 +27,10 @@ patches:
       kind: Deployment
       name: helm-controller
   - patch: |
+      - op: add
+        path: /spec/template/spec/containers/0/args/-
+        value:
+          --feature-gates=StrictPostBuildSubstitutions=true
       - op: replace
         path: /spec/template/spec/containers/0/resources
         value:
@@ -36,13 +40,6 @@ patches:
     target:
       kind: Deployment
       name: kustomize-controller
-  - patch: |
-      - op: add
-        path: /spec/template/spec/containers/0/args/-
-        value: --storage-value-log-file-size=16777216
-    target:
-      kind: Deployment
-      name: image-reflector-controller
   - patch: |
       - op: replace
         path: /spec/template/spec/containers/0/resources

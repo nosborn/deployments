@@ -16,9 +16,9 @@ spec:
     namespace: gitea
   iscsi:
     fsType: btrfs
-    iqn: ***REMOVED***
+    iqn: ${ISCSI_IQN}
     lun: 2
-    targetPortal: ***REMOVED***
+    targetPortal: ${ISCSI_TARGET_PORTAL}
   persistentVolumeReclaimPolicy: Retain
   storageClassName: ""
   volumeMode: Filesystem

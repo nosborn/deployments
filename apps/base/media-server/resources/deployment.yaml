@@ -91,7 +91,7 @@ spec:
           name: temp
         - name: video
           nfs:
-            server: ***REMOVED***
+            server: ${NFS_SERVER}
             path: /volume1/video
 # ---
 # apiVersion: apps/v1
@@ -178,7 +178,7 @@ spec:
 #             claimName: lidarr-data
 #         - name: music
 #           nfs:
-#             server: ***REMOVED***
+#             server: ${NFS_SERVER}
 #             path: /volume1/music
 #         - emptyDir: {}
 #           name: temp
@@ -262,7 +262,7 @@ spec:
           name: data
         - name: video
           nfs:
-            server: ***REMOVED***
+            server: ${NFS_SERVER}
             path: /volume1/video
             readOnly: true # FIXME
 ---
@@ -549,7 +549,7 @@ spec:
           name: temp
         - name: video
           nfs:
-            server: ***REMOVED***
+            server: ${NFS_SERVER}
             path: /volume1/video
 ---
 apiVersion: apps/v1
@@ -645,7 +645,7 @@ spec:
           name: temp
         - name: video
           nfs:
-            server: ***REMOVED***
+            server: ${NFS_SERVER}
             path: /volume1/video
 ---
 apiVersion: apps/v1
@@ -741,5 +741,5 @@ spec:
           name: temp
         - name: video
           nfs:
-            server: ***REMOVED***
+            server: ${NFS_SERVER}
             path: /volume1/video

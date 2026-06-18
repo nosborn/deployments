@@ -17,20 +17,27 @@ spec:
         - op: replace
           path: /spec/addresses
           value:
-            - ***REMOVED***/32
-            - ***REMOVED***/128
+            - ${LAN_IPV4_ADDRESS}/32
+            - ${LAN_IPV6_ADDRESS}/128
       target:
         kind: IPAddressPool
         name: default
     - patch: |-
         - op: replace
           path: /spec/routes/0/match
-          value: Host(`traefik.***REMOVED***`)
+          value: Host(`traefik.${DOMAIN_NAME}`)
       target:
         kind: IngressRoute
         name: traefik-dashboard
         namespace: traefik
   path: ./infrastructure/configs
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: true
+      - kind: Secret
+        name: cluster-secret-vars
   prune: true
   sourceRef:
     kind: GitRepository
@@ -52,6 +59,13 @@ spec:
       name: sops-age
   interval: 1h
   path: ./infrastructure/controllers
+  postBuild:
+    substituteFrom:
+      - kind: ConfigMap
+        name: cluster-vars
+        optional: true
+      - kind: Secret
+        name: cluster-secret-vars
   prune: true
   retryInterval: 2m
   sourceRef:

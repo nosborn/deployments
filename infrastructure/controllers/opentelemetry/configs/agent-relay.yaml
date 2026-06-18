@@ -3,12 +3,12 @@ exporters:
   otlp/uptrace:
     endpoint: https://api.uptrace.dev.:4317
     headers:
-      uptrace-dsn: ${env:UPTRACE_DSN}
+      uptrace-dsn: $${env:UPTRACE_DSN}
     tls:
       insecure: false
 extensions:
   health_check:
-    endpoint: ${env:MY_POD_IP}:13133
+    endpoint: $${env:MY_POD_IP}:13133
 processors:
   batch:
     send_batch_size: 10000
@@ -60,7 +60,7 @@ processors:
   resource/node_hostname:
     attributes:
       - key: host.name
-        value: ${env:OTEL_K8S_NODE_NAME}
+        value: $${env:OTEL_K8S_NODE_NAME}
         action: upsert
 receivers:
   hostmetrics:
@@ -112,13 +112,13 @@ receivers:
   kubeletstats:
     auth_type: serviceAccount
     collection_interval: 60s
-    endpoint: ${env:K8S_NODE_IP}:10250
+    endpoint: $${env:K8S_NODE_IP}:10250
   otlp:
     protocols:
       grpc:
-        endpoint: ${env:MY_POD_IP}:4317
+        endpoint: $${env:MY_POD_IP}:4317
       http:
-        endpoint: ${env:MY_POD_IP}:4318
+        endpoint: $${env:MY_POD_IP}:4318
   prometheus:
     config:
       scrape_configs:
@@ -126,14 +126,14 @@ receivers:
           scrape_interval: 60s
           static_configs:
             - targets:
-                - ${env:MY_POD_IP}:8888
+                - $${env:MY_POD_IP}:8888
         - job_name: dcgm-exporter
           scrape_interval: 60s
           kubernetes_sd_configs:
             - role: pod
               selectors:
                 - role: pod
-                  field: spec.nodeName=${env:K8S_NODE_NAME}
+                  field: spec.nodeName=$${env:K8S_NODE_NAME}
           relabel_configs:
             - source_labels:
                 - __meta_kubernetes_namespace
@@ -197,12 +197,12 @@ service:
         - pull:
             exporter:
               prometheus:
-                host: ${env:MY_POD_IP}
+                host: $${env:MY_POD_IP}
                 port: 8888
     resource:
-      host.name: ${env:OTEL_K8S_NODE_NAME}
-      k8s.namespace.name: ${env:OTEL_K8S_NAMESPACE}
-      k8s.node.ip: ${env:OTEL_K8S_NODE_IP}
-      k8s.node.name: ${env:OTEL_K8S_NODE_NAME}
-      k8s.pod.ip: ${env:OTEL_K8S_POD_IP}
-      k8s.pod.name: ${env:OTEL_K8S_POD_NAME}
+      host.name: $${env:OTEL_K8S_NODE_NAME}
+      k8s.namespace.name: $${env:OTEL_K8S_NAMESPACE}
+      k8s.node.ip: $${env:OTEL_K8S_NODE_IP}
+      k8s.node.name: $${env:OTEL_K8S_NODE_NAME}
+      k8s.pod.ip: $${env:OTEL_K8S_POD_IP}
+      k8s.pod.name: $${env:OTEL_K8S_POD_NAME}
