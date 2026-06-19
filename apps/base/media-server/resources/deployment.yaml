@@ -71,7 +71,7 @@ spec:
               name: library
             - mountPath: /tmp
               name: temp
-            - mountPath: /video
+            - mountPath: /media
               name: video
       securityContext:
         seccompProfile:
@@ -163,10 +163,10 @@ spec:
               name: data
             - mountPath: /config/log
               name: log
-            - mountPath: /media
-              name: video
             - mountPath: /tmp/jellyfin
               name: temp
+            - mountPath: /video
+              name: video
       securityContext:
         seccompProfile:
           type: RuntimeDefault
