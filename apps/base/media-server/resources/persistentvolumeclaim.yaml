@@ -13,6 +13,21 @@ spec:
   storageClassName: local-storage
   volumeMode: Filesystem
   volumeName: bazarr-data
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: jellyfin-data
+  namespace: media
+spec:
+  accessModes:
+    - ReadWriteOncePod
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: local-storage
+  volumeMode: Filesystem
+  volumeName: jellyfin-data
 # ---
 # apiVersion: v1
 # kind: PersistentVolumeClaim

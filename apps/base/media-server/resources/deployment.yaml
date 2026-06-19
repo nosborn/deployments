@@ -93,6 +93,96 @@ spec:
           nfs:
             server: ${NFS_SERVER}
             path: /volume1/video
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: jellyfin
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: jellyfin
+  name: jellyfin
+  namespace: media
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: jellyfin
+      app.kubernetes.io/instance: media-server
+      app.kubernetes.io/name: jellyfin
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: jellyfin
+        app.kubernetes.io/instance: media-server
+        app.kubernetes.io/name: jellyfin
+    spec:
+      containers:
+        - env:
+            - name: LANG
+              value: en_GB.UTF-8
+            - name: TZ
+              value: Europe/London
+          image: ghcr.io/jellyfin/jellyfin:10.11.11
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: jellyfin
+          ports:
+            - containerPort: 8096
+              name: http
+              protocol: TCP
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /health
+              port: http
+              scheme: HTTP
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /config
+              name: data
+            - mountPath: /config/log
+              name: log
+            - mountPath: /media
+              name: video
+            - mountPath: /tmp/jellyfin
+              name: temp
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: jellyfin-data
+        - emptyDir: {}
+          name: log
+        - emptyDir: {}
+          name: temp
+        - name: video
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/video
 # ---
 # apiVersion: apps/v1
 # kind: Deployment
