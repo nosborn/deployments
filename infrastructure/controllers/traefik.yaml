@@ -108,12 +108,6 @@ spec:
       enabled: true
       storageClass: local-path
     ports:
-      jellyfin:
-        port: 8096
-        exposedPort: 8096
-        expose:
-          default: true
-        protocol: TCP
       traefik:
         expose:
           default: true

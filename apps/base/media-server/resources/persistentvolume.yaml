@@ -14,22 +14,6 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   volumeMode: Filesystem
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: jellyfin-data
-spec:
-  accessModes:
-    - ReadWriteOncePod
-  capacity:
-    storage: 10Gi
-  hostPath:
-    path: /var/lib/jellyfin
-    type: Directory
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: local-storage
-  volumeMode: Filesystem
 # ---
 # apiVersion: v1
 # kind: PersistentVolume

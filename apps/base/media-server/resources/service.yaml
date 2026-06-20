@@ -20,28 +20,6 @@ spec:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: bazarr
   type: ClusterIP
----
-apiVersion: v1
-kind: Service
-metadata:
-  labels:
-    app.kubernetes.io/component: jellyfin
-    app.kubernetes.io/instance: media-server
-    app.kubernetes.io/name: jellyfin
-  name: jellyfin
-  namespace: media
-spec:
-  ipFamilies:
-    - IPv4
-  ipFamilyPolicy: SingleStack
-  ports:
-    - name: http
-      port: 8096
-  selector:
-    app.kubernetes.io/component: jellyfin
-    app.kubernetes.io/instance: media-server
-    app.kubernetes.io/name: jellyfin
-  type: ClusterIP
 # ---
 # apiVersion: v1
 # kind: Service

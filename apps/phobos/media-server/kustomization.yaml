@@ -49,15 +49,6 @@ patches:
       kind: Certificate
       name: bazarr
       namespace: media
-  - patch: |-
-      - op: replace
-        path: /spec/dnsNames
-        value:
-          - jellyfin.${DOMAIN_NAME}
-    target:
-      kind: Certificate
-      name: jellyfin
-      namespace: media
   # - patch: |-
   #     - op: replace
   #       path: /spec/dnsNames
@@ -136,28 +127,6 @@ patches:
       namespace: media
   - patch: |-
       - op: add
-        path: /spec/template/spec/containers/0/volumeMounts/-
-        value:
-          mountPath: /dev/dri
-          name: dri
-      - op: add
-        path: /spec/template/spec/securityContext/supplementalGroups
-        value:
-          - 44 # video
-          - 992 # render
-      - op: add
-        path: /spec/template/spec/volumes/-
-        value:
-          hostPath:
-            path: /dev/dri
-            type: Directory
-          name: dri
-    target:
-      kind: Deployment
-      name: jellyfin
-      namespace: media
-  - patch: |-
-      - op: add
         path: /spec/template/spec/containers/0/env/-
         value:
           name: PGID
@@ -185,14 +154,6 @@ patches:
     target:
       kind: IngressRoute
       name: bazarr
-      namespace: media
-  - patch: |-
-      - op: replace
-        path: /spec/routes/0/match
-        value: Host(`jellyfin.${DOMAIN_NAME}`)
-    target:
-      kind: IngressRoute
-      name: jellyfin
       namespace: media
   # - patch: |-
   #     - op: replace

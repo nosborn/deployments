@@ -41,6 +41,8 @@ spec:
               volumeMounts:
                 - mountPath: /config
                   name: config
+                - mountPath: /config/state
+                  name: state
                 - mountPath: /tmp
                   name: temp
           restartPolicy: Never
@@ -54,6 +56,8 @@ spec:
             - name: config
               secret:
                 secretName: recyclarr-config
+            - emptyDir: {}
+              name: state
             - emptyDir: {}
               name: temp
   schedule: "@daily"
