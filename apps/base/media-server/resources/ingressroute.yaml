@@ -50,6 +50,29 @@ spec:
           port: 8096
   tls:
     secretName: jellyfin-tls
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  labels:
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: jellyfin
+  name: jellyfin-http
+  namespace: media
+spec:
+  entryPoints:
+    - jellyfin
+  routes:
+    - kind: Rule
+      match: PathPrefix(`/`)
+      middlewares:
+        - name: ip-allowlist
+          namespace: traefik
+        - name: jellyfin-buffering
+          namespace: media
+      services:
+        - name: jellyfin
+          port: 8096
 # ---
 # apiVersion: traefik.io/v1alpha1
 # kind: IngressRoute
