@@ -29,7 +29,7 @@ spec:
         kind: HelmRepository
         name: traefik
         namespace: flux-system
-      version: 39.0.9
+      version: 41.0.0
   install:
     remediation:
       retries: 3
@@ -84,19 +84,18 @@ spec:
             namespace: traefik
         tls:
           secretName: traefik-dashboard-tls
-    logs:
-      access:
+    log:
+      accessLog:
         enabled: true
         fields:
           names:
             RequestHost: keep
-      general:
-        otlp:
+      otlp:
+        enabled: true
+        grpc:
           enabled: true
-          grpc:
-            enabled: true
-            endpoint: collector.opentelemetry.svc:4317
-            insecure: true
+          endpoint: collector.opentelemetry.svc:4317
+          insecure: true
     metrics:
       otlp:
         enabled: true
