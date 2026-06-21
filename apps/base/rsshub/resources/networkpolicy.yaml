@@ -1,0 +1,97 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/instance: rsshub
+    app.kubernetes.io/name: rsshub
+  name: rsshub
+  namespace: rsshub
+spec:
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: traefik
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: traefik
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: rsshub
+  policyTypes:
+    - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/instance: rsshub
+    app.kubernetes.io/name: rsshub-puppeteer
+  name: rsshub-puppeteer
+  namespace: rsshub
+spec:
+  egress:
+    # Cluster-internal (CoreDNS, and future in-cluster metrics/OTel). Must be
+    # explicit CIDRs: k3s/kube-router treats an egress `namespaceSelector: {}`
+    # as allow-all, which would defeat the LAN block below.
+    - to:
+        - ipBlock:
+            cidr: 10.42.0.0/16
+        - ipBlock:
+            cidr: 10.43.0.0/16
+        - ipBlock:
+            cidr: fd42::/56
+        - ipBlock:
+            cidr: fd43::/112
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 10.0.0.0/8
+              - 169.254.0.0/16
+              - 172.16.0.0/12
+              - 192.168.0.0/16
+        - ipBlock:
+            cidr: ::/0
+            except:
+              - ${IPV6_DELEGATED_PREFIX}
+              - fc00::/7
+              - fe80::/10
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: rsshub
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: rsshub
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: rsshub-puppeteer
+  policyTypes:
+    - Egress
+    - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/instance: rsshub
+    app.kubernetes.io/name: rsshub-valkey
+  name: rsshub-valkey
+  namespace: rsshub
+spec:
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: rsshub
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: rsshub
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: rsshub-valkey
+  policyTypes:
+    - Ingress

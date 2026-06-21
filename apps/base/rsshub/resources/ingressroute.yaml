@@ -1,0 +1,23 @@
+# yamllint disable rule:line-length
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  labels:
+    app.kubernetes.io/instance: rsshub
+    app.kubernetes.io/name: rsshub
+  name: rsshub
+  namespace: rsshub
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`rsshub.example.com`)
+      middlewares:
+        - name: security-headers
+      services:
+        - name: rsshub
+          port: 80
+  tls:
+    secretName: rsshub-tls

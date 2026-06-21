@@ -1,0 +1,37 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/rsshub
+  # - resources/persistentvolume.yaml
+  # - resources/persistentvolumeclaim.yaml
+
+# secretGenerator:
+#   - envs:
+#       - configs/pds.env
+#     name: pds-env
+#     namespace: rsshub
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - rsshub.${DOMAIN_NAME}
+    target:
+      kind: Certificate
+      name: rsshub
+      namespace: rsshub
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`rsshub.${DOMAIN_NAME}`)
+      - op: add
+        path: /spec/tls/domains
+        value:
+          - main: rsshub.${DOMAIN_NAME}
+    target:
+      kind: IngressRoute
+      name: rsshub
+      namespace: rsshub

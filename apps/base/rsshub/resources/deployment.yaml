@@ -1,0 +1,194 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: rsshub
+    app.kubernetes.io/name: rsshub
+  name: rsshub
+  namespace: rsshub
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: rsshub
+      app.kubernetes.io/name: rsshub
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: rsshub
+        app.kubernetes.io/name: rsshub
+    spec:
+      containers:
+        - env:
+            - name: CACHE_CONTENT_EXPIRE
+              value: !!str 3600
+            - name: CACHE_EXPIRE
+              value: !!str 300
+            - name: CACHE_TYPE
+              value: redis
+            - name: NODE_ENV
+              value: production
+            - name: PLAYWRIGHT_WS_ENDPOINT
+              value: ws://rsshub-puppeteer:3000
+            - name: REDIS_URL
+              value: redis://rsshub-valkey:6379/
+          image: ghcr.io/diygod/rsshub:2026-06-20
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          name: rsshub
+          ports:
+            - containerPort: 1200
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: rsshub
+    app.kubernetes.io/name: rsshub-pupputeer
+  name: rsshub-puppeteer
+  namespace: rsshub
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: rsshub
+      app.kubernetes.io/name: rsshub-puppeteer
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: rsshub
+        app.kubernetes.io/name: rsshub-puppeteer
+    spec:
+      containers:
+        - image: browserless/chrome:1.61.1-puppeteer-21.9.0
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            httpGet:
+              path: /pressure
+              port: http
+          name: puppeteer
+          ports:
+            - containerPort: 3000
+              name: http
+          readinessProbe:
+            httpGet:
+              path: /pressure
+              port: http
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /tmp
+              name: temp
+      imagePullSecrets:
+        - name: dockerconfig
+      securityContext:
+        fsGroup: 999
+        runAsGroup: 999
+        runAsUser: 999
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - emptyDir: {}
+          name: temp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: rsshub
+    app.kubernetes.io/name: rsshub-valkey
+  name: rsshub-valkey
+  namespace: rsshub
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: rsshub
+      app.kubernetes.io/name: rsshub-valkey
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: rsshub
+        app.kubernetes.io/name: rsshub-valkey
+    spec:
+      automountServiceAccountToken: false
+      containers:
+        - args:
+            - --save
+            - ""
+            - --appendonly
+            - !!str no
+          image: valkey/valkey:9.1.0-alpine
+          imagePullPolicy: IfNotPresent
+          livenessProbe:
+            exec:
+              command:
+                - valkey-cli
+                - ping
+          name: valkey
+          ports:
+            - containerPort: 6379
+              name: redis
+          readinessProbe:
+            exec:
+              command:
+                - valkey-cli
+                - ping
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+      imagePullSecrets:
+        - name: dockerconfig
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: default
+      volumes:
+        - emptyDir: {} # TODO
+          name: data

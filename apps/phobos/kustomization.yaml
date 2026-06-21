@@ -10,6 +10,7 @@ resources:
   - media-server
   - miasma
   - redirector
+  - rsshub
   - search
   - social
   - vaultwarden
