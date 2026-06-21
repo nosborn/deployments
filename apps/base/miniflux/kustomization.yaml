@@ -1,0 +1,23 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - resources/certificate.yaml
+  - resources/deployment.yaml
+  - resources/ingressroute.yaml
+  - resources/middleware.yaml
+  - resources/namespace.yaml
+  - resources/networkpolicy.yaml
+  - resources/secret.yaml
+  - resources/service.yaml
+
+secretGenerator:
+  - envs:
+      - configs/miniflux.env
+    name: miniflux-env
+    namespace: miniflux
+  - envs:
+      - configs/postgres.env
+    name: postgres-env
+    namespace: miniflux

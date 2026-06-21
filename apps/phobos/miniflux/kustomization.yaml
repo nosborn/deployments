@@ -1,0 +1,39 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/miniflux
+  # - resources/persistentvolume.yaml
+  # - resources/persistentvolumeclaim.yaml
+
+secretGenerator:
+  - behavior: merge
+    envs:
+      - configs/miniflux.env
+    name: miniflux-env
+    namespace: miniflux
+  - behavior: merge
+    envs:
+      - configs/postgres.env
+    name: postgres-env
+    namespace: miniflux
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - miniflux.${DOMAIN_NAME}
+    target:
+      kind: Certificate
+      name: miniflux
+      namespace: miniflux
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`miniflux.${DOMAIN_NAME}`)
+    target:
+      kind: IngressRoute
+      name: miniflux
+      namespace: miniflux

@@ -1,0 +1,31 @@
+# yamllint disable rule:line-length
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: ip-allowlist
+  namespace: miniflux
+spec:
+  ipAllowList:
+    sourceRange:
+      - ${LAN_IPV4_SUBNET}
+      - ${VPN_IPV4_SUBNET}
+      - ${LAN_IPV6_SUBNET}
+      - ${VPN_IPV6_SUBNET}
+---
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: security-headers
+  namespace: miniflux
+spec:
+  headers:
+    customResponseHeaders:
+      Permissions-Policy: geolocation=(), interest-cohort=(), microphone=(), camera=()
+      Referrer-Policy: strict-origin-when-cross-origin
+      Server: ""
+      Strict-Transport-Security: max-age=31536000; includeSubDomains
+      X-Content-Type-Options: nosniff
+      X-Frame-Options: DENY
+      X-Robots-Tag: noindex, nofollow
+      X-XSS-Protection: 1; mode=block

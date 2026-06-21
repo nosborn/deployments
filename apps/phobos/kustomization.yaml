@@ -9,6 +9,7 @@ resources:
   - login
   - media-server
   - miasma
+  - miniflux
   - redirector
   - rsshub
   - search

@@ -1,0 +1,23 @@
+---
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  labels:
+    app.kubernetes.io/instance: miniflux
+    app.kubernetes.io/name: miniflux
+  name: miniflux
+  namespace: miniflux
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - kind: Rule
+      match: Host(`miniflux.example.com`)
+      middlewares:
+        - name: ip-allowlist
+        - name: security-headers
+      services:
+        - name: miniflux
+          port: 80
+  tls:
+    secretName: miniflux-tls
