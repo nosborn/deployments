@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   # - gitea
   # - gitea-actions
+  # - homebridge
   - llama-cpp
   - login
   - media-server

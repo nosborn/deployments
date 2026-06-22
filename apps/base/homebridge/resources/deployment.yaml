@@ -1,0 +1,80 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: homebridge
+    app.kubernetes.io/name: homebridge
+  name: homebridge
+  namespace: homebridge
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: homebridge
+      app.kubernetes.io/name: homebridge
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: homebridge
+        app.kubernetes.io/name: homebridge
+    spec:
+      containers:
+        - envFrom:
+            - secretRef:
+                name: homebridge-env
+          image: ghcr.io/nosborn/homebridge:2.1.0
+          imagePullPolicy: Always
+          # livenessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /alive
+          #     port: http
+          #     scheme: HTTP
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+          name: homebridge
+          ports:
+            - containerPort: 8581
+              name: http
+              protocol: TCP
+          # readinessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /alive
+          #     port: http
+          #     scheme: HTTP
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /app/accessories
+              name: accessories
+            - mountPath: /app/persist
+              name: persist
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      serviceAccountName: homebridge
+      volumes:
+        - name: accessories
+          persistentVolumeClaim:
+            claimName: homebridge-accessories
+        - name: persist
+          persistentVolumeClaim:
+            claimName: homebridge-persist
