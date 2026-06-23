@@ -1,0 +1,16 @@
+web_password: password
+sops:
+  age:
+    - enc: |
+        -----BEGIN AGE ENCRYPTED FILE-----
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBPOWIwdm5pU0hYM1UzWjRi
+        Y2pFV25lSCtIOFg1TUVaTFk0TjN1K0JTQW5VCjRJWVBacU14b1ZGVEdCMTRXbWdI
+        VGo2MjVKd0JGNGtBVGdoWEFac2oyK2MKLS0tIDVsOGF2Z1BaeFB2RGZEdXpuYzBR
+        N1VZaFF1dERsTE1Lb0I2MVF1Q3hoZjAKjGHMY6qcGInubZAYQGDFlTWoE5ZxGrfI
+        9gWnv9kTHyxfyPh4WtNqSrmCDv+w870rdPHXHrp1bgYOFbFH0vulPA==
+        -----END AGE ENCRYPTED FILE-----
+      recipient: age1cfvwwcvy3qj55kswlwymnvpwuwjymrp7xnjeycxma6qtdzv979qqd3kwue
+  encrypted_regex: ^(data|stringData)$
+  lastmodified: "2026-06-23T06:43:27Z"
+  mac: ENC[AES256_GCM,data:HQ8fbs+sQVTnYXL4tox0gN7wqKrt9cxZyCZwDLCNPw/2wHi8cKSISncbQgXZ/g1f/XfpOS6DefJomtHdbD0qfgJ2b5MsOJKxyTeyqhoQEra+yI7MUJabj/NX6X/syMXyCqDhB5KxiBJdzY7+ZLuYzl5VAvQhgVdwsfacgw/DDxs=,iv:hLOLN+2H7ae9go/mFZ1WqDuJ2Ga7NFeUSEVKyq1CCzw=,tag:NyC97VUXE98KXF+/63HA8w==,type:str]
+  version: 3.13.1

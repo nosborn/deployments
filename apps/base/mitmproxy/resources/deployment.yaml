@@ -1,0 +1,80 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/instance: mitmproxy
+    app.kubernetes.io/name: mitmproxy
+  name: mitmproxy
+  namespace: mitmproxy
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: mitmproxy
+      app.kubernetes.io/name: mitmproxy
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/instance: mitmproxy
+        app.kubernetes.io/name: mitmproxy
+    spec:
+      containers:
+        - args:
+            - --set
+            - web_host=0.0.0.0
+            - --set
+            - web_open_browser=false
+          command:
+            - /usr/local/bin/mitmweb
+          env:
+            - name: HOME
+              value: /home/mitmproxy
+          image: mitmproxy/mitmproxy:12.2.3
+          imagePullPolicy: IfNotPresent
+          # livenessProbe:
+          #   exec:
+          #     command:
+          #       - /usr/bin/mitmproxy
+          #       - -healthcheck
+          #       - auto
+          name: mitmproxy
+          ports:
+            - containerPort: 8080
+              name: http-proxy
+              protocol: TCP
+            - containerPort: 8081
+              name: http-web
+              protocol: TCP
+          # readinessProbe:
+          #   exec:
+          #     command:
+          #       - /usr/bin/mitmproxy
+          #       - -healthcheck
+          #       - auto
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /home/mitmproxy/.mitmproxy
+              name: config
+      imagePullSecrets:
+        - name: dockerconfig
+      securityContext:
+        fsGroup: 1000
+        runAsGroup: 1000
+        runAsUser: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      volumes:
+        - name: config
+          secret:
+            secretName: mitmproxy-config

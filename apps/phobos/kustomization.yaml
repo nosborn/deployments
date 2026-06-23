@@ -11,6 +11,7 @@ resources:
   - media-server
   - miasma
   - miniflux
+  - mitmproxy
   - redirector
   - rsshub
   - search
