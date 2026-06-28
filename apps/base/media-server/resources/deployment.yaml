@@ -556,6 +556,106 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
+    app.kubernetes.io/component: qbittorrent
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: qbittorrent
+  name: qbittorrent
+  namespace: media
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: qbittorrent
+      app.kubernetes.io/instance: media-server
+      app.kubernetes.io/name: qbittorrent
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: qbittorrent
+        app.kubernetes.io/instance: media-server
+        app.kubernetes.io/name: qbittorrent
+    spec:
+      containers:
+        - args:
+            - --confirm-legal-notice
+          env:
+            - name: LANG
+              value: en_GB.UTF-8
+          image: ghcr.io/nosborn/qbittorrent:latest
+          imagePullPolicy: Always
+          # livenessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /ping
+          #     port: http
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+          name: qbittorrent
+          ports:
+            - containerPort: 8080
+              name: http
+          # readinessProbe:
+          #   failureThreshold: 3
+          #   httpGet:
+          #     path: /ping
+          #     port: http
+          #   periodSeconds: 10
+          #   successThreshold: 1
+          #   timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /config
+              name: config
+              # - mountPath: /data
+              #   name: data
+              # - mountPath: /data/config.xml
+              #   name: config
+              #   readOnly: true
+              #   subPath: config.xml
+              # - mountPath: /library
+              #   name: library
+              # - mountPath: /tmp
+              #   name: temp
+              # - mountPath: /video
+              #   name: video
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - emptyDir: {}
+          name: config
+          # - name: config
+          #   secret:
+          #     secretName: prowlarr-config
+          # - name: data
+          #   persistentVolumeClaim:
+          #     claimName: prowlarr-data
+          # - name: library
+          #   persistentVolumeClaim:
+          #     claimName: media-library
+          # - emptyDir: {}
+          #   name: temp
+          # - name: video
+          #   nfs:
+          #     server: ${NFS_SERVER}
+          #     path: /volume1/video
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
     app.kubernetes.io/component: radarr
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: radarr

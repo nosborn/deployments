@@ -98,6 +98,15 @@ patches:
       - op: replace
         path: /spec/dnsNames
         value:
+          - qbittorrent.${DOMAIN_NAME}
+    target:
+      kind: Certificate
+      name: qbittorrent
+      namespace: media
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
           - radarr.${DOMAIN_NAME}
     target:
       kind: Certificate
@@ -194,6 +203,14 @@ patches:
     target:
       kind: IngressRoute
       name: prowlarr
+      namespace: media
+  - patch: |-
+      - op: replace
+        path: /spec/routes/0/match
+        value: Host(`qbittorrent.${DOMAIN_NAME}`)
+    target:
+      kind: IngressRoute
+      name: qbittorrent
       namespace: media
   - patch: |-
       - op: replace
