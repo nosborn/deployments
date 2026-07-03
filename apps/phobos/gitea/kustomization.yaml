@@ -6,14 +6,24 @@ resources:
   - ../../base/gitea
   - resources/persistentvolume.yaml
   - resources/persistentvolumeclaim.yaml
-
-secretGenerator:
-  - files:
-      - app.ini=configs/app.ini
-    name: gitea-config
-    namespace: gitea
+  - resources/secret.yaml
 
 patches:
+  - patch: |-
+      - op: add
+        path: /spec/template/spec/initContainers/0/env/-
+        value:
+          name: COOKIE_DOMAIN
+          value: osborn.io
+      - op: add
+        path: /spec/template/spec/initContainers/0/env/-
+        value:
+          name: PUBLIC_URL
+          value: https://git.osborn.io
+    target:
+      kind: Deployment
+      name: gitea
+      namespace: gitea
   - patch: |-
       - op: replace
         path: /spec/routes/0/match

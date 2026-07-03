@@ -25,10 +25,14 @@ spec:
         app.kubernetes.io/name: gitea
     spec:
       containers:
-        - envFrom:
-            - secretRef:
-                name: gitea-env
-          image: docker.gitea.com/gitea:1.26.2-rootless
+        - args:
+            - web
+          command:
+            - /usr/local/bin/gitea
+          env:
+            - name: GITEA__security__REVERSE_PROXY_TRUSTED_PROXIES
+              value: 127.0.0.0/8,::1/128
+          image: docker.gitea.com/gitea:1.26.4-rootless
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 10
@@ -71,6 +75,40 @@ spec:
               name: data
             - mountPath: /tmp/gitea
               name: temp
+      initContainers:
+        - env:
+            # - name: COOKIE_DYNAMIC_DOMAIN
+            #   value: !!str true
+            - name: COOKIE_HTTP_ONLY
+              value: !!str true
+            - name: COOKIE_SAME_SITE
+              value: Strict
+            - name: ED25519_PRIVATE_KEY_HEX
+              valueFrom:
+                secretKeyRef:
+                  key: ED25519_PRIVATE_KEY_HEX
+                  name: anubis-key
+            - name: SERVE_ROBOTS_TXT
+              value: !!str true
+            - name: TARGET
+              value: http://localhost:3000
+          image: ghcr.io/techarohq/anubis:v1.25.0
+          imagePullPolicy: IfNotPresent
+          name: anubis
+          ports:
+            - containerPort: 8080
+              name: http-anubis
+          restartPolicy: Always
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
       securityContext:
         fsGroup: 1000
         runAsGroup: 1000
