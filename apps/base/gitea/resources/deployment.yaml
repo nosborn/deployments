@@ -96,7 +96,7 @@ spec:
           imagePullPolicy: IfNotPresent
           name: anubis
           ports:
-            - containerPort: 8080
+            - containerPort: 8923
               name: http-anubis
           restartPolicy: Always
           securityContext:
