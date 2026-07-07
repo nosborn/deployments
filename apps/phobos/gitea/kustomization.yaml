@@ -14,12 +14,17 @@ patches:
         path: /spec/template/spec/initContainers/0/env/-
         value:
           name: COOKIE_DOMAIN
-          value: osborn.io
+          value: git.osborn.io
+      # - op: add
+      #   path: /spec/template/spec/initContainers/0/env/-
+      #   value:
+      #     name: PUBLIC_URL
+      #     value: https://git.osborn.io
       - op: add
         path: /spec/template/spec/initContainers/0/env/-
         value:
-          name: PUBLIC_URL
-          value: https://git.osborn.io
+          name: REDIRECT_DOMAINS
+          value: git.osborn.io
     target:
       kind: Deployment
       name: gitea
