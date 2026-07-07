@@ -37,3 +37,37 @@ patches:
       kind: IngressRoute
       name: gitea
       namespace: gitea
+  - patch: |-
+      - op: add
+        path: /spec/egress
+        value:
+          - to:
+              - ipBlock:
+                  cidr: 10.42.0.0/16
+              - ipBlock:
+                  cidr: 10.43.0.0/16
+              - ipBlock:
+                  cidr: fd42::/56
+              - ipBlock:
+                  cidr: fd43::/112
+          - to:
+              - ipBlock:
+                  cidr: 0.0.0.0/0
+                  except:
+                    - 10.0.0.0/8
+                    - 169.254.0.0/16
+                    - 172.16.0.0/12
+                    - 192.168.0.0/16
+              - ipBlock:
+                  cidr: ::/0
+                  except:
+                    - ${IPV6_DELEGATED_PREFIX}
+                    - fc00::/7
+                    - fe80::/10
+      - op: add
+        path: /spec/policyTypes/-
+        value: Egress
+    target:
+      kind: NetworkPolicy
+      name: gitea
+      namespace: gitea
