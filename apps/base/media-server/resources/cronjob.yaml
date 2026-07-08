@@ -12,6 +12,7 @@ spec:
   concurrencyPolicy: Forbid
   jobTemplate:
     spec:
+      backoffLimit: 0
       template:
         metadata:
           labels:
@@ -41,6 +42,12 @@ spec:
               volumeMounts:
                 - mountPath: /config
                   name: config
+                - mountPath: /config/configs
+                  name: configs
+                - mountPath: /config/includes
+                  name: includes
+                - mountPath: /config/logs
+                  name: state
                 - mountPath: /config/state
                   name: state
                 - mountPath: /tmp
@@ -56,6 +63,12 @@ spec:
             - name: config
               secret:
                 secretName: recyclarr-config
+            - emptyDir: {}
+              name: configs
+            - emptyDir: {}
+              name: includes
+            - emptyDir: {}
+              name: logs
             - emptyDir: {}
               name: state
             - emptyDir: {}
