@@ -48,6 +48,18 @@ spec:
   upgrade:
     crds: CreateReplace
   values:
+    accessLog:
+      dualOutput: true
+      enabled: true
+      fields:
+        names:
+          RequestHost: keep
+      otlp:
+        enabled: true
+        grpc:
+          enabled: true
+          endpoint: collector.opentelemetry.svc:4317
+          insecure: true
     certificatesResolvers:
       letsencrypt:
         acme:
@@ -84,18 +96,6 @@ spec:
             namespace: traefik
         tls:
           secretName: traefik-dashboard-tls
-    log:
-      accessLog:
-        enabled: true
-        fields:
-          names:
-            RequestHost: keep
-      otlp:
-        enabled: true
-        grpc:
-          enabled: true
-          endpoint: collector.opentelemetry.svc:4317
-          insecure: true
     metrics:
       otlp:
         enabled: true
@@ -112,6 +112,15 @@ spec:
           default: true
       websecure:
         allowACMEByPass: false # TODO: true?
+        http:
+          encodedCharacters:
+            allowEncodedBackSlash: false
+            allowEncodedHash: false
+            allowEncodedNullCharacter: false
+            allowEncodedPercent: false
+            allowEncodedQuestionMark: false
+            allowEncodedSemicolon: false
+            allowEncodedSlash: false
     providers:
       kubernetesCRD:
         allowCrossNamespace: true
