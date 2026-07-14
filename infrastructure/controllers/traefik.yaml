@@ -82,8 +82,6 @@ spec:
     global:
       checkNewVersion: false
       sendAnonymousUsage: false
-    ingressClass:
-      enabled: false
     ingressRoute:
       dashboard:
         enabled: true
@@ -103,9 +101,6 @@ spec:
           enabled: true
           endpoint: collector.opentelemetry.svc:4317
           insecure: true
-    persistence:
-      enabled: true
-      storageClass: local-path
     ports:
       traefik:
         expose:

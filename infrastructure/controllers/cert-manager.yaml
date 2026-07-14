@@ -29,20 +29,39 @@ spec:
         kind: HelmRepository
         name: jetstack
         namespace: flux-system
-      version: v1.20.2
+      version: v1.21.0
+  driftDetection:
+    ignore:
+      - paths:
+          - /metadata/annotations
+        target:
+          annotationSelector: reloader.stakater.com/auto=true
+          kind: Deployment
+    mode: enabled
   install:
     remediation:
       retries: 3
   interval: 1h
   maxHistory: 1
+  postRenderers:
+    - kustomize:
+        patches:
+          - patch: |-
+              - op: add
+                path: /metadata/annotations/reloader.stakater.com~1auto
+                value: !!str true
+            target:
+              kind: Deployment
   upgrade:
     crds: CreateReplace
   values:
     cainjector:
       resources:
         requests:
-          cpu: 2m
-          memory: 17Mi
+          memory: 32Mi
+    config:
+      gatewayAPI:
+        enabled: true
     crds:
       enabled: true
       keep: true
@@ -54,12 +73,10 @@ spec:
       enabled: false
     resources:
       requests:
-        cpu: 2m
-        memory: 24Mi
+        memory: 64Mi
     startupapicheck:
       resources: {}
     webhook:
       resources:
         requests:
-          cpu: 3m
-          memory: 11Mi
+          memory: 32Mi

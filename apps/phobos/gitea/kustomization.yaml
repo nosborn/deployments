@@ -10,6 +10,15 @@ resources:
 
 patches:
   - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - git.osborn.io
+    target:
+      kind: Certificate
+      name: gitea
+      namespace: gitea
+  - patch: |-
       - op: add
         path: /spec/template/spec/initContainers/0/env/-
         value:

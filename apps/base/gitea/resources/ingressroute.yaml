@@ -20,4 +20,4 @@ spec:
         - name: gitea-http
           port: 8923
   tls:
-    certResolver: letsencrypt
+    secretName: gitea-tls
