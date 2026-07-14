@@ -32,6 +32,8 @@ spec:
         name: nvdp
         namespace: flux-system
       version: 0.19.2
+  driftDetection:
+    mode: enabled
   install:
     remediation:
       retries: 3

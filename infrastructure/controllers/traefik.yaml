@@ -30,6 +30,8 @@ spec:
         name: traefik
         namespace: flux-system
       version: 41.0.2
+  driftDetection:
+    mode: enabled
   install:
     remediation:
       retries: 3

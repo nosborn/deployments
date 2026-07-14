@@ -32,6 +32,8 @@ spec:
         name: gpu-helm-charts
         namespace: flux-system
       version: 4.8.2
+  driftDetection:
+    mode: enabled
   install:
     remediation:
       retries: 3
