@@ -8,6 +8,7 @@ resources:
   - gotk-provider.yaml
   - gotk-receiver.yaml
   - gotk-sync.yaml
+  - networkpolicy.yaml
 
 patches:
   - patch: |
@@ -60,3 +61,16 @@ patches:
     target:
       kind: Deployment
       name: source-controller
+  - patch: |
+      - op: replace
+        path: /spec/ingress/0/from
+        value:
+          - namespaceSelector:
+              matchLabels:
+                kubernetes.io/metadata.name: traefik
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/name: traefik
+    target:
+      kind: NetworkPolicy
+      name: allow-webhooks

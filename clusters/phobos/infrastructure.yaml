@@ -15,15 +15,6 @@ spec:
   patches:
     - patch: |-
         - op: replace
-          path: /spec/addresses
-          value:
-            - ${LAN_IPV4_ADDRESS}/32
-            - ${LAN_IPV6_ADDRESS}/128
-      target:
-        kind: IPAddressPool
-        name: default
-    - patch: |-
-        - op: replace
           path: /spec/routes/0/match
           value: Host(`traefik.${DOMAIN_NAME}`)
       target:

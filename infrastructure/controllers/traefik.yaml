@@ -92,8 +92,16 @@ spec:
       traefik:
         expose:
           default: true
+      web:
+        allowACMEByPass: true
+        http:
+          redirections:
+            entryPoint:
+              to: websecure
+              scheme: https
+              permanent: true
       websecure:
-        allowACMEByPass: false # TODO: true?
+        allowACMEByPass: true
         http:
           encodedCharacters:
             allowEncodedBackSlash: false
@@ -109,7 +117,7 @@ spec:
       kubernetesGateway:
         enabled: true
       kubernetesIngress:
-        enabled: false
+        enabled: true
     service:
       spec:
         externalTrafficPolicy: Local

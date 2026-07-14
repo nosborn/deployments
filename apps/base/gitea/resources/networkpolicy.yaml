@@ -5,6 +5,29 @@ metadata:
   labels:
     app.kubernetes.io/instance: gitea
     app.kubernetes.io/name: gitea
+  name: acme-solver
+  namespace: gitea
+spec:
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: traefik
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/name: traefik
+  podSelector:
+    matchLabels:
+      acme.cert-manager.io/http01-solver: !!str true
+  policyTypes:
+    - Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  labels:
+    app.kubernetes.io/instance: gitea
+    app.kubernetes.io/name: gitea
   name: gitea
   namespace: gitea
 spec:
