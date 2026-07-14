@@ -9,7 +9,6 @@ resources:
   - llama-cpp
   - login
   - media-server
-  - miasma
   - miniflux
   - mitmproxy
   - redirector

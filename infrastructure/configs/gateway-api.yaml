@@ -38,8 +38,6 @@ spec:
             namespace: login
           - name: medium-tls
             namespace: redirector
-          - name: miasma-tls
-            namespace: miasma
           - name: miniflux-tls
             namespace: miniflux
           - name: mitmweb-tls
