@@ -1,0 +1,23 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: gateway
+  namespace: media
+spec:
+  gatewayClassName: traefik
+  listeners:
+    - name: https
+      port: 8443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: bazarr-tls
+          - name: muxarr-tls
+          - name: nzbget-tls
+          - name: ombi-tls
+          - name: prowlarr-tls
+          - name: qbittorrent-tls
+          - name: radarr-tls
+          - name: sonarr-tls

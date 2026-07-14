@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - resources/certificate.yaml
   - resources/deployment.yaml
+  - resources/gateway.yaml
   - resources/httproute.yaml
   - resources/middleware.yaml
   - resources/namespace.yaml

@@ -11,8 +11,7 @@ spec:
   hostnames:
     - homebridge.example.com
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   rules:
     - backendRefs:
         - name: homebridge
@@ -32,18 +31,3 @@ spec:
         - path:
             type: PathPrefix
             value: /
----
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: ReferenceGrant
-metadata:
-  name: allow-gateway-cert
-  namespace: homebridge
-spec:
-  from:
-    - group: ""
-      kind: Gateway
-      namespace: traefik
-  to:
-    - group: ""
-      kind: Secret
-      name: homebridge-tls

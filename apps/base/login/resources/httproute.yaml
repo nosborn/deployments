@@ -10,8 +10,7 @@ spec:
   hostnames:
     - login.example.com
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   rules:
     - backendRefs:
         - name: login
@@ -31,18 +30,3 @@ spec:
         - path:
             type: PathPrefix
             value: /
----
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: ReferenceGrant
-metadata:
-  name: allow-gateway-cert
-  namespace: login
-spec:
-  from:
-    - group: ""
-      kind: Gateway
-      namespace: traefik
-  to:
-    - group: ""
-      kind: Secret
-      name: login-tls

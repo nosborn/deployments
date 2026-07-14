@@ -11,8 +11,7 @@ spec:
   hostnames:
     - bazarr.example.com
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   rules:
     - backendRefs:
         - name: bazarr
@@ -43,8 +42,7 @@ metadata:
   namespace: media
 spec:
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   hostnames:
     - muxarr.example.com
   rules:
@@ -77,8 +75,7 @@ metadata:
   namespace: media
 spec:
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   hostnames:
     - nzbget.example.com
   rules:
@@ -111,8 +108,7 @@ metadata:
   namespace: media
 spec:
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   hostnames:
     - ombi.example.com
   rules:
@@ -145,8 +141,7 @@ metadata:
   namespace: media
 spec:
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   hostnames:
     - prowlarr.example.com
   rules:
@@ -179,8 +174,7 @@ metadata:
   namespace: media
 spec:
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   hostnames:
     - qbittorrent.example.com
   rules:
@@ -213,8 +207,7 @@ metadata:
   namespace: media
 spec:
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   hostnames:
     - radarr.example.com
   rules:
@@ -247,8 +240,7 @@ metadata:
   namespace: media
 spec:
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   hostnames:
     - sonarr.example.com
   rules:
@@ -270,39 +262,3 @@ spec:
       backendRefs:
         - name: sonarr
           port: 8989
----
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: ReferenceGrant
-metadata:
-  name: allow-gateway-cert
-  namespace: media
-spec:
-  from:
-    - group: ""
-      kind: Gateway
-      namespace: traefik
-  to:
-    - group: ""
-      kind: Secret
-      name: bazarr-tls
-    - group: ""
-      kind: Secret
-      name: muxarr-tls
-    - group: ""
-      kind: Secret
-      name: nzbget-tls
-    - group: ""
-      kind: Secret
-      name: ombi-tls
-    - group: ""
-      kind: Secret
-      name: prowlarr-tls
-    - group: ""
-      kind: Secret
-      name: qbittorrent-tls
-    - group: ""
-      kind: Secret
-      name: radarr-tls
-    - group: ""
-      kind: Secret
-      name: sonarr-tls

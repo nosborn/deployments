@@ -8,8 +8,7 @@ spec:
   hostnames:
     - search.example.com # patched in overlay
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   rules:
     - backendRefs:
         - name: search
@@ -24,18 +23,3 @@ spec:
         - path:
             type: PathPrefix
             value: /
----
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: ReferenceGrant
-metadata:
-  name: allow-gateway-cert
-  namespace: search
-spec:
-  from:
-    - group: ""
-      kind: Gateway
-      namespace: traefik
-  to:
-    - group: ""
-      kind: Secret
-      name: search-tls

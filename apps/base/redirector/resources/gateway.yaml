@@ -1,0 +1,23 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: gateway
+  namespace: redirector
+spec:
+  gatewayClassName: traefik
+  listeners:
+    - name: https
+      port: 8443
+      protocol: HTTPS
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: instagram-tls
+          - name: medium-tls
+          - name: reddit-tls
+          - name: redirector-tls
+          - name: skimresources-tls
+          - name: tiktok-tls
+          - name: twitter-tls
+          - name: youtube-tls

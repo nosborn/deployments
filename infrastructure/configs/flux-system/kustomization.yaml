@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - alert.yaml
   - certificate.yaml
+  - gateway.yaml
   - httproute.yaml
   - middleware.yaml
   - provider.yaml

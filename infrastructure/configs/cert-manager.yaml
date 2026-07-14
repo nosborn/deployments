@@ -15,7 +15,7 @@ spec:
       - http01:
           gatewayHTTPRoute:
             parentRefs:
-              - name: phobos-gateway
+              - name: gateway
                 namespace: traefik
         # selector: -- TODO?
         #   dnsZones:
@@ -37,7 +37,7 @@ spec:
       - http01:
           gatewayHTTPRoute:
             parentRefs:
-              - name: phobos-gateway
+              - name: gateway
                 namespace: traefik
         # selector: -- TODO?
         #   dnsZones:

@@ -9,8 +9,7 @@ spec:
     - www.ft.com
     - www.google.com
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   rules:
     - backendRefs:
         - name: redirector
@@ -36,8 +35,7 @@ spec:
     - instagram.com
     - www.instagram.com
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   rules:
     - backendRefs:
         - name: redirector
@@ -63,8 +61,7 @@ spec:
     - medium.com
     - "*.medium.com"
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   rules:
     - backendRefs:
         - name: redirector
@@ -89,8 +86,7 @@ spec:
   hostnames:
     - out.reddit.com
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   rules:
     - backendRefs:
         - name: redirector
@@ -115,8 +111,7 @@ spec:
   hostnames:
     - go.skimresources.com
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   rules:
     - backendRefs:
         - name: redirector
@@ -143,8 +138,7 @@ spec:
     - vm.tiktok.com
     - www.tiktok.com
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   rules:
     - backendRefs:
         - name: redirector
@@ -172,8 +166,7 @@ spec:
     - x.com
     - www.x.com
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   rules:
     - backendRefs:
         - name: redirector
@@ -200,8 +193,7 @@ spec:
     - youtube.com
     - www.youtube.com
   parentRefs:
-    - name: phobos-gateway
-      namespace: traefik
+    - name: gateway
   rules:
     - backendRefs:
         - name: redirector
@@ -216,39 +208,3 @@ spec:
         - path:
             type: PathPrefix
             value: /
----
-apiVersion: gateway.networking.k8s.io/v1beta1
-kind: ReferenceGrant
-metadata:
-  name: allow-gateway-cert
-  namespace: redirector
-spec:
-  from:
-    - group: ""
-      kind: Gateway
-      namespace: traefik
-  to:
-    - group: ""
-      kind: Secret
-      name: instagram-tls
-    - group: ""
-      kind: Secret
-      name: medium-tls
-    - group: ""
-      kind: Secret
-      name: reddit-tls
-    - group: ""
-      kind: Secret
-      name: redirector-tls
-    - group: ""
-      kind: Secret
-      name: skimresources-tls
-    - group: ""
-      kind: Secret
-      name: tiktok-tls
-    - group: ""
-      kind: Secret
-      name: twitter-tls
-    - group: ""
-      kind: Secret
-      name: youtube-tls
