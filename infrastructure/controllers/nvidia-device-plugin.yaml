@@ -1,4 +1,3 @@
-# yamllint disable rule:line-length
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository

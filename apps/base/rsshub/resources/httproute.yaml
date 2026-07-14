@@ -1,0 +1,44 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  labels:
+    app.kubernetes.io/instance: rsshub
+    app.kubernetes.io/name: rsshub
+  name: rsshub
+  namespace: rsshub
+spec:
+  hostnames:
+    - rsshub.example.com
+  parentRefs:
+    - name: phobos-gateway
+      namespace: traefik
+  rules:
+    - backendRefs:
+        - name: rsshub
+          port: 80
+      filters:
+        - extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: security-headers
+          type: ExtensionRef
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: allow-gateway-cert
+  namespace: rsshub
+spec:
+  from:
+    - group: ""
+      kind: Gateway
+      namespace: traefik
+  to:
+    - group: ""
+      kind: Secret
+      name: rsshub-tls

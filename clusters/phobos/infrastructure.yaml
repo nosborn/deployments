@@ -12,15 +12,6 @@ spec:
   dependsOn:
     - name: infra-controllers
   interval: 1h
-  patches:
-    - patch: |-
-        - op: replace
-          path: /spec/routes/0/match
-          value: Host(`traefik.${DOMAIN_NAME}`)
-      target:
-        kind: IngressRoute
-        name: traefik-dashboard
-        namespace: traefik
   path: ./infrastructure/configs
   postBuild:
     substituteFrom:

@@ -26,9 +26,10 @@ patches:
       namespace: vaultwarden
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`passwords.${DOMAIN_NAME}`)
+        path: /spec/hostnames
+        value:
+          - passwords.${DOMAIN_NAME}
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: vaultwarden
       namespace: vaultwarden

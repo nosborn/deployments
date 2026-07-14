@@ -26,9 +26,11 @@ patches:
       namespace: social
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`social.osborn.io`) || Host(`nick.social.osborn.io`)
+        path: /spec/hostnames
+        value:
+          - social.osborn.io
+          - nick.social.osborn.io
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: social
       namespace: social

@@ -40,10 +40,11 @@ patches:
       namespace: gitea
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`git.osborn.io`)
+        path: /spec/hostnames
+        value:
+          - git.osborn.io
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: gitea
       namespace: gitea
   - patch: |-

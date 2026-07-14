@@ -13,8 +13,10 @@ spec:
     server: https://acme-staging-v02.api.letsencrypt.org/directory # FIXME: https://acme-v02.api.letsencrypt.org/directory
     solvers:
       - http01:
-          ingress:
-            ingressClassName: traefik
+          gatewayHTTPRoute:
+            parentRefs:
+              - name: phobos-gateway
+                namespace: traefik
         # selector: -- TODO?
         #   dnsZones:
         #     - example.com # FIXME
@@ -33,8 +35,10 @@ spec:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     solvers:
       - http01:
-          ingress:
-            ingressClassName: traefik
+          gatewayHTTPRoute:
+            parentRefs:
+              - name: phobos-gateway
+                namespace: traefik
         # selector: -- TODO?
         #   dnsZones:
         #     - example.com # FIXME

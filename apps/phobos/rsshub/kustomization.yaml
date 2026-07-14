@@ -25,13 +25,10 @@ patches:
       namespace: rsshub
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`rsshub.${DOMAIN_NAME}`)
-      - op: add
-        path: /spec/tls/domains
+        path: /spec/hostnames
         value:
-          - main: rsshub.${DOMAIN_NAME}
+          - rsshub.${DOMAIN_NAME}
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: rsshub
       namespace: rsshub

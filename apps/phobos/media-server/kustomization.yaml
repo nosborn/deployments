@@ -158,73 +158,82 @@ patches:
       name: media
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`bazarr.${DOMAIN_NAME}`)
+        path: /spec/hostnames
+        value:
+          - bazarr.${DOMAIN_NAME}
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: bazarr
       namespace: media
   # - patch: |-
   #     - op: replace
-  #       path: /spec/routes/0/match
-  #       value: Host(`lidarr.${DOMAIN_NAME}`)
+  #       path: /spec/hostnames
+  #       value:
+  #         - lidarr.${DOMAIN_NAME}
   #   target:
-  #     kind: IngressRoute
+  #     kind: HTTPRoute
   #     name: lidarr
   #     namespace: media
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`muxarr.${DOMAIN_NAME}`)
+        path: /spec/hostnames
+        value:
+          - muxarr.${DOMAIN_NAME}
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: muxarr
       namespace: media
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`nzbget.${DOMAIN_NAME}`)
+        path: /spec/hostnames
+        value:
+          - nzbget.${DOMAIN_NAME}
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: nzbget
       namespace: media
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`ombi.${DOMAIN_NAME}`)
+        path: /spec/hostnames
+        value:
+          - ombi.${DOMAIN_NAME}
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: ombi
       namespace: media
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`prowlarr.${DOMAIN_NAME}`)
+        path: /spec/hostnames
+        value:
+          - prowlarr.${DOMAIN_NAME}
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: prowlarr
       namespace: media
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`qbittorrent.${DOMAIN_NAME}`)
+        path: /spec/hostnames
+        value:
+          - qbittorrent.${DOMAIN_NAME}
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: qbittorrent
       namespace: media
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`radarr.${DOMAIN_NAME}`)
+        path: /spec/hostnames
+        value:
+          - radarr.${DOMAIN_NAME}
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: radarr
       namespace: media
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`sonarr.${DOMAIN_NAME}`)
+        path: /spec/hostnames
+        value:
+          - sonarr.${DOMAIN_NAME}
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: sonarr
       namespace: media

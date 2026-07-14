@@ -34,17 +34,10 @@ patches:
       namespace: mitmproxy
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`auth.ngp-discovery.co.uk`)
+        path: /spec/hostnames
+        value:
+          - mitmproxy.${DOMAIN_NAME}
     target:
-      kind: IngressRoute
-      name: mitmproxy
-      namespace: mitmproxy
-  - patch: |-
-      - op: replace
-        path: /spec/routes/0/match
-        value: Host(`mitmproxy.${DOMAIN_NAME}`)
-    target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: mitmweb
       namespace: mitmproxy

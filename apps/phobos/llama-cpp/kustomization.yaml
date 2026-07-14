@@ -17,9 +17,10 @@ patches:
       namespace: llama-cpp
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`llama.${DOMAIN_NAME}`)
+        path: /spec/hostnames
+        value:
+          - llama.${DOMAIN_NAME}
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: llama-cpp
       namespace: llama-cpp

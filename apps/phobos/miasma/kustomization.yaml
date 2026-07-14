@@ -17,13 +17,10 @@ patches:
       namespace: miasma
   - patch: |-
       - op: replace
-        path: /spec/routes/0/match
-        value: Host(`tombstone.osborn.io`)
-      - op: add
-        path: /spec/tls/domains
+        path: /spec/hostnames
         value:
-          - main: tombstone.osborn.io
+          - tombstone.osborn.io
     target:
-      kind: IngressRoute
+      kind: HTTPRoute
       name: miasma-nginx
       namespace: miasma

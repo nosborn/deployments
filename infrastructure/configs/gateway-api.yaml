@@ -1,0 +1,116 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: GatewayClass
+metadata:
+  name: traefik
+spec:
+  controllerName: traefik.io/gateway-controller
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: phobos-gateway
+  namespace: traefik
+spec:
+  gatewayClassName: traefik
+  listeners:
+    - allowedRoutes:
+        namespaces:
+          from: All
+      name: https
+      port: 443
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - name: bazarr-tls
+            namespace: media
+          - name: gitea-tls
+            namespace: gitea
+          - name: homebridge-tls
+            namespace: homebridge
+          - name: hook-tls
+            namespace: flux-system
+          - name: instagram-tls
+            namespace: redirector
+          - name: llama-cpp-tls
+            namespace: llama-cpp
+          - name: login-tls
+            namespace: login
+          - name: medium-tls
+            namespace: redirector
+          - name: miasma-tls
+            namespace: miasma
+          - name: miniflux-tls
+            namespace: miniflux
+          - name: mitmweb-tls
+            namespace: mitmproxy
+          - name: muxarr-tls
+            namespace: media
+          - name: nzbget-tls
+            namespace: media
+          - name: ombi-tls
+            namespace: media
+          - name: prowlarr-tls
+            namespace: media
+          - name: qbittorrent-tls
+            namespace: media
+          - name: radarr-tls
+            namespace: media
+          - name: reddit-tls
+            namespace: redirector
+          - name: redirector-tls
+            namespace: redirector
+          - name: rsshub-tls
+            namespace: rsshub
+          - name: search-tls
+            namespace: search
+          - name: skimresources-tls
+            namespace: redirector
+          - name: social-tls
+            namespace: social
+          - name: sonarr-tls
+            namespace: media
+          - name: tiktok-tls
+            namespace: redirector
+          - name: traefik-dashboard-tls
+          - name: twitter-tls
+            namespace: redirector
+          - name: vaultwarden-tls
+            namespace: vaultwarden
+          - name: youtube-tls
+            namespace: redirector
+        mode: Terminate
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  labels:
+    app.kubernetes.io/instance: traefik
+    app.kubernetes.io/name: traefik-dashboard
+  name: traefik-dashboard
+  namespace: traefik
+spec:
+  hostnames:
+    - traefik.${DOMAIN_NAME}
+  parentRefs:
+    - name: phobos-gateway
+      namespace: traefik
+  rules:
+    - backendRefs:
+        - name: traefik
+          port: 9000
+      filters:
+        - extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: ip-allowlist
+          type: ExtensionRef
+        - extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: security-headers
+          type: ExtensionRef
+      matches:
+        - path:
+            type: PathPrefix
+            value: /

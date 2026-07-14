@@ -1,0 +1,254 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: redirector
+  namespace: redirector
+spec:
+  hostnames:
+    - www.ft.com
+    - www.google.com
+  parentRefs:
+    - name: phobos-gateway
+      namespace: traefik
+  rules:
+    - backendRefs:
+        - name: redirector
+          port: 80
+      filters:
+        - extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: ip-allowlist
+          type: ExtensionRef
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: instagram
+  namespace: redirector
+spec:
+  hostnames:
+    - instagram.com
+    - www.instagram.com
+  parentRefs:
+    - name: phobos-gateway
+      namespace: traefik
+  rules:
+    - backendRefs:
+        - name: redirector
+          port: 80
+      filters:
+        - extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: ip-allowlist
+          type: ExtensionRef
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: medium
+  namespace: redirector
+spec:
+  hostnames:
+    - medium.com
+    - "*.medium.com"
+  parentRefs:
+    - name: phobos-gateway
+      namespace: traefik
+  rules:
+    - backendRefs:
+        - name: redirector
+          port: 80
+      filters:
+        - extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: ip-allowlist
+          type: ExtensionRef
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: reddit
+  namespace: redirector
+spec:
+  hostnames:
+    - out.reddit.com
+  parentRefs:
+    - name: phobos-gateway
+      namespace: traefik
+  rules:
+    - backendRefs:
+        - name: redirector
+          port: 80
+      filters:
+        - extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: ip-allowlist
+          type: ExtensionRef
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: skimresources
+  namespace: redirector
+spec:
+  hostnames:
+    - go.skimresources.com
+  parentRefs:
+    - name: phobos-gateway
+      namespace: traefik
+  rules:
+    - backendRefs:
+        - name: redirector
+          port: 80
+      filters:
+        - extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: ip-allowlist
+          type: ExtensionRef
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: tiktok
+  namespace: redirector
+spec:
+  hostnames:
+    - tiktok.com
+    - vm.tiktok.com
+    - www.tiktok.com
+  parentRefs:
+    - name: phobos-gateway
+      namespace: traefik
+  rules:
+    - backendRefs:
+        - name: redirector
+          port: 80
+      filters:
+        - extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: ip-allowlist
+          type: ExtensionRef
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: twitter
+  namespace: redirector
+spec:
+  hostnames:
+    - twitter.com
+    - www.twitter.com
+    - x.com
+    - www.x.com
+  parentRefs:
+    - name: phobos-gateway
+      namespace: traefik
+  rules:
+    - backendRefs:
+        - name: redirector
+          port: 80
+      filters:
+        - extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: ip-allowlist
+          type: ExtensionRef
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: youtube
+  namespace: redirector
+spec:
+  hostnames:
+    - youtu.be
+    - youtube.com
+    - www.youtube.com
+  parentRefs:
+    - name: phobos-gateway
+      namespace: traefik
+  rules:
+    - backendRefs:
+        - name: redirector
+          port: 80
+      filters:
+        - extensionRef:
+            group: traefik.io
+            kind: Middleware
+            name: ip-allowlist
+          type: ExtensionRef
+      matches:
+        - path:
+            type: PathPrefix
+            value: /
+---
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: allow-gateway-cert
+  namespace: redirector
+spec:
+  from:
+    - group: ""
+      kind: Gateway
+      namespace: traefik
+  to:
+    - group: ""
+      kind: Secret
+      name: instagram-tls
+    - group: ""
+      kind: Secret
+      name: medium-tls
+    - group: ""
+      kind: Secret
+      name: reddit-tls
+    - group: ""
+      kind: Secret
+      name: redirector-tls
+    - group: ""
+      kind: Secret
+      name: skimresources-tls
+    - group: ""
+      kind: Secret
+      name: tiktok-tls
+    - group: ""
+      kind: Secret
+      name: twitter-tls
+    - group: ""
+      kind: Secret
+      name: youtube-tls
