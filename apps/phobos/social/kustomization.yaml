@@ -16,14 +16,18 @@ secretGenerator:
 patches:
   - patch: |-
       - op: replace
+        path: /spec/dnsNames
+        value:
+          - nick.social.osborn.io
+          - social.osborn.io
+    target:
+      kind: Certificate
+      name: social
+      namespace: social
+  - patch: |-
+      - op: replace
         path: /spec/routes/0/match
         value: Host(`social.osborn.io`) || Host(`nick.social.osborn.io`)
-      - op: add
-        path: /spec/tls/domains
-        value:
-          - main: social.osborn.io
-            sans:
-              - nick.social.osborn.io
     target:
       kind: IngressRoute
       name: social

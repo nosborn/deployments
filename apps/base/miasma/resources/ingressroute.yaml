@@ -19,4 +19,4 @@ spec:
         - name: miasma-nginx
           port: 80
   tls:
-    certResolver: letsencrypt
+    secretName: miasma-tls

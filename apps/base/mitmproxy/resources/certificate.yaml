@@ -10,6 +10,9 @@ spec:
   issuerRef:
     kind: ClusterIssuer
     name: ownca
+  privateKey:
+    algorithm: ECDSA
+    size: 256
   renewBefore: 8h
   secretName: mitmproxy-tls
 ---
@@ -24,5 +27,8 @@ spec:
   issuerRef:
     kind: ClusterIssuer
     name: ownca
+  privateKey:
+    algorithm: ECDSA
+    size: 256
   renewBefore: 8h
   secretName: mitmweb-tls

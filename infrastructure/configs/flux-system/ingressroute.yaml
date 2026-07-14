@@ -16,4 +16,4 @@ spec:
         - name: notification-controller
           port: 80
   tls:
-    certResolver: letsencrypt
+    secretName: hook-tls

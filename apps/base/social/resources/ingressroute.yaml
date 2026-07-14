@@ -20,4 +20,4 @@ spec:
         - name: social
           port: 80
   tls:
-    certResolver: letsencrypt
+    secretName: social-tls

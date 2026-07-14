@@ -8,6 +8,15 @@ resources:
 patches:
   - patch: |-
       - op: replace
+        path: /spec/dnsNames
+        value:
+          - miasma.osborn.io
+    target:
+      kind: Certificate
+      name: miasma
+      namespace: miasma
+  - patch: |-
+      - op: replace
         path: /spec/routes/0/match
         value: Host(`tombstone.osborn.io`)
       - op: add

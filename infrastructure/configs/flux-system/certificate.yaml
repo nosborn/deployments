@@ -2,16 +2,17 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: vaultwarden
-  namespace: vaultwarden
+  name: hook
+  namespace: flux-system
 spec:
-  dnsNames: []
+  dnsNames:
+    - flux.osborn.io
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
-    name: ownca
+    name: letsencrypt-staging # FIXME: letsencrypt
   privateKey:
     algorithm: ECDSA
     size: 256
   renewBefore: 8h
-  secretName: vaultwarden-tls
+  secretName: hook-tls

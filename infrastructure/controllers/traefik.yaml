@@ -60,21 +60,6 @@ spec:
           enabled: true
           endpoint: collector.opentelemetry.svc:4317
           insecure: true
-    certificatesResolvers:
-      letsencrypt:
-        acme:
-          caServer: https://acme-v02.api.letsencrypt.org/directory
-          keyType: EC256
-          # profile: shortlived
-          storage: /data/letsencrypt.json
-          tlsChallenge: !!str true
-      letsencrypt-staging:
-        acme:
-          caServer: https://acme-staging-v02.api.letsencrypt.org/directory
-          keyType: EC256
-          profile: shortlived
-          storage: /data/letsencrypt-staging.json
-          tlsChallenge: !!str true
     deployment:
       revisionHistoryLimit: 0
     experimental:

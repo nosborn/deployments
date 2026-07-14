@@ -11,5 +11,8 @@ spec:
   issuerRef:
     kind: ClusterIssuer
     name: letsencrypt-staging # FIXME: letsencrypt
+  privateKey:
+    algorithm: ECDSA
+    size: 256
   renewBefore: 8h
   secretName: gitea-tls
