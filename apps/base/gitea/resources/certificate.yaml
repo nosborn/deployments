@@ -10,7 +10,7 @@ spec:
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
-    name: letsencrypt-staging # FIXME: letsencrypt
+    name: letsencrypt
   privateKey:
     algorithm: ECDSA
     size: 256

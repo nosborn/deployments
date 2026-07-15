@@ -13,4 +13,4 @@ spec:
       tls:
         mode: Terminate
         certificateRefs:
-          - name: hook-tls
+          - name: webhook-tls

@@ -2,12 +2,11 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: redirector
+  name: ft
   namespace: redirector
 spec:
   dnsNames:
     - www.ft.com
-    - www.google.com
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
@@ -16,7 +15,7 @@ spec:
     algorithm: ECDSA
     size: 256
   renewBefore: 8h
-  secretName: redirector-tls
+  secretName: ft-tls
 # ---
 # apiVersion: cert-manager.io/v1
 # kind: Certificate

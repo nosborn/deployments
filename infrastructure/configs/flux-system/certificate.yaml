@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hook
+  name: webhook
   namespace: flux-system
 spec:
   dnsNames:
@@ -10,9 +10,9 @@ spec:
   duration: 168h
   issuerRef:
     kind: ClusterIssuer
-    name: letsencrypt-staging # FIXME: letsencrypt
+    name: letsencrypt
   privateKey:
     algorithm: ECDSA
     size: 256
   renewBefore: 8h
-  secretName: hook-tls
+  secretName: webhook-tls
