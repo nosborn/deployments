@@ -15,23 +15,23 @@ spec:
     size: 256
   renewBefore: 8h
   secretName: bazarr-tls
-# ---
-# apiVersion: cert-manager.io/v1
-# kind: Certificate
-# metadata:
-#   name: lidarr
-#   namespace: media
-# spec:
-#   dnsNames: []
-#   duration: 168h
-#   issuerRef:
-#     kind: ClusterIssuer
-#     name: ownca
-#   privateKey:
-#     algorithm: ECDSA
-#     size: 256
-#   renewBefore: 8h
-#   secretName: lidarr-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: lidarr
+  namespace: media
+spec:
+  dnsNames: []
+  duration: 168h
+  issuerRef:
+    kind: ClusterIssuer
+    name: ownca
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  renewBefore: 8h
+  secretName: lidarr-tls
 ---
 apiVersion: cert-manager.io/v1
 kind: Certificate

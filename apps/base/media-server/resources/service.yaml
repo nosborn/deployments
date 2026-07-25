@@ -20,28 +20,28 @@ spec:
     app.kubernetes.io/instance: media-server
     app.kubernetes.io/name: bazarr
   type: ClusterIP
-# ---
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   labels:
-#     app.kubernetes.io/component: lidarr
-#     app.kubernetes.io/instance: media-server
-#     app.kubernetes.io/name: lidarr
-#   name: lidarr
-#   namespace: media
-# spec:
-#   ipFamilies:
-#     - IPv4
-#   ipFamilyPolicy: SingleStack
-#   ports:
-#     - name: http
-#       port: 8686
-#   selector:
-#     app.kubernetes.io/component: lidarr
-#     app.kubernetes.io/instance: media-server
-#     app.kubernetes.io/name: lidarr
-#   type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app.kubernetes.io/component: lidarr
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: lidarr
+  name: lidarr
+  namespace: media
+spec:
+  ipFamilies:
+    - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+    - name: http
+      port: 8686
+  selector:
+    app.kubernetes.io/component: lidarr
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: lidarr
+  type: ClusterIP
 ---
 apiVersion: v1
 kind: Service

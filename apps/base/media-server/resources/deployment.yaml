@@ -31,7 +31,7 @@ spec:
               value: en_GB.UTF-8
             - name: TZ
               value: Europe/London
-          image: ghcr.io/nosborn/bazarr:latest
+          image: ghcr.io/nosborn/bazarr:1.6.0
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -93,95 +93,100 @@ spec:
           nfs:
             server: ${NFS_SERVER}
             path: /volume1/video
-# ---
-# apiVersion: apps/v1
-# kind: Deployment
-# metadata:
-#   labels:
-#     app.kubernetes.io/component: lidarr
-#     app.kubernetes.io/instance: media-server
-#     app.kubernetes.io/name: lidarr
-#   name: lidarr
-#   namespace: media
-# spec:
-#   replicas: 1
-#   revisionHistoryLimit: 0
-#   selector:
-#     matchLabels:
-#       app.kubernetes.io/component: lidarr
-#       app.kubernetes.io/instance: media-server
-#       app.kubernetes.io/name: lidarr
-#   strategy:
-#     type: Recreate
-#   template:
-#     metadata:
-#       labels:
-#         app.kubernetes.io/component: lidarr
-#         app.kubernetes.io/instance: media-server
-#         app.kubernetes.io/name: lidarr
-#     spec:
-#       containers:
-#         - env:
-#             - name: LANG
-#               value: en_GB.UTF-8
-#           image: ghcr.io/nosborn/lidarr:latest
-#           imagePullPolicy: Always
-#           livenessProbe:
-#             failureThreshold: 3
-#             httpGet:
-#               path: /ping
-#               port: http
-#             periodSeconds: 10
-#             successThreshold: 1
-#             timeoutSeconds: 1
-#           name: lidarr
-#           ports:
-#             - containerPort: 8686
-#               name: http
-#           readinessProbe:
-#             failureThreshold: 3
-#             httpGet:
-#               path: /ping
-#               port: http
-#             periodSeconds: 10
-#             successThreshold: 1
-#             timeoutSeconds: 1
-#           resources: {}
-#           securityContext:
-#             allowPrivilegeEscalation: false
-#             capabilities:
-#               drop:
-#                 - ALL
-#             readOnlyRootFilesystem: true
-#             runAsNonRoot: true
-#           volumeMounts:
-#             - mountPath: /data
-#               name: data
-#             - mountPath: /data/config.xml
-#               name: config
-#               readOnly: true
-#               subPath: config.xml
-#             - mountPath: /music
-#               name: music
-#             - mountPath: /tmp
-#               name: temp
-#       securityContext:
-#         seccompProfile:
-#           type: RuntimeDefault
-#       terminationGracePeriodSeconds: 60
-#       volumes:
-#         - name: config
-#           secret:
-#             secretName: lidarr-config
-#         - name: data
-#           persistentVolumeClaim:
-#             claimName: lidarr-data
-#         - name: music
-#           nfs:
-#             server: ${NFS_SERVER}
-#             path: /volume1/music
-#         - emptyDir: {}
-#           name: temp
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app.kubernetes.io/component: lidarr
+    app.kubernetes.io/instance: media-server
+    app.kubernetes.io/name: lidarr
+  name: lidarr
+  namespace: media
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/component: lidarr
+      app.kubernetes.io/instance: media-server
+      app.kubernetes.io/name: lidarr
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/component: lidarr
+        app.kubernetes.io/instance: media-server
+        app.kubernetes.io/name: lidarr
+    spec:
+      containers:
+        - env:
+            - name: LANG
+              value: en_GB.UTF-8
+          image: ghcr.io/nosborn/lidarr:3.1.0.4875
+          imagePullPolicy: Always
+          livenessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          name: lidarr
+          ports:
+            - containerPort: 8686
+              name: http
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: /ping
+              port: http
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources: {}
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+          volumeMounts:
+            - mountPath: /data
+              name: data
+            - mountPath: /data/config.xml
+              name: config
+              readOnly: true
+              subPath: config.xml
+            - mountPath: /library
+              name: library
+            - mountPath: /music
+              name: music
+            - mountPath: /tmp
+              name: temp
+      securityContext:
+        seccompProfile:
+          type: RuntimeDefault
+      terminationGracePeriodSeconds: 60
+      volumes:
+        - name: config
+          secret:
+            secretName: lidarr-config
+        - name: data
+          persistentVolumeClaim:
+            claimName: lidarr-data
+        - name: library
+          persistentVolumeClaim:
+            claimName: media-library
+        - name: music
+          nfs:
+            server: ${NFS_SERVER}
+            path: /volume1/music
+        - emptyDir: {}
+          name: temp
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -391,7 +396,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/ombi:latest
+          image: ghcr.io/nosborn/ombi:4.53.10
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 10
@@ -430,7 +435,7 @@ spec:
           env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/ombi:latest
+          image: ghcr.io/nosborn/ombi:4.53.10
           imagePullPolicy: Always
           name: ombi-migrate
           resources: {}
@@ -488,7 +493,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/prowlarr:latest
+          image: ghcr.io/nosborn/prowlarr:2.5.2.5491
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -684,7 +689,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/radarr:latest
+          image: ghcr.io/nosborn/radarr:6.3.0.10514
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3
@@ -780,7 +785,7 @@ spec:
         - env:
             - name: LANG
               value: en_GB.UTF-8
-          image: ghcr.io/nosborn/sonarr:latest
+          image: ghcr.io/nosborn/sonarr:4.0.19.2979
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3

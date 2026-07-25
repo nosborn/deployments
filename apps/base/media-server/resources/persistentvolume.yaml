@@ -14,22 +14,22 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   storageClassName: local-storage
   volumeMode: Filesystem
-# ---
-# apiVersion: v1
-# kind: PersistentVolume
-# metadata:
-#   name: lidarr-data
-# spec:
-#   accessModes:
-#     - ReadWriteOncePod
-#   capacity:
-#     storage: 10Gi
-#   hostPath:
-#     path: /srv/lidarr
-#     type: Directory
-#   persistentVolumeReclaimPolicy: Retain
-#   storageClassName: local-storage
-#   volumeMode: Filesystem
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: lidarr-data
+spec:
+  accessModes:
+    - ReadWriteOncePod
+  capacity:
+    storage: 10Gi
+  hostPath:
+    path: /srv/lidarr
+    type: Directory
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: local-storage
+  volumeMode: Filesystem
 ---
 apiVersion: v1
 kind: PersistentVolume
