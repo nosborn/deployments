@@ -16,6 +16,7 @@ spec:
           - name: ft-tls
           # - name: google-tls
           - name: instagram-tls
+          - name: mandrillapp-tls
           - name: medium-tls
           - name: reddit-tls
           - name: skimresources-tls

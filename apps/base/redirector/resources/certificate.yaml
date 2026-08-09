@@ -57,6 +57,24 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
+  name: mandrillapp
+  namespace: redirector
+spec:
+  dnsNames:
+    - mandrillapp.com
+  duration: 168h
+  issuerRef:
+    kind: ClusterIssuer
+    name: ownca
+  privateKey:
+    algorithm: ECDSA
+    size: 256
+  renewBefore: 8h
+  secretName: mandrillapp-tls
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
   name: medium
   namespace: redirector
 spec:
