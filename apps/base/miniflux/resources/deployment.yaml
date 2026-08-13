@@ -1,4 +1,3 @@
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -63,7 +62,7 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       volumes:
-        - emptyDir: {} # TODO
+        - emptyDir: {} # TODO?
           name: data
 ---
 apiVersion: apps/v1
@@ -136,8 +135,9 @@ spec:
         seccompProfile:
           type: RuntimeDefault
       volumes:
-        - emptyDir: {} # TODO
-          name: data
+        - name: data
+          persistentVolumeClaim:
+            claimName: miniflux-data
         - emptyDir: {}
           name: run
         - emptyDir: {}

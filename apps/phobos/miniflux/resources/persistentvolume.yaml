@@ -1,23 +1,22 @@
----
 apiVersion: v1
 kind: PersistentVolume
 metadata:
   labels:
-    app.kubernetes.io/instance: vaultwarden
-    app.kubernetes.io/name: vaultwarden-data
-  name: vaultwarden-data
+    app.kubernetes.io/instance: miniflux
+    app.kubernetes.io/name: miniflux-data
+  name: miniflux-data
 spec:
   accessModes:
     - ReadWriteOnce
   capacity:
     storage: 1Gi
   claimRef:
-    name: vaultwarden-data
-    namespace: vaultwarden
+    name: miniflux-data
+    namespace: miniflux
   iscsi:
     fsType: btrfs
     iqn: ${ISCSI_IQN}
-    lun: 1
+    lun: 5
     targetPortal: ${ISCSI_TARGET_PORTAL}
   persistentVolumeReclaimPolicy: Retain
   storageClassName: ""
