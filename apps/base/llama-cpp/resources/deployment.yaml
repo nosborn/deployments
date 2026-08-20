@@ -22,14 +22,14 @@ spec:
     spec:
       containers:
         - env:
-            # - name: LLAMA_ARG_CTX_SIZE
-            #   value !!str 16384
+            - name: LLAMA_ARG_CTX_SIZE
+              value: !!str 4096
             - name: LLAMA_ARG_FLASH_ATTN
               value: !!str on
             - name: LLAMA_ARG_HOST
               value: 0.0.0.0
             - name: LLAMA_ARG_MODEL
-              value: /models/Qwen_Qwen3-8B-Q4_K_M.gguf
+              value: /models/Qwen3.5-9B-DeepSeek-V4-Flash-Q3_K_M.gguf
             - name: LLAMA_ARG_N_GPU_LAYERS
               value: !!str 999
           image: ghcr.io/ggml-org/llama.cpp:server-cuda
@@ -80,8 +80,8 @@ spec:
             - --retry
             - !!str 5
             - --retry-all-errors
-            - https://huggingface.co/bartowski/Qwen_Qwen3-8B-GGUF/resolve/main/Qwen_Qwen3-8B-Q4_K_M.gguf
-          image: quay.io/curl/curl:8.20.0
+            - https://huggingface.co/Jackrong/Qwen3.5-9B-DeepSeek-V4-Flash-GGUF/resolve/main/Qwen3.5-9B-DeepSeek-V4-Flash-Q3_K_M.gguf
+          image: quay.io/curl/curl:8.21.0
           name: fetch-model
           securityContext:
             allowPrivilegeEscalation: false
