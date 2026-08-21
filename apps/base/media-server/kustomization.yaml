@@ -4,7 +4,6 @@ kind: Kustomization
 
 resources:
   - resources/certificate.yaml
-  - resources/cronjob.yaml
   - resources/deployment.yaml
   - resources/gateway.yaml
   - resources/httproute.yaml
