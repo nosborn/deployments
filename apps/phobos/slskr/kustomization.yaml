@@ -1,0 +1,32 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base/slskr
+
+secretGenerator:
+  - envs:
+      - configs/secrets.env
+    name: slskr-secrets
+    namespace: slskr
+
+patches:
+  - patch: |-
+      - op: replace
+        path: /spec/dnsNames
+        value:
+          - slskr.${DOMAIN_NAME}
+    target:
+      kind: Certificate
+      name: slskr-api
+      namespace: slskr
+  - patch: |-
+      - op: replace
+        path: /spec/hostnames
+        value:
+          - slskr.${DOMAIN_NAME}
+    target:
+      kind: HTTPRoute
+      name: slskr-api
+      namespace: slskr
